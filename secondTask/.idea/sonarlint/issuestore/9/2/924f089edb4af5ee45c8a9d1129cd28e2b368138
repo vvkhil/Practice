@@ -1,0 +1,57 @@
+
+š
+java:S1192>"RDefine a constant instead of duplicating this literal "' AND password= '" 5 times.(ĞÇ«øÿÿÿÿ8™®¥Öç1J$46e45d0f-0b68-4435-8ab7-8c33967025a9
+“
+java:S1192]"PDefine a constant instead of duplicating this literal "WHERE login = '" 4 times.(‘¨áº8ğ”ÇÖç1J$ddde10e1-e0b6-4ae1-83b2-6a7ede9da3a9
+˜
+java:S1192="PDefine a constant instead of duplicating this literal "' AND email = '" 5 times.(ƒ¢ºÿÿÿÿÿ8š®¥Öç1J$e854f493-3d4d-4a94-a4f2-94ca42deffd2
+ 	java:S1353"YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆÿÿÿÿÿ8š®¥Öç1J$15480e36-eef4-4289-bfa5-2d265c84218f
+ 	java:S135U"YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆÿÿÿÿÿ8š®¥Öç1J$b6f82035-8ad5-4219-870d-b37d91be6736
+“	java:S1171"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶ÚÙ»8œ®¥Öç1J$b038229e-c8a7-4706-ae8d-6fdb67ed0145
+“	java:S117l"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Î”’®8®¥Öç1J$7b972a42-363c-492b-aae8-be1c8e2a4646
+˜	java:S117s"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñ³©ñúÿÿÿÿ8®¥Öç1J$edb1aac3-cd75-4023-bb8a-d686a60d7630
+”	java:S117’"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Î”’®8ö”ÇÖç1J$57230b7b-3d68-4306-90e5-21e965311899
+™	java:S117™"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñ³©ñúÿÿÿÿ8ö”ÇÖç1J$485718ea-48e4-4a81-82e4-ea8137559469
+]
+java:S1220""Move this file to a named package.8¢®¥Öç1J$ed13f4ef-9893-422a-9d3a-1307fbd79109
+
+java:S2095B"GUse try-with-resources or close this "Statement" in a "finally" clause.(‡²€·ıÿÿÿÿ8˜ÈÖç1J$69c53842-84aa-418f-8ca7-389fa48b9ca9
+
+java:S2095b"GUse try-with-resources or close this "Statement" in a "finally" clause.(‡²€·ıÿÿÿÿ8ã„ÃÖç1J$e482f511-d53e-4d2e-a8f6-b36a986c99fe
+
+java:S2095 "HUse try-with-resources or close this "Connection" in a "finally" clause.(èÍâ°ùÿÿÿÿ8ä„ÃÖç1J$9f1e56d4-514e-408e-a610-d35c4755d830
+
+java:S2095ˆ"GUse try-with-resources or close this "Statement" in a "finally" clause.(‡²€·ıÿÿÿÿ8ä„ÃÖç1J$2048239d-f693-476a-8fbc-9b3fcbe0f554
+•
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(…ú®š8†Ã¥Öç1J$0afcbe9a-da52-4ce6-afad-eaabed0faad0
+r	java:S106"+Replace this use of System.out by a logger.(÷ø“Îşÿÿÿÿ8”Ã¥Öç1J$53d3aeb3-3f46-4db7-aa97-d82ad116a439
+u
+java:S4925"-Remove this "Class.forName()", it is useless.(õ†¨Äùÿÿÿÿ8—Ã¥Öç1J$05642f1c-2ce0-4fd3-ab84-62670cafe3a1
+r	java:S106"+Replace this use of System.out by a logger.(úı§Èûÿÿÿÿ8˜Ã¥Öç1J$8d3e1f21-4dde-4381-a1a2-9addb33a220f
+m	java:S106"+Replace this use of System.out by a logger.(üÌÒË8šÃ¥Öç1J$b84657a1-6a19-4a8b-ad23-524c7c3b9a12
+~
+java:S6437 "6Revoke and change this password, as it is compromised.(èÍâ°ùÿÿÿÿ8›Ã¥Öç1J$e4d1322c-5ce9-465e-aa25-5369b11a229f
+r	java:S106#"+Replace this use of System.out by a logger.(¢Ãª„øÿÿÿÿ8Ã¥Öç1J$c7c21836-6f47-44ba-893f-d1295b4373e9
+~	java:S125*"<This block of commented-out lines of code should be removed.(Ú¾‘³8¡Ã¥Öç1J$c0e44ab2-c2b4-4f0b-bca2-f4ea86c410fd
+r	java:S1065"+Replace this use of System.out by a logger.(˜•ŞÌıÿÿÿÿ8¦Ã¥Öç1J$94a33e6c-55b5-4c3a-afdc-bdb8ba8ecefd
+m	java:S1067"+Replace this use of System.out by a logger.(Ó¤Äº8§Ã¥Öç1J$9f3d416f-5357-41b8-a7d2-c1e6859958c9
+r	java:S1069"+Replace this use of System.out by a logger.(Øùìçøÿÿÿÿ8¨Ã¥Öç1J$31fa0800-3e27-46bc-bf2f-8ff28cffa555
+j
+java:S1125G"'Remove the unnecessary boolean literal.(†ÿË»8­Ã¥Öç1J$15670434-e7f4-44cb-b4ae-4c4219c52a2c
+r	java:S106H"+Replace this use of System.out by a logger.(‚¿®‘ÿÿÿÿÿ8®Ã¥Öç1J$70be67d7-37d0-410e-a71c-1f9ca7a25ebd
+r	java:S106M"+Replace this use of System.out by a logger.(©şêÜúÿÿÿÿ8¯Ã¥Öç1J$8df9df42-fa1e-4356-b392-b383cdc9902d
+r	java:S106W"+Replace this use of System.out by a logger.(ûñ‹üÿÿÿÿ8°Ã¥Öç1J$98979dcf-3903-4020-aacb-b19dbbe53fda
+
+java:S1871€"LThis branch's code block is the same as the block for the branch on line 90.(Š×İ£8¾ÈÖç1J$48aa7ecc-aa95-4652-8377-48caf7d74e62
+j
+java:S1125g"'Remove the unnecessary boolean literal.(†ÿË»8µÃ¥Öç1J$f90d9341-0a6e-43dd-a9af-8bb1cd64b0ad
+r	java:S106h"+Replace this use of System.out by a logger.(éç¢›şÿÿÿÿ8¶Ã¥Öç1J$df36592b-0a5a-4b4c-89b3-e8ae775210bb
+m	java:S106t"+Replace this use of System.out by a logger.(½óùŒ8¸Ã¥Öç1J$58f851d4-175e-4610-826b-a597fa6c53b9
+m	java:S106u"+Replace this use of System.out by a logger.(ªÁä8¹Ã¥Öç1J$c58e1475-3aa3-43b6-b6f9-cbf60a1e7c16
+r	java:S106x"+Replace this use of System.out by a logger.(©şêÜúÿÿÿÿ8ºÃ¥Öç1J$5bfa343c-86ac-4bbd-abb3-b3c3025da648
+k
+java:S1125"'Remove the unnecessary boolean literal.(†ÿË»8ÅÈÖç1J$8c93b57c-ef21-49e8-af4c-7039dc714063
+s	java:S106"+Replace this use of System.out by a logger.(éç¢›şÿÿÿÿ8¼½ÇÖç1J$a07a9d5f-6733-496f-ad14-4be1d242941b
+n	java:S106š"+Replace this use of System.out by a logger.(½óùŒ8ÈÈÖç1J$0c592dee-be78-4c0a-a391-c71646a21379
+n	java:S106›"+Replace this use of System.out by a logger.(ªÁä8ÈÈÖç1J$b2bf6f4d-871d-4cb5-ac2c-c6e6211f6bfa
+s	java:S106"+Replace this use of System.out by a logger.(©şêÜúÿÿÿÿ8ÉÈÖç1J$d061ebf5-94e4-4a43-9d0c-216bf98800ea
