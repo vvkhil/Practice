@@ -16,10 +16,10 @@ java:S1192="PDefine a constant instead of duplicating this literal "' AND email
 java:S1220""Move this file to a named package.8¢®¥Öç1J$ed13f4ef-9893-422a-9d3a-1307fbd79109
 
 java:S2095B"GUse try-with-resources or close this "Statement" in a "finally" clause.(‡²€·ıÿÿÿÿ8˜ÈÖç1J$69c53842-84aa-418f-8ca7-389fa48b9ca9
-
-java:S2095b"GUse try-with-resources or close this "Statement" in a "finally" clause.(‡²€·ıÿÿÿÿ8ã„ÃÖç1J$e482f511-d53e-4d2e-a8f6-b36a986c99fe
 
 java:S2095 "HUse try-with-resources or close this "Connection" in a "finally" clause.(èÍâ°ùÿÿÿÿ8ä„ÃÖç1J$9f1e56d4-514e-408e-a610-d35c4755d830
+
+java:S2095b"GUse try-with-resources or close this "Statement" in a "finally" clause.(‡²€·ıÿÿÿÿ8ã„ÃÖç1J$e482f511-d53e-4d2e-a8f6-b36a986c99fe
 
 java:S2095ˆ"GUse try-with-resources or close this "Statement" in a "finally" clause.(‡²€·ıÿÿÿÿ8ä„ÃÖç1J$2048239d-f693-476a-8fbc-9b3fcbe0f554
 •

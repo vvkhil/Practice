@@ -5,13 +5,6 @@ CREATE TABLE user_app (
     password VARCHAR(50)
 );
 
-CREATE TABLE courier (
-    id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    rating INT CHECK (rating >= 0 AND rating <= 11),
-    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id)
-);
-
 CREATE TABLE address (
     id SERIAL PRIMARY KEY,
     city VARCHAR(100),
@@ -100,10 +93,8 @@ CREATE TABLE order_app (
     id SERIAL PRIMARY KEY,
     shopping_cart_id INT NOT NULL,
     shop_id INT NOT NULL,
-    courier_id INT NOT NULL,
     FOREIGN KEY (shopping_cart_id) REFERENCES shopping_cart(id),
-    FOREIGN KEY (shop_id) REFERENCES bask_shop(id),
-    FOREIGN KEY (courier_id) REFERENCES courier(id)
+    FOREIGN KEY (shop_id) REFERENCES bask_shop(id)
 );
 
 CREATE TABLE status_list (
