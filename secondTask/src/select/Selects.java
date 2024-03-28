@@ -1,25 +1,47 @@
 package select;
 
+import app.Main;
+
 import java.sql.*;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static cred.Credentials.DB_URL;
-import static cred.Credentials.USER;
-import static cred.Credentials.PASS;
-
 public class Selects {
 
-    static Logger logger;
+    static final String BASK_SHOE_ID = "bask_shoe_id";
+    static final String USER_ID = "user_id";
+    static final String SHOP_ID = "shop_id";
+
+    static final String ID = "id : {0}";
+
+    static final String BASK_SHOE_ID_ZERO = "bask_shoe_id : {0}";
+    static final String USER_ID_ZERO = "user_id : {0}";
+    static final String SHOP_ID_ZERO = "shop_id : {0}";
+
+
+    static Logger logger = Logger.getLogger(Selects.class.getName());
+    private static final Properties properties = new Properties();
+
+    static {
+        try{
+            properties.load(Main.class.getClassLoader().getResourceAsStream("db.properties"));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
     String query = null;
     Connection connection;
 
-    {
+    public Selects() {
         try {
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = DriverManager.getConnection(
+                    properties.getProperty("db.url"),
+                    properties.getProperty("db.username"),
+                    properties.getProperty("db.password"));
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            logger.warning(e.getMessage());
         }
     }
 
@@ -38,9 +60,8 @@ public class Selects {
 
             logger.log(Level.INFO, "Successfully append");
 
-            System.out.println("userid : " + userId);
-            System.out.println("login : " + login);
-            System.out.println();
+            logger.log(Level.INFO, "userid : {0}", userId);
+            logger.log(Level.INFO, "login : {0}", login);
         }
 
     }
@@ -54,12 +75,12 @@ public class Selects {
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int userId = resultSet.getInt("user_id");
-            int shopId = resultSet.getInt("shop_id");
+            int userId = resultSet.getInt(USER_ID);
+            int shopId = resultSet.getInt(SHOP_ID);
 
-            System.out.println("id : " + id);
-            System.out.println("user_id : " + userId);
-            System.out.println("shop_id : " + shopId);
+            logger.log(Level.INFO, "id: {0}", id);
+            logger.log(Level.INFO, USER_ID_ZERO, userId);
+            logger.log(Level.INFO, SHOP_ID_ZERO, shopId);
         }
 
     }
@@ -73,12 +94,12 @@ public class Selects {
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int userId = resultSet.getInt("user_id");
+            int userId = resultSet.getInt(USER_ID);
             int rating = resultSet.getInt("rating");
 
-            System.out.println("id : " + id);
-            System.out.println("user_id : " + userId);
-            System.out.println("rating : " + rating);
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, USER_ID_ZERO, userId);
+            logger.log(Level.INFO, "rating : {0}", rating);
         }
 
     }
@@ -95,9 +116,9 @@ public class Selects {
             int addressId = resultSet.getInt("address_id");
             int moneyUser = resultSet.getInt("money_user");
 
-            System.out.println("id : " + id);
-            System.out.println("address_id : " + addressId);
-            System.out.println("money_user : " + moneyUser);
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, "address_id : {0}", addressId);
+            logger.log(Level.INFO, "money_user : {0}", moneyUser);
         }
 
     }
@@ -111,10 +132,10 @@ public class Selects {
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int userId = resultSet.getInt("user_id");
+            int userId = resultSet.getInt(USER_ID);
 
-            System.out.println("id : " + id);
-            System.out.println("user_id : " + userId);
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, USER_ID_ZERO, userId);
         }
 
     }
@@ -133,11 +154,11 @@ public class Selects {
             String house = resultSet.getString("house");
             String flat = resultSet.getString("flat");
 
-            System.out.println("id : " + id);
-            System.out.println("city : " + city);
-            System.out.println("street : " + street);
-            System.out.println("house : " + house);
-            System.out.println("flat : " + flat);
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, "city : {0}", city);
+            logger.log(Level.INFO, "street : {0}", street);
+            logger.log(Level.INFO, "house : {0}", house);
+            logger.log(Level.INFO, "flat : {0}", flat);
 
         }
 
@@ -151,11 +172,11 @@ public class Selects {
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
-            int baskShoeId = resultSet.getInt("bask_shoe_id");
+            int baskShoeId = resultSet.getInt(BASK_SHOE_ID);
             int shoppingCartId = resultSet.getInt("shopping_cart_id");
 
-            System.out.println("bask_shoe_id : " + baskShoeId);
-            System.out.println("shopping_cart_id : " + shoppingCartId);
+            logger.log(Level.INFO, BASK_SHOE_ID_ZERO, baskShoeId);
+            logger.log(Level.INFO, "shopping_cart_id : {0}", shoppingCartId);
         }
 
     }
@@ -174,11 +195,11 @@ public class Selects {
             String brand = resultSet.getString("brand");
             String manufacturer = resultSet.getString("manufacturer");
 
-            System.out.println("id : " + id);
-            System.out.println("title : " + title);
-            System.out.println("description : " + description);
-            System.out.println("brand : " + brand);
-            System.out.println("manufacturer : " + manufacturer);
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, "title : {0}", title);
+            logger.log(Level.INFO, "description : {0}", description);
+            logger.log(Level.INFO, "brand : {0}", brand);
+            logger.log(Level.INFO, "manufacturer : {0}", manufacturer);
         }
 
     }
@@ -191,11 +212,11 @@ public class Selects {
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
-            int baskShoeId = resultSet.getInt("bask_shoe_id");
-            int shopId = resultSet.getInt("shop_id");
+            int baskShoeId = resultSet.getInt(BASK_SHOE_ID);
+            int shopId = resultSet.getInt(SHOP_ID);
 
-            System.out.println("bask_shoe_id : " + baskShoeId);
-            System.out.println("shop_id : " + shopId);
+            logger.log(Level.INFO, BASK_SHOE_ID_ZERO, baskShoeId);
+            logger.log(Level.INFO, SHOP_ID_ZERO, shopId);
 
         }
 
@@ -210,12 +231,12 @@ public class Selects {
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int shopId = resultSet.getInt("shop_id");
+            int shopId = resultSet.getInt(SHOP_ID);
             int courierId = resultSet.getInt("courier_id");
 
-            System.out.println("id : " + id);
-            System.out.println("shop_id : " + shopId);
-            System.out.println("courier_id : " + courierId);
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, SHOP_ID_ZERO, shopId);
+            logger.log(Level.INFO, "courier_id : {0}", courierId);
 
         }
 
@@ -232,8 +253,8 @@ public class Selects {
             int orderId = resultSet.getInt("order_id");
             int statusListId = resultSet.getInt("status_list_id");
 
-            System.out.println("order_id : " + orderId);
-            System.out.println("status_list_id : " + statusListId);
+            logger.log(Level.INFO, "order_id : {0}", orderId);
+            logger.log(Level.INFO, "status_list_id : {0}", statusListId);
 
         }
 
@@ -251,9 +272,9 @@ public class Selects {
             String title = resultSet.getString("title");
             int rating = resultSet.getInt("rating");
 
-            System.out.println("id : " + id);
-            System.out.println("title : " + title);
-            System.out.println("rating: " + rating);
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, "title : {0}", title);
+            logger.log(Level.INFO, "rating: {0}", rating);
 
         }
 
@@ -270,8 +291,8 @@ public class Selects {
             int id = resultSet.getInt("id");
             int customerId = resultSet.getInt("customer_id");
 
-            System.out.println("id : " + id);
-            System.out.println("customer_id : " + customerId);
+            logger.log(Level.INFO, "id: {0}",  id);
+            logger.log(Level.INFO, "customer_id: {0}", customerId);
 
         }
 
@@ -288,8 +309,8 @@ public class Selects {
             int id = resultSet.getInt("id");
             String statusName = resultSet.getString("status_name");
 
-            System.out.println("id : " + id);
-            System.out.println("status_name : " + statusName);
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, "status_name : {0}", statusName);
 
         }
 
@@ -306,8 +327,8 @@ public class Selects {
             int id = resultSet.getInt("id");
             int providerId = resultSet.getInt("provider_id");
 
-            System.out.println("id : " + id);
-            System.out.println("provider_id : " + providerId);
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, "provider_id : {0}", providerId);
 
         }
 
@@ -321,11 +342,11 @@ public class Selects {
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
-            int baskShoeId = resultSet.getInt("bask_shoe_id");
+            int baskShoeId = resultSet.getInt(BASK_SHOE_ID);
             int supplyId = resultSet.getInt("supply_id");
 
-            System.out.println("bask_shoe_id : " + baskShoeId);
-            System.out.println("supply_id : " + supplyId);
+            logger.log(Level.INFO, BASK_SHOE_ID_ZERO, baskShoeId);
+            logger.log(Level.INFO, "supply_id : {0}", supplyId);
 
         }
 

@@ -1,29 +1,41 @@
 package admin;
 
+import app.Main;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static cred.Credentials.DB_URL;
-import static cred.Credentials.USER;
-import static cred.Credentials.PASS;
-
 public class CatalogShoes {
 
-    static Logger logger;
+    static Logger logger = Logger.getLogger(CatalogShoes.class.getName());
+    private static final Properties properties = new Properties();
+    static {
+        try{
+            properties.load(Main.class.getClassLoader().getResourceAsStream("db.properties"));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
     String query = null;
-    Connection connection;
+    static Connection connection;
 
-    {
+    public static Connection connect() throws SQLException {
+
         try {
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            connection = DriverManager.getConnection(
+                    properties.getProperty("db.url"),
+                    properties.getProperty("db.username"),
+                    properties.getProperty("db.password"));
+        } catch (SQLException  e) {
+            logger.warning(e.getMessage());
         }
+        return null;
     }
 
     Statement statement = null;
