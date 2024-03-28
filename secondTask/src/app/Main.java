@@ -1,17 +1,20 @@
+package app;
+
 import admin.CatalogShoes;
 import admin.ShoesShop;
 import customer.Address;
 import provider.BaskShoes;
 import provider.Supply;
+import select.Selects;
 
 import java.sql.*;
 import java.util.Scanner;
 
-public class Main {
+import static cred.Credentials.DB_URL;
+import static cred.Credentials.USER;
+import static cred.Credentials.PASS;
 
-    static final String DB_URL = "jdbc:postgresql://localhost/practice";
-    static final String USER = "postgres";
-    static final String PASS = "vvkhil682423";
+public class Main {
 
     public static void main(String[] argv) {
 

@@ -7,13 +7,13 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static cred.Credentials.DB_URL;
+import static cred.Credentials.USER;
+import static cred.Credentials.PASS;
+
 public class Customer {
 
     static Logger logger;
-
-    static final String DB_URL = "jdbc:postgresql://localhost/practice";
-    static final String USER = "postgres";
-    static final String PASS = "vvkhil682423";
 
     String query = null;
     Connection connection;

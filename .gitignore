@@ -5,6 +5,7 @@ out/
 .idea
 
 .github
+cred/
 
 ### Eclipse ###
 .apt_generated
