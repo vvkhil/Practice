@@ -1,9 +1,15 @@
+package customer;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class CustomerFunc {
+public class Address {
+
+    static Logger logger;
 
     static final String DB_URL = "jdbc:postgresql://localhost/practice";
     static final String USER = "postgres";
@@ -22,43 +28,40 @@ public class CustomerFunc {
 
     Statement statement = null;
 
-    public void add_address(int id_address, String city, String street,
-                               String house, String flat) throws SQLException {
+    public void addAddress(int idAddress, String city, String street,
+                           String house, String flat) throws SQLException {
 
         query = "INSERT INTO address"
                 + "VALUES"
-                + "(" + id_address + ", '" + city + "', '" + street + "', '" +
+                + "(" + idAddress + ", '" + city + "', '" + street + "', '" +
                 house + "', '" + flat + "');";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         statement.executeUpdate(query);
-        System.out.println("Successfully append");
+        logger.log(Level.INFO, "Successfully append");
 
     }
 
-    public void delete_address(int id_address) throws SQLException {
+    public void deleteAddress(int idAddress) throws SQLException {
 
-        query = "DELETE FROM address WHERE id = " + id_address + ";";
+        query = "DELETE FROM address WHERE id = " + idAddress + ";";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         statement.execute(query);
-        System.out.println("Record is deleted from address table!");
+        logger.log(Level.INFO, "Record is deleted from address table!");
 
     }
 
-    public void update_address(int id_address, String data, String field) throws SQLException {
+    public void updateAddress(int idAddress, String data, String field) throws SQLException {
 
-        query = "UPDATE address SET " + field + " = " + data + " WHERE id = " + id_address + ";";
+        query = "UPDATE address SET " + field + " = " + data + " WHERE id = " + idAddress + ";";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         statement.execute(query);
-        System.out.println("Record is updated to address table!");
+        logger.log(Level.INFO, "Record is updated to address table!");
 
     }
 

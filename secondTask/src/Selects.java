@@ -1,6 +1,10 @@
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class GetFunc {
+public class Selects {
+
+    static Logger logger;
 
     static final String DB_URL = "jdbc:postgresql://localhost/practice";
     static final String USER = "postgres";
@@ -19,109 +23,105 @@ public class GetFunc {
 
     Statement statement = null;
 
-    public void get_all_from_user_app() throws SQLException {
+    public void getAllFromUserApp() throws SQLException {
         query = "SELECT * FROM user_app";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
-            int user_id = resultSet.getInt("user_app_id");
+            int userId = resultSet.getInt("user_app_id");
             String login = resultSet.getString("login");
 
-            System.out.println("userid : " + user_id);
+            logger.log(Level.INFO, "Successfully append");
+
+            System.out.println("userid : " + userId);
             System.out.println("login : " + login);
             System.out.println();
         }
 
     }
 
-    public void get_all_from_admin_shop() throws SQLException {
+    public void getAllFromAdminShop() throws SQLException {
         query = "SELECT * FROM admin_shop";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int user_id = resultSet.getInt("user_id");
-            int shop_id = resultSet.getInt("shop_id");
+            int userId = resultSet.getInt("user_id");
+            int shopId = resultSet.getInt("shop_id");
 
             System.out.println("id : " + id);
-            System.out.println("user_id : " + user_id);
-            System.out.println("shop_id : " + shop_id);
+            System.out.println("user_id : " + userId);
+            System.out.println("shop_id : " + shopId);
         }
 
     }
 
-    public void get_all_from_courier() throws SQLException {
+    public void getAllFromCourier() throws SQLException {
         query = "SELECT * FROM courier";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int user_id = resultSet.getInt("user_id");
+            int userId = resultSet.getInt("user_id");
             int rating = resultSet.getInt("rating");
 
             System.out.println("id : " + id);
-            System.out.println("user_id : " + user_id);
+            System.out.println("user_id : " + userId);
             System.out.println("rating : " + rating);
         }
 
     }
 
-    public void get_all_from_customer() throws SQLException {
+    public void getAllFromCustomer() throws SQLException {
         query = "SELECT * FROM customer";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int address_id = resultSet.getInt("address_id");
-            int money_user = resultSet.getInt("money_user");
+            int addressId = resultSet.getInt("address_id");
+            int moneyUser = resultSet.getInt("money_user");
 
             System.out.println("id : " + id);
-            System.out.println("address_id : " + address_id);
-            System.out.println("money_user : " + money_user);
+            System.out.println("address_id : " + addressId);
+            System.out.println("money_user : " + moneyUser);
         }
 
     }
 
-    public void get_all_from_provider() throws SQLException {
+    public void getAllFromProvider() throws SQLException {
         query = "SELECT * FROM provider";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int user_id = resultSet.getInt("user_id");
+            int userId = resultSet.getInt("user_id");
 
             System.out.println("id : " + id);
-            System.out.println("user_id : " + user_id);
+            System.out.println("user_id : " + userId);
         }
 
     }
 
-    public void get_all_from_address() throws SQLException {
+    public void getAllFromAddress() throws SQLException {
         query = "SELECT * FROM address";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
@@ -141,30 +141,28 @@ public class GetFunc {
 
     }
 
-    public void get_all_from_bask_cart() throws SQLException {
+    public void getAllFromBaskCart() throws SQLException {
         query = "SELECT * FROM bask_cart";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
-            int bask_shoe_id = resultSet.getInt("bask_shoe_id");
-            int shopping_cart_id = resultSet.getInt("shopping_cart_id");
+            int baskShoeId = resultSet.getInt("bask_shoe_id");
+            int shoppingCartId = resultSet.getInt("shopping_cart_id");
 
-            System.out.println("bask_shoe_id : " + bask_shoe_id);
-            System.out.println("shopping_cart_id : " + shopping_cart_id);
+            System.out.println("bask_shoe_id : " + baskShoeId);
+            System.out.println("shopping_cart_id : " + shoppingCartId);
         }
 
     }
 
-    public void get_all_from_bask_shoes() throws SQLException {
+    public void getAllFromBaskShoes() throws SQLException {
         query = "SELECT * FROM bask_shoe";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
@@ -183,71 +181,67 @@ public class GetFunc {
 
     }
 
-    public void get_all_from_catalog_products() throws SQLException {
+    public void getAllFromCatalogProducts() throws SQLException {
         query = "SELECT * FROM catalog_products";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
-            int bask_shoe_id = resultSet.getInt("bask_shoe_id");
-            int shop_id = resultSet.getInt("shop_id");
+            int baskShoeId = resultSet.getInt("bask_shoe_id");
+            int shopId = resultSet.getInt("shop_id");
 
-            System.out.println("bask_shoe_id : " + bask_shoe_id);
-            System.out.println("shop_id : " + shop_id);
+            System.out.println("bask_shoe_id : " + baskShoeId);
+            System.out.println("shop_id : " + shopId);
 
         }
 
     }
 
-    public void get_all_from_order_app() throws SQLException {
+    public void getAllFromOrderApp() throws SQLException {
         query = "SELECT * FROM order_app";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int shop_id = resultSet.getInt("shop_id");
-            int courier_id = resultSet.getInt("courier_id");
+            int shopId = resultSet.getInt("shop_id");
+            int courierId = resultSet.getInt("courier_id");
 
             System.out.println("id : " + id);
-            System.out.println("shop_id : " + shop_id);
-            System.out.println("courier_id : " + courier_id);
+            System.out.println("shop_id : " + shopId);
+            System.out.println("courier_id : " + courierId);
 
         }
 
     }
 
-    public void get_all_from_order_description() throws SQLException {
+    public void getAllFromOrderDescription() throws SQLException {
         query = "SELECT * FROM order_description";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
-            int order_id = resultSet.getInt("order_id");
-            int status_list_id = resultSet.getInt("status_list_id");
+            int orderId = resultSet.getInt("order_id");
+            int statusListId = resultSet.getInt("status_list_id");
 
-            System.out.println("order_id : " + order_id);
-            System.out.println("status_list_id : " + status_list_id);
+            System.out.println("order_id : " + orderId);
+            System.out.println("status_list_id : " + statusListId);
 
         }
 
     }
 
-    public void get_all_from_bask_shop() throws SQLException {
+    public void getAllFromBaskShop() throws SQLException {
         query = "SELECT * FROM bask_shop";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
@@ -263,77 +257,73 @@ public class GetFunc {
 
     }
 
-    public void get_all_from_shopping_cart() throws SQLException {
+    public void getAllFromShoppingCart() throws SQLException {
         query = "SELECT * FROM shopping_cart";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int customer_id = resultSet.getInt("customer_id");
+            int customerId = resultSet.getInt("customer_id");
 
             System.out.println("id : " + id);
-            System.out.println("customer_id : " + customer_id);
+            System.out.println("customer_id : " + customerId);
 
         }
 
     }
 
-    public void get_all_from_status_list() throws SQLException {
+    public void getAllFromStatusList() throws SQLException {
         query = "SELECT * FROM status_list";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            String status_name = resultSet.getString("status_name");
+            String statusName = resultSet.getString("status_name");
 
             System.out.println("id : " + id);
-            System.out.println("status_name : " + status_name);
+            System.out.println("status_name : " + statusName);
 
         }
 
     }
 
-    public void get_all_from_supply() throws SQLException {
+    public void getAllFromSupply() throws SQLException {
         query = "SELECT * FROM supply";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int provider_id = resultSet.getInt("provider_id");
+            int providerId = resultSet.getInt("provider_id");
 
             System.out.println("id : " + id);
-            System.out.println("provider_id : " + provider_id);
+            System.out.println("provider_id : " + providerId);
 
         }
 
     }
 
-    public void get_all_from_supply_log() throws SQLException {
+    public void getAllFromSupplyLog() throws SQLException {
         query = "SELECT * FROM supply_log";
 
         statement = connection.createStatement();
 
-        // выполнить SQL запрос
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
-            int bask_shoe_id = resultSet.getInt("bask_shoe_id");
-            int supply_id = resultSet.getInt("supply_id");
+            int baskShoeId = resultSet.getInt("bask_shoe_id");
+            int supplyId = resultSet.getInt("supply_id");
 
-            System.out.println("bask_shoe_id : " + bask_shoe_id);
-            System.out.println("supply_id : " + supply_id);
+            System.out.println("bask_shoe_id : " + baskShoeId);
+            System.out.println("supply_id : " + supplyId);
 
         }
 
