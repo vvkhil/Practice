@@ -27,8 +27,8 @@ public class Customer {
     @Column(name = "money_user")
     private Integer moneyUser;
 
-//    @OneToMany(mappedBy = "customer")
-//    private Set<ShoppingCart> shoppingCarts = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "customer")
+    private Set<ShoppingCart> shoppingCarts = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;

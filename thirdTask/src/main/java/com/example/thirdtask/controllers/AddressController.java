@@ -1,8 +1,8 @@
 package com.example.thirdtask.controllers;
 
 
-import com.example.thirdtask.entities.UserApp;
-import com.example.thirdtask.services.UserAppService;
+import com.example.thirdtask.entities.Address;
+import com.example.thirdtask.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,39 +13,39 @@ import java.util.List;
 @RestController
 public class AddressController {
     @Autowired
-    UserAppService userAppService;
+    AddressService addressService;
 
-    @GetMapping("/users")
-    public ResponseEntity<List<UserApp>> getUsers() {
-        var users = userAppService.getAllUsersApp();
+    @GetMapping("/addresses")
+    public ResponseEntity<List<Address>> getAddresses() {
+        var addresses = addressService.getAllAddresses();
 
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return new ResponseEntity<>(addresses, HttpStatus.OK);
     }
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity<UserApp> getUserById(@PathVariable Integer id) {
-        var user = userAppService.getUserById(id);
+    @GetMapping("/addresses/{id}")
+    public ResponseEntity<Address> getAddressById(@PathVariable Integer id) {
+        var address = addressService.getAddressById(id);
 
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(address, HttpStatus.OK);
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<Object> addUser(UserApp user) {
-        userAppService.addUser(user);
+    @PostMapping("/addresses")
+    public ResponseEntity<Object> addAddress(Address address) {
+        addressService.addAddress(address);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/users")
-    public ResponseEntity<Object> updateUser(UserApp user) {
-        userAppService.updateUser(user);
+    @PutMapping("/addresses")
+    public ResponseEntity<Object> updateAddress(Address address) {
+        addressService.updateAddress(address);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<Object> removeUserById(@PathVariable Integer id) {
-        userAppService.removeUserById(id);
+    @DeleteMapping("/addresses/{id}")
+    public ResponseEntity<Object> removeAddressById(@PathVariable Integer id) {
+        addressService.removeAddressById(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -1,9 +1,9 @@
 package com.example.thirdtask.repositories;
 
-import com.example.thirdtask.entities.Address;
+import com.example.thirdtask.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AddressRepository extends JpaRepository<Address, Integer> {
+public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 }

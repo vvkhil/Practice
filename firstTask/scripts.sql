@@ -31,7 +31,6 @@ CREATE TABLE provider (
 CREATE TABLE supply (
     id SERIAL PRIMARY KEY,
     provider_id INT NOT NULL,
-    data TIMESTAMP,
     FOREIGN KEY (provider_id) REFERENCES provider(id)
 );
 
@@ -39,7 +38,7 @@ CREATE TABLE bask_shoe (
     id SERIAL PRIMARY KEY,
     title VARCHAR(50),
     description VARCHAR(50),
-    price MONEY,
+    price INT NOT NULL,
     manufacturer VARCHAR(50),
     brand VARCHAR(50),
     size INT NOT NULL
@@ -59,7 +58,7 @@ CREATE TABLE bask_shop(
     rating INT CHECK (rating >= 0 AND rating <= 11)
 );
 
-CREATE TABLE catalog_products (
+CREATE TABLE catalog_shoes (
     bask_shoe_id INT NOT NULL,
     shop_id INT NOT NULL,
     PRIMARY KEY (bask_shoe_id, shop_id),
