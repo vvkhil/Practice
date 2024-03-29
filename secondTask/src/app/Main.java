@@ -33,7 +33,7 @@ public class Main {
         try{
             properties.load(Main.class.getClassLoader().getResourceAsStream("db.properties"));
         }catch(Exception e){
-            e.printStackTrace();
+            logger.warning(e.getMessage());
         }
     }
 
