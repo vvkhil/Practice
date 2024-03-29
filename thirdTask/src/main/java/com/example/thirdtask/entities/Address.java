@@ -1,6 +1,6 @@
 package com.example.thirdtask.entities;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

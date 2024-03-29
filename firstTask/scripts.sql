@@ -17,7 +17,7 @@ CREATE TABLE customer (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     address_id INT NOT NULL,
-    money_user MONEY,
+    money_user INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user_app(user_app_id),
     FOREIGN KEY (address_id) REFERENCES address(id)
 );
@@ -93,21 +93,10 @@ CREATE TABLE order_app (
     id SERIAL PRIMARY KEY,
     shopping_cart_id INT NOT NULL,
     shop_id INT NOT NULL,
+    status_name VARCHAR(50),
     FOREIGN KEY (shopping_cart_id) REFERENCES shopping_cart(id),
     FOREIGN KEY (shop_id) REFERENCES bask_shop(id)
 );
 
-CREATE TABLE status_list (
-    id SERIAL PRIMARY KEY,
-    status_name VARCHAR(50)
-);
 
-CREATE TABLE order_description (
-    order_id INT NOT NULL,
-    status_list_id INT NOT NULL,
-    waiting_time TIMESTAMP,
-    PRIMARY KEY (order_id, status_list_id),
-    FOREIGN KEY (order_id) REFERENCES order_app(id),
-    FOREIGN KEY (status_list_id) REFERENCES status_list(id)
-);
 

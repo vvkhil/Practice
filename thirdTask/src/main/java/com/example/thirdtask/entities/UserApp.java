@@ -1,6 +1,7 @@
 package com.example.thirdtask.entities;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -22,13 +23,7 @@ public class UserApp {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    private Set<AdminShop> adminShops = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "user")
     private Set<Customer> customers = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "user")
-    private Set<Provider> providers = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -62,28 +57,12 @@ public class UserApp {
         this.password = password;
     }
 
-    public Set<AdminShop> getAdminShops() {
-        return adminShops;
-    }
-
-    public void setAdminShops(Set<AdminShop> adminShops) {
-        this.adminShops = adminShops;
-    }
-
     public Set<Customer> getCustomers() {
         return customers;
     }
 
     public void setCustomers(Set<Customer> customers) {
         this.customers = customers;
-    }
-
-    public Set<Provider> getProviders() {
-        return providers;
-    }
-
-    public void setProviders(Set<Provider> providers) {
-        this.providers = providers;
     }
 
 }

@@ -1,7 +1,9 @@
 package com.example.thirdtask.entities;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
+import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -18,14 +20,15 @@ public class Customer {
     private UserApp user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
     @Column(name = "money_user")
-    private BigDecimal moneyUser;
+    private Integer moneyUser;
 
-    @OneToMany(mappedBy = "customer")
-    private Set<ShoppingCart> shoppingCarts = new LinkedHashSet<>();
+//    @OneToMany(mappedBy = "customer")
+//    private Set<ShoppingCart> shoppingCarts = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -51,20 +54,20 @@ public class Customer {
         this.address = address;
     }
 
-    public BigDecimal getMoneyUser() {
+    public Integer getMoneyUser() {
         return moneyUser;
     }
 
-    public void setMoneyUser(BigDecimal moneyUser) {
+    public void setMoneyUser(Integer moneyUser) {
         this.moneyUser = moneyUser;
     }
 
-    public Set<ShoppingCart> getShoppingCarts() {
-        return shoppingCarts;
-    }
-
-    public void setShoppingCarts(Set<ShoppingCart> shoppingCarts) {
-        this.shoppingCarts = shoppingCarts;
-    }
+//    public Set<ShoppingCart> getShoppingCarts() {
+//        return shoppingCarts;
+//    }
+//
+//    public void setShoppingCarts(Set<ShoppingCart> shoppingCarts) {
+//        this.shoppingCarts = shoppingCarts;
+//    }
 
 }
