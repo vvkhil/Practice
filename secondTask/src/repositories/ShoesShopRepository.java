@@ -1,18 +1,17 @@
-package admin;
+package repositories;
 
 import app.Main;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ShoesShop {
+public class ShoesShopRepository {
 
-    static Logger logger = Logger.getLogger(ShoesShop.class.getName());
+    static final String ID = "id : {0}";
+
+    static Logger logger = Logger.getLogger(ShoesShopRepository.class.getName());
 
     private static final Properties properties = new Properties();
 
@@ -28,7 +27,7 @@ public class ShoesShop {
 
     Connection connection;
 
-    public ShoesShop() {
+    public ShoesShopRepository() {
         try {
             connection = DriverManager.getConnection(
                     properties.getProperty("db.url"),
@@ -40,6 +39,26 @@ public class ShoesShop {
     }
 
     Statement statement = null;
+
+    public void getAllFromBaskShop() throws SQLException {
+        query = "SELECT * FROM bask_shop";
+
+        statement = connection.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String title = resultSet.getString("title");
+            int rating = resultSet.getInt("rating");
+
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, "title : {0}", title);
+            logger.log(Level.INFO, "rating: {0}", rating);
+
+        }
+
+    }
 
     public void addBaskShoesShop(int idShoesShop, String title, int rating) throws SQLException {
 

@@ -1,18 +1,17 @@
-package provider;
+package repositories;
 
 import app.Main;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Supply {
+public class SupplyRepository {
 
-    static Logger logger = Logger.getLogger(Supply.class.getName());
+    static final String ID = "id : {0}";
+
+    static Logger logger = Logger.getLogger(SupplyRepository.class.getName());
 
     private static final Properties properties = new Properties();
 
@@ -27,7 +26,7 @@ public class Supply {
     String query = null;
     Connection connection;
 
-    public Supply() {
+    public SupplyRepository() {
         try {
             connection = DriverManager.getConnection(
                     properties.getProperty("db.url"),
@@ -39,6 +38,24 @@ public class Supply {
     }
 
     Statement statement = null;
+
+    public void getAllFromSupply() throws SQLException {
+        query = "SELECT * FROM supply";
+
+        statement = connection.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int providerId = resultSet.getInt("provider_id");
+
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, "provider_id : {0}", providerId);
+
+        }
+
+    }
 
     public void addSupply(int idSupply, int idProvider) throws SQLException {
 

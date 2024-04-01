@@ -3,6 +3,7 @@ package com.example.thirdtask.entities;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,14 +32,14 @@ public class BaskShoe {
     @Column(name = "size", nullable = false)
     private Integer size;
 
-//    @ManyToMany(mappedBy = "baskShoe")
-//    private Set<ShoppingCart> shoppingCarts = new LinkedHashSet<>();
-//
-//    @ManyToMany(mappedBy = "baskShoe")
-//    private Set<BaskShop> baskShops = new LinkedHashSet<>();
-//
-//    @ManyToMany(mappedBy = "baskShoe")
-//    private Set<Supply> supplies = new LinkedHashSet<>();
+    @ManyToMany(mappedBy = "baskShoe")
+    private List<ShoppingCart> shoppingCarts;
+
+    @ManyToMany(mappedBy = "baskShoe")
+    private List<BaskShop> baskShops;
+
+    @ManyToMany(mappedBy = "baskShoe")
+    private List<Supply> supplies;
 
     public Integer getId() {
         return id;

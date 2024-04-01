@@ -1,18 +1,21 @@
-package users;
+package repositories;
 
 import app.Main;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Provider {
+public class ProviderRepository {
 
-    static Logger logger = Logger.getLogger(Provider.class.getName());
+    static final String USER_ID = "user_id";
+
+    static final String ID = "id : {0}";
+
+    static final String USER_ID_ZERO = "user_id : {0}";
+
+    static Logger logger = Logger.getLogger(ProviderRepository.class.getName());
 
     private static final Properties properties = new Properties();
 
@@ -27,7 +30,7 @@ public class Provider {
     String query = null;
     Connection connection;
 
-    public Provider() {
+    public ProviderRepository() {
         try {
             connection = DriverManager.getConnection(
                     properties.getProperty("db.url"),
@@ -39,6 +42,23 @@ public class Provider {
     }
 
     Statement statement = null;
+
+    public void getAllFromProvider() throws SQLException {
+        query = "SELECT * FROM provider";
+
+        statement = connection.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int userId = resultSet.getInt(USER_ID);
+
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, USER_ID_ZERO, userId);
+        }
+
+    }
 
     public void addProvider(int idProvider, int idUserApp) throws SQLException {
 

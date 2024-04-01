@@ -1,18 +1,15 @@
-package users;
+package repositories;
 
 import app.Main;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class User {
+public class UserRepository {
 
-    static Logger logger = Logger.getLogger(User.class.getName());
+    static Logger logger = Logger.getLogger(UserRepository.class.getName());
 
     private static final Properties properties = new Properties();
 
@@ -27,7 +24,7 @@ public class User {
     String query = null;
     Connection connection;
 
-    public User() {
+    public UserRepository() {
         try {
             connection = DriverManager.getConnection(
                     properties.getProperty("db.url"),
@@ -39,6 +36,25 @@ public class User {
     }
 
     Statement statement = null;
+
+    public void getAllFromUserApp() throws SQLException {
+        query = "SELECT * FROM user_app";
+
+        statement = connection.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            int userId = resultSet.getInt("user_app_id");
+            String login = resultSet.getString("login");
+
+            logger.log(Level.INFO, "Successfully append");
+
+            logger.log(Level.INFO, "userid : {0}", userId);
+            logger.log(Level.INFO, "login : {0}", login);
+        }
+
+    }
 
     public void addUser(int idUserApp, String login, String email, String password) throws SQLException {
 

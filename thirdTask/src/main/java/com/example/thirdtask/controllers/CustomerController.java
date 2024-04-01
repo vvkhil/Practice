@@ -1,6 +1,7 @@
 package com.example.thirdtask.controllers;
 
 
+import com.example.thirdtask.dtos.customerdtos.GetCustomerDto;
 import com.example.thirdtask.entities.Customer;
 import com.example.thirdtask.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,12 @@ import java.util.List;
 
 @RestController
 public class CustomerController {
+    private final CustomerService customerService;
+
     @Autowired
-    CustomerService customerService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @GetMapping("/customers")
     public ResponseEntity<List<Customer>> getCustomers() {
@@ -21,6 +26,13 @@ public class CustomerController {
 
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
+
+//    @GetMapping("/customers")
+//    public ResponseEntity<List<GetCustomerDto>> getCustomers() {
+//        var customers = customerService.getAllCustomers();
+//
+//        return new ResponseEntity<>(customers, HttpStatus.OK);
+//    }
 
     @GetMapping("/customers/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Integer id) {

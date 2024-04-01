@@ -2,6 +2,7 @@ package com.example.thirdtask.entities;
 
 import jakarta.persistence.*;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,8 +22,11 @@ public class BaskShop {
     @OneToMany(mappedBy = "shop")
     private Set<AdminShop> adminShops = new LinkedHashSet<>();
 
-//    @ManyToMany(mappedBy = "shop")
-//    private Set<BaskShoe> baskShoes = new LinkedHashSet<>();
+    @ManyToMany()
+    @JoinTable(name="catalog_shoes",
+            joinColumns=@JoinColumn(name="shop_id",referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="bask_shoe_id", referencedColumnName="id"))
+    private List<BaskShoe> baskShoe;
 
     @OneToMany(mappedBy = "shop")
     private Set<OrderApp> orderApps = new LinkedHashSet<>();

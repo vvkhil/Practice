@@ -1,18 +1,21 @@
-package users;
+package repositories;
 
 import app.Main;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Admin {
+public class AdminRepository {
 
-    static Logger logger = Logger.getLogger(Admin.class.getName());
+    static final String USER_ID = "user_id";
+    static final String SHOP_ID = "shop_id";
+    static final String USER_ID_ZERO = "user_id : {0}";
+    static final String SHOP_ID_ZERO = "shop_id : {0}";
+
+
+    static Logger logger = Logger.getLogger(AdminRepository.class.getName());
 
     private static final Properties properties = new Properties();
 
@@ -27,7 +30,7 @@ public class Admin {
     String query = null;
     Connection connection;
 
-    public Admin() {
+    public AdminRepository() {
         try {
             connection = DriverManager.getConnection(
                     properties.getProperty("db.url"),
@@ -39,6 +42,25 @@ public class Admin {
     }
 
     Statement statement = null;
+
+    public void getAllFromAdminShop() throws SQLException {
+        query = "SELECT * FROM admin_shop";
+
+        statement = connection.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int userId = resultSet.getInt(USER_ID);
+            int shopId = resultSet.getInt(SHOP_ID);
+
+            logger.log(Level.INFO, "id: {0}", id);
+            logger.log(Level.INFO, USER_ID_ZERO, userId);
+            logger.log(Level.INFO, SHOP_ID_ZERO, shopId);
+        }
+
+    }
 
     public void addAdmin(int idAdmin, int idUserApp, int idShop) throws SQLException {
 

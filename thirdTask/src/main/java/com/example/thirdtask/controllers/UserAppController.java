@@ -1,6 +1,7 @@
 package com.example.thirdtask.controllers;
 
 
+import com.example.thirdtask.dtos.userappdtos.GetUserAppDto;
 import com.example.thirdtask.entities.UserApp;
 import com.example.thirdtask.services.UserAppService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,26 @@ import java.util.List;
 
 @RestController
 public class UserAppController {
+    private final UserAppService userAppService;
+
     @Autowired
-    UserAppService userAppService;
+    public UserAppController(UserAppService userAppService) {
+        this.userAppService = userAppService;
+    }
 
     @GetMapping("/users")
     public ResponseEntity<List<UserApp>> getUsers() {
-        var users = userAppService.getAllUsersApp();
+        var users = userAppService.getAllUsers();
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+//    @GetMapping("/users")
+//    public ResponseEntity<List<GetUserAppDto>> getUsers() {
+//        var users = userAppService.getAllUsers();
+//
+//        return new ResponseEntity<>(users, HttpStatus.OK);
+//    }
 
     @GetMapping("/users/{id}")
     public ResponseEntity<UserApp> getUserById(@PathVariable Integer id) {

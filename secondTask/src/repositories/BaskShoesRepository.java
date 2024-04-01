@@ -1,18 +1,17 @@
-package provider;
+package repositories;
 
 import app.Main;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class BaskShoes {
+public class BaskShoesRepository {
 
-    static Logger logger = Logger.getLogger(BaskShoes.class.getName());
+    static final String ID = "id : {0}";
+
+    static Logger logger = Logger.getLogger(BaskShoesRepository.class.getName());
 
     private static final Properties properties = new Properties();
 
@@ -27,7 +26,7 @@ public class BaskShoes {
     String query = null;
     Connection connection;
 
-    public BaskShoes() {
+    public BaskShoesRepository() {
         try {
             connection = DriverManager.getConnection(
                     properties.getProperty("db.url"),
@@ -39,6 +38,29 @@ public class BaskShoes {
     }
 
     Statement statement = null;
+
+    public void getAllFromBaskShoes() throws SQLException {
+        query = "SELECT * FROM bask_shoe";
+
+        statement = connection.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String title = resultSet.getString("title");
+            String description = resultSet.getString("description");
+            String brand = resultSet.getString("brand");
+            String manufacturer = resultSet.getString("manufacturer");
+
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, "title : {0}", title);
+            logger.log(Level.INFO, "description : {0}", description);
+            logger.log(Level.INFO, "brand : {0}", brand);
+            logger.log(Level.INFO, "manufacturer : {0}", manufacturer);
+        }
+
+    }
 
     public void addBaskShoes(int idBaskShoes, String title, String description,
                              int price, String manufacturer, String brand, int size) throws SQLException {

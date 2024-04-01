@@ -3,6 +3,7 @@ package com.example.thirdtask.entities;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,8 +18,11 @@ public class Supply {
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
-//    @ManyToMany(mappedBy = "supplies")
-//    private Set<BaskShoe> baskShoes = new LinkedHashSet<>();
+    @ManyToMany()
+    @JoinTable(name="supply_log",
+            joinColumns=@JoinColumn(name="supply_id",referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="bask_shoe_id", referencedColumnName="id"))
+    private List<BaskShoe> baskShoe;
 
     public Integer getId() {
         return id;

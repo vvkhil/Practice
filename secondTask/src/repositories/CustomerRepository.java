@@ -1,18 +1,17 @@
-package users;
+package repositories;
 
 import app.Main;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Customer {
+public class CustomerRepository {
 
-    static Logger logger = Logger.getLogger(Customer.class.getName());
+    static final String ID = "id : {0}";
+
+    static Logger logger = Logger.getLogger(CustomerRepository.class.getName());
 
     private static final Properties properties = new Properties();
 
@@ -27,7 +26,7 @@ public class Customer {
     String query = null;
     Connection connection;
 
-    public Customer() {
+    public CustomerRepository() {
         try {
             connection = DriverManager.getConnection(
                     properties.getProperty("db.url"),
@@ -39,6 +38,25 @@ public class Customer {
     }
 
     Statement statement = null;
+
+    public void getAllFromCustomer() throws SQLException {
+        query = "SELECT * FROM customer";
+
+        statement = connection.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int addressId = resultSet.getInt("address_id");
+            int moneyUser = resultSet.getInt("money_user");
+
+            logger.log(Level.INFO, ID, id);
+            logger.log(Level.INFO, "address_id : {0}", addressId);
+            logger.log(Level.INFO, "money_user : {0}", moneyUser);
+        }
+
+    }
 
     public void addCustomer(int idCustomer, int idUserApp, int money, int idAddress) throws SQLException {
 

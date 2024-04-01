@@ -1,11 +1,8 @@
 package app;
 
-import admin.CatalogShoes;
-import admin.ShoesShop;
-import customer.Address;
-import provider.BaskShoes;
-import provider.Supply;
-import select.Selects;
+import models.Address;
+import repositories.*;
+import repositories.AddressRepository;
 
 import java.sql.*;
 import java.util.Properties;
@@ -25,7 +22,7 @@ public class Main {
     static final String ENTER_ID_SHOE = "Enter id shoe:";
     static final String CHOICE_CORRECT_INDEX = "Choice correct index!";
 
-    static Logger logger;
+    static Logger logger = Logger.getLogger(Main.class.getName());
 
     private static final Properties properties = new Properties();
 
@@ -97,14 +94,10 @@ public class Main {
 
         while (true) {
 
-            ShoesShop shoesShop = new ShoesShop();
-            CatalogShoes catalogShoes = new CatalogShoes();
-            Address address = new Address();
-            BaskShoes baskShoes = new BaskShoes();
-            Supply supply = new Supply();
-
-            Selects selects = new Selects();
-
+            ShoesShopRepository shoesShopRepository = new ShoesShopRepository();
+            AddressRepository addressRepository = new AddressRepository();
+            BaskShoesRepository baskShoesRepository = new BaskShoesRepository();
+            SupplyRepository supplyRepository = new SupplyRepository();
 
             logger.log(Level.INFO, "Enter your role(admin, customer, provider):");
             roleUser = in.nextLine();
@@ -148,15 +141,12 @@ public class Main {
                                     2) Add new shoes_shop
                                     3) Delete shoes_shop
                                     4) Update shoes_shop
-                                    5) Show all catalog_shoes
-                                    6) Add new catalog_shoes
-                                    7) Delete catalog_shoes
-                                    8) Exit
+                                    5) Exit
                                     """);
                             int choice = in.nextInt();
 
                             if (choice == 1) {
-                                selects.getAllFromBaskShop();
+                                shoesShopRepository.getAllFromBaskShop();
                             } else if (choice == 2) {
                                 logger.log(Level.INFO, "Enter id bask shop please");
                                 int idShoesShop = in.nextInt();
@@ -165,14 +155,14 @@ public class Main {
                                 String titleBaskShop = in.nextLine();
                                 logger.log(Level.INFO, "Enter rating bask shop please");
                                 int rating = in.nextInt();
-                                shoesShop.addBaskShoesShop(idShoesShop, titleBaskShop, rating);
+                                shoesShopRepository.addBaskShoesShop(idShoesShop, titleBaskShop, rating);
                             } else if (choice == 3) {
-                                selects.getAllFromBaskShop();
+                                shoesShopRepository.getAllFromBaskShop();
                                 logger.log(Level.INFO, "Enter id bask shop please");
                                 int idShoesShop = in.nextInt();
-                                shoesShop.deleteShoesShop(idShoesShop);
+                                shoesShopRepository.deleteShoesShop(idShoesShop);
                             } else if (choice == 4) {
-                                selects.getAllFromBaskShop();
+                                shoesShopRepository.getAllFromBaskShop();
                                 while (true) {
                                     logger.log(Level.INFO, SELECT_FIELD);
                                     logger.log(Level.INFO, "1) Title\n2) Rating\n");
@@ -185,7 +175,7 @@ public class Main {
                                         String field = "title";
                                         logger.log(Level.INFO, ENTER_ID_BASK_SHOP);
                                         int idShoesShop = in.nextInt();
-                                        shoesShop.updateShoesShop(idShoesShop, data, field);
+                                        shoesShopRepository.updateShoesShop(idShoesShop, data, field);
                                         break;
                                     } else if (choiceField == 2) {
                                         logger.log(Level.INFO, "Enter rating bask shop:");
@@ -193,7 +183,7 @@ public class Main {
                                         String field = "rating";
                                         logger.log(Level.INFO, ENTER_ID_BASK_SHOP);
                                         int idShoesShop = in.nextInt();
-                                        shoesShop.updateShoesShop(idShoesShop, data, field);
+                                        shoesShopRepository.updateShoesShop(idShoesShop, data, field);
                                         break;
                                     } else {
                                         logger.log(Level.INFO, CHOICE_CORRECT_INDEX);
@@ -202,23 +192,6 @@ public class Main {
                                 }
 
                             } else if (choice == 5) {
-                                selects.getAllFromCatalogProducts();
-                            } else if (choice == 6) {
-                                selects.getAllFromBaskShoes();
-                                logger.log(Level.INFO, "Enter id shoes:");
-                                int idShoes = in.nextInt();
-                                selects.getAllFromBaskShop();
-                                logger.log(Level.INFO, ENTER_ID_BASK_SHOP);
-                                int idBaskShop = in.nextInt();
-                                catalogShoes.addCatalogShoes(idShoes, idBaskShop);
-                            } else if (choice == 7) {
-                                selects.getAllFromCatalogProducts();
-                                logger.log(Level.INFO, "Enter id shoes:");
-                                int idShoes = in.nextInt();
-                                logger.log(Level.INFO, ENTER_ID_BASK_SHOP);
-                                int idBaskShop = in.nextInt();
-                                catalogShoes.deleteCatalogShoes(idShoes, idBaskShop);
-                            } else if (choice == 8) {
                                 logger.log(Level.INFO, "Bye");
                                 break;
                             } else {
@@ -271,30 +244,29 @@ public class Main {
                             int choice = in.nextInt();
 
                             if (choice == 1) {
-                                selects.getAllFromAddress();
+                                addressRepository.getAllFromAddress();
                             } else if (choice == 2) {
                                 logger.log(Level.INFO, "Enter id address");
                                 int idAddress = in.nextInt();
-                                logger.log(Level.INFO, "Enter city");
                                 in.nextLine();
+                                logger.log(Level.INFO, "Enter city");
                                 String city = in.nextLine();
                                 logger.log(Level.INFO, "Enter street");
-                                in.nextLine();
                                 String street = in.nextLine();
                                 logger.log(Level.INFO, "Enter house");
-                                in.nextLine();
                                 String house = in.nextLine();
                                 logger.log(Level.INFO, "Enter flat");
-                                in.nextLine();
                                 String flat = in.nextLine();
-                                address.addAddress(idAddress, city, street, house, flat);
+                                Address address = new Address(idAddress, city, street, house, flat);
+                                addressRepository.addAddress(address);
                             } else if (choice == 3) {
-                                selects.getAllFromAddress();
+                                addressRepository.getAllFromAddress();
                                 logger.log(Level.INFO, "Enter id address");
                                 int idAddress = in.nextInt();
-                                address.deleteAddress(idAddress);
+                                Address address = new Address(idAddress);
+                                addressRepository.deleteAddress(address);
                             } else if (choice == 4) {
-                                selects.getAllFromAddress();
+                                addressRepository.getAllFromAddress();
 
                                 String data;
                                 String field;
@@ -341,7 +313,8 @@ public class Main {
 
                                 logger.log(Level.INFO, "Enter id address:");
                                 int idAddress = in.nextInt();
-                                address.updateAddress(idAddress, data, field);
+                                Address address = new Address(idAddress);
+                                addressRepository.updateAddress(address, data, field);
 
                             } else if (choice == 5) {
                                 logger.log(Level.INFO, "Bye");
@@ -397,14 +370,14 @@ public class Main {
                                     3) Delete shoes
                                     4) Update shoes
                                     5) Show all supplies
-                                    6) Add new supply
-                                    7) Delete supply
+                                    6) Add new supplyRepository
+                                    7) Delete supplyRepository
                                     8) Exit
                                     """);
                             int choice = in.nextInt();
 
                             if (choice == 1) {
-                                selects.getAllFromBaskShoes();
+                                baskShoesRepository.getAllFromBaskShoes();
                             } else if (choice == 2) {
                                 logger.log(Level.INFO, "Enter id shoes");
                                 int idAddress = in.nextInt();
@@ -422,14 +395,14 @@ public class Main {
                                 String brand = in.nextLine();
                                 logger.log(Level.INFO, "Enter size");
                                 int size = in.nextInt();
-                                baskShoes.addBaskShoes(idAddress, title, description, price, manufacturer, brand, size);
+                                baskShoesRepository.addBaskShoes(idAddress, title, description, price, manufacturer, brand, size);
                             } else if (choice == 3) {
-                                selects.getAllFromBaskShoes();
+                                baskShoesRepository.getAllFromBaskShoes();
                                 logger.log(Level.INFO, "Enter id shoes");
                                 int idShoes = in.nextInt();
-                                baskShoes.deleteBaskShoes(idShoes);
+                                baskShoesRepository.deleteBaskShoes(idShoes);
                             } else if (choice == 4) {
-                                selects.getAllFromBaskShoes();
+                                baskShoesRepository.getAllFromBaskShoes();
                                 while (true) {
                                     logger.log(Level.INFO, SELECT_FIELD);
                                     logger.log(Level.INFO, """
@@ -449,7 +422,7 @@ public class Main {
                                         String field = "title";
                                         logger.log(Level.INFO, ENTER_ID_SHOE);
                                         int idShoes = in.nextInt();
-                                        baskShoes.updateBaskShoes(idShoes, data, field);
+                                        baskShoesRepository.updateBaskShoes(idShoes, data, field);
                                         break;
                                     } else if (choiceField == 2) {
                                         logger.log(Level.INFO, "Enter description shoe:");
@@ -458,14 +431,14 @@ public class Main {
                                         String field = "description";
                                         logger.log(Level.INFO, ENTER_ID_SHOE);
                                         int idShoes = in.nextInt();
-                                        baskShoes.updateBaskShoes(idShoes, data, field);
+                                        baskShoesRepository.updateBaskShoes(idShoes, data, field);
                                     } else if (choiceField == 3) {
                                         logger.log(Level.INFO, "Enter price shoe:");
                                         int data = in.nextInt();
                                         String field = "price";
                                         logger.log(Level.INFO, ENTER_ID_SHOE);
                                         int idShoes = in.nextInt();
-                                        baskShoes.updateBaskShoes(idShoes, data, field);
+                                        baskShoesRepository.updateBaskShoes(idShoes, data, field);
                                         break;
                                     } else if (choiceField == 4) {
                                         logger.log(Level.INFO, "Enter manufacturer shoe:");
@@ -474,7 +447,7 @@ public class Main {
                                         String field = "manufacturer";
                                         logger.log(Level.INFO, ENTER_ID_SHOE);
                                         int idShoes = in.nextInt();
-                                        baskShoes.updateBaskShoes(idShoes, data, field);
+                                        baskShoesRepository.updateBaskShoes(idShoes, data, field);
                                     } else if (choiceField == 5) {
                                         logger.log(Level.INFO, "Enter brand shoe:");
                                         in.nextLine();
@@ -482,14 +455,14 @@ public class Main {
                                         String field = "brand";
                                         logger.log(Level.INFO, ENTER_ID_SHOE);
                                         int idShoes = in.nextInt();
-                                        baskShoes.updateBaskShoes(idShoes, data, field);
+                                        baskShoesRepository.updateBaskShoes(idShoes, data, field);
                                     } else if (choiceField == 6) {
                                         logger.log(Level.INFO, "Enter size shoe:");
                                         int data = in.nextInt();
                                         String field = "size";
                                         logger.log(Level.INFO, ENTER_ID_SHOE);
                                         int idShoes = in.nextInt();
-                                        baskShoes.updateBaskShoes(idShoes, data, field);
+                                        baskShoesRepository.updateBaskShoes(idShoes, data, field);
                                         break;
                                     } else {
                                         logger.log(Level.INFO, CHOICE_CORRECT_INDEX);
@@ -498,16 +471,16 @@ public class Main {
                                 }
 
                             } else if (choice == 5) {
-                                selects.getAllFromSupply();
+                                supplyRepository.getAllFromSupply();
                             } else if (choice == 6) {
-                                logger.log(Level.INFO, "Enter id supply:");
+                                logger.log(Level.INFO, "Enter id supplyRepository:");
                                 int idSupply = in.nextInt();
-                                supply.addSupply(idSupply, providerId);
+                                supplyRepository.addSupply(idSupply, providerId);
                             } else if (choice == 7) {
-                                selects.getAllFromSupply();
-                                logger.log(Level.INFO, "Enter id supply:");
+                                supplyRepository.getAllFromSupply();
+                                logger.log(Level.INFO, "Enter id supplyRepository:");
                                 int idSupply = in.nextInt();
-                                supply.deleteSupply(idSupply);
+                                supplyRepository.deleteSupply(idSupply);
                             } else if (choice == 8) {
                                 logger.log(Level.INFO, "Bye");
                                 break;

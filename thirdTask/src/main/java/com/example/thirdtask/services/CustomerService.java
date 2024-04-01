@@ -1,13 +1,11 @@
 package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
-import com.example.thirdtask.entities.Address;
+import com.example.thirdtask.dtos.customerdtos.GetCustomerDto;
 import com.example.thirdtask.entities.Customer;
-import com.example.thirdtask.entities.UserApp;
 import com.example.thirdtask.exceptions.NotFoundException;
-import com.example.thirdtask.repositories.AddressRepository;
+import com.example.thirdtask.mappers.CustomerMapper;
 import com.example.thirdtask.repositories.CustomerRepository;
-import com.example.thirdtask.repositories.UserAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +13,27 @@ import java.util.List;
 
 @Service
 public class CustomerService {
+    private final CustomerRepository customerRepository;
+//    private final CustomerMapper customerMapper;
+//
+//    @Autowired
+//    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper) {
+//        this.customerRepository = customerRepository;
+//        this.customerMapper = customerMapper;
+//    }
+
     @Autowired
-    private CustomerRepository customerRepository;
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
+
+//    public List<GetCustomerDto> getAllCustomers() {
+//        return customerRepository.findAll().stream().map(customerMapper::customerToGetCustomerDto).toList();
+//    }
 
     public Customer getCustomerById(Integer id) {
         return customerRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
