@@ -1,7 +1,7 @@
 package repositories;
 
 import app.Main;
-import models.Address;
+import entities.Address;
 
 import java.sql.*;
 import java.util.Properties;

@@ -1,6 +1,7 @@
 package repositories;
 
 import app.Main;
+import entities.ShoesShop;
 
 import java.sql.*;
 import java.util.Properties;
@@ -10,6 +11,10 @@ import java.util.logging.Logger;
 public class ShoesShopRepository {
 
     static final String ID = "id : {0}";
+
+    static final String INSERT_INTO = "INSERT INTO catalog_shoes VALUES ";
+
+    static final String D_D = "(%d, %d), ";
 
     static Logger logger = Logger.getLogger(ShoesShopRepository.class.getName());
 
@@ -60,49 +65,88 @@ public class ShoesShopRepository {
 
     }
 
-    public void addBaskShoesShop(int idShoesShop, String title, int rating) throws SQLException {
+    public void addBaskShoesShop(ShoesShop shoesShop) throws SQLException {
+
+        int idShoesShop = shoesShop.getId();
+        String title = shoesShop.getTitle();
+        int rating = shoesShop.getRating();
 
         query = "INSERT INTO bask_shop"
                 + "(id, title, rating) " + "VALUES"
                 + "(" + idShoesShop + "," + "'" + title + "', " + rating + ");";
 
-        statement = connection.createStatement();
+        StringBuilder secondQuery = new StringBuilder(INSERT_INTO);
+        for (Integer baskShoesId : shoesShop.getBaskShoes()) {
+            secondQuery.append(String.format(D_D, baskShoesId, idShoesShop));
+        }
+        secondQuery = new StringBuilder(secondQuery.substring(0, secondQuery.length() - 2));
+        try (Statement stat = connection.createStatement()) {
+            stat.executeUpdate(query);
+            stat.executeUpdate(secondQuery.toString());
+        } catch (SQLException e) {
+            logger.info(e.toString());
+        }
 
-        statement.executeUpdate(query);
         logger.log(Level.INFO, "Successfully append");
 
     }
 
-    public void deleteShoesShop(int idShoesShop) throws SQLException {
+    public void deleteShoesShop(ShoesShop shoesShop) throws SQLException {
 
-        query = "DELETE FROM bask_shop WHERE id = " + idShoesShop + ";";
+        int idShoesShop = shoesShop.getId();
+
+        query = "DELETE FROM catalog_shoes WHERE shop_id = " + idShoesShop + ";";
+        String secondQuery = "DELETE FROM bask_shop WHERE id = " + idShoesShop + ";";
 
         statement = connection.createStatement();
 
         statement.execute(query);
+        statement.execute(secondQuery);
         logger.log(Level.INFO, "Record is deleted from bask_shop table!");
 
     }
 
-    public void updateShoesShop(int idShoesShop, String data, String field) throws SQLException {
+    public void updateShoesShop(ShoesShop shoesShop, String data, String field) throws SQLException {
+
+        int idShoesShop = shoesShop.getId();
 
         query = "UPDATE bask_shop SET " + field + " = '" + data + "' WHERE id = " + idShoesShop + ";";
-
-        statement = connection.createStatement();
-
-        statement.execute(query);
+        String secondQuery = String.format("DELETE FROM catalog_shoes WHERE shop_id = %d", idShoesShop);
+        StringBuilder thirdQuery = new StringBuilder(INSERT_INTO);
+        for (Integer baskShoesId : shoesShop.getBaskShoes()) {
+            thirdQuery.append(String.format(D_D, baskShoesId, idShoesShop));
+        }
+        thirdQuery = new StringBuilder(thirdQuery.substring(0, thirdQuery.length() - 2));
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(query);
+            stmt.executeUpdate(secondQuery);
+            stmt.executeUpdate(thirdQuery.toString());
+        } catch (SQLException e) {
+            logger.info(e.toString());
+        }
 
         logger.log(Level.INFO, "Record is updated to bask_shop table!");
 
     }
 
-    public void updateShoesShop(int idShoesShop, int data, String field) throws SQLException {
+    public void updateShoesShop(ShoesShop shoesShop, int data, String field) throws SQLException {
+
+        int idShoesShop = shoesShop.getId();
 
         query = "UPDATE bask_shop SET " + field + " = " + data + " WHERE id = " + idShoesShop + ";";
-
-        statement = connection.createStatement();
-
-        statement.execute(query);
+        String secondQuery = String.format("DELETE FROM catalog_shoes WHERE shop_id = %d", idShoesShop);
+        StringBuilder thirdQuery = new StringBuilder(INSERT_INTO);
+        for (Integer baskShoesId : shoesShop.getBaskShoes()) {
+            thirdQuery.append(String.format(D_D, baskShoesId, idShoesShop));
+        }
+        thirdQuery = new StringBuilder(thirdQuery.substring(0, thirdQuery.length() - 2));
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(query);
+            stmt.executeUpdate(secondQuery);
+            stmt.executeUpdate(thirdQuery.toString());
+        } catch (SQLException e) {
+            logger.info(e.toString());
+        }
         logger.log(Level.INFO, "Record is updated to bask_shop table!");
 
     }

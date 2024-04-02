@@ -1,6 +1,7 @@
 package repositories;
 
 import app.Main;
+import entities.BaskShoes;
 
 import java.sql.*;
 import java.util.Properties;
@@ -62,8 +63,15 @@ public class BaskShoesRepository {
 
     }
 
-    public void addBaskShoes(int idBaskShoes, String title, String description,
-                             int price, String manufacturer, String brand, int size) throws SQLException {
+    public void addBaskShoes(BaskShoes baskShoes) throws SQLException {
+
+        int idBaskShoes = baskShoes.getId();
+        String title = baskShoes.getTitle();
+        String description = baskShoes.getDescription();
+        int price = baskShoes.getPrice();
+        String manufacturer = baskShoes.getManufacturer();
+        String brand = baskShoes.getBrand();
+        int size = baskShoes.getSize();
 
         query = "INSERT INTO bask_shoe"
                 + "VALUES"
@@ -78,7 +86,9 @@ public class BaskShoesRepository {
 
     }
 
-    public void deleteBaskShoes(int idBaskShoes) throws SQLException {
+    public void deleteBaskShoes(BaskShoes baskShoes) throws SQLException {
+
+        int idBaskShoes = baskShoes.getId();
 
         query = "DELETE FROM bask_shoe WHERE id = " + idBaskShoes + ";";
 
@@ -89,7 +99,9 @@ public class BaskShoesRepository {
 
     }
 
-    public void updateBaskShoes(int idBaskShoes, String data, String field) throws SQLException {
+    public void updateBaskShoes(BaskShoes baskShoes, String data, String field) throws SQLException {
+
+        int idBaskShoes = baskShoes.getId();
 
         query = "UPDATE bask_shoe SET " + field + " = " + data + " WHERE id = " + idBaskShoes + ";";
 
@@ -100,7 +112,9 @@ public class BaskShoesRepository {
 
     }
 
-    public void updateBaskShoes(int idBaskShoes, int data, String field) throws SQLException {
+    public void updateBaskShoes(BaskShoes baskShoes, int data, String field) throws SQLException {
+
+        int idBaskShoes = baskShoes.getId();
 
         query = "UPDATE bask_shoe SET " + field + " = " + data + " WHERE id = " + idBaskShoes + ";";
 

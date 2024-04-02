@@ -1,6 +1,7 @@
 package repositories;
 
 import app.Main;
+import entities.Supply;
 
 import java.sql.*;
 import java.util.Properties;
@@ -10,6 +11,10 @@ import java.util.logging.Logger;
 public class SupplyRepository {
 
     static final String ID = "id : {0}";
+
+    static final String INSERT_INTO = "INSERT INTO supply_log VALUES ";
+
+    static final String D_D = "(%d, %d), ";
 
     static Logger logger = Logger.getLogger(SupplyRepository.class.getName());
 
@@ -57,48 +62,88 @@ public class SupplyRepository {
 
     }
 
-    public void addSupply(int idSupply, int idProvider) throws SQLException {
+    public void addSupply(Supply supply) throws SQLException {
+
+        int idSupply = supply.getId();
+        int idProvider = supply.getProviderId();
 
         query = "INSERT INTO supply"
                 + "(id, provider_id) " + "VALUES"
                 + "(" + idSupply + "," + idProvider + ");";
 
-        statement = connection.createStatement();
+        StringBuilder secondQuery = new StringBuilder(INSERT_INTO);
+        for (Integer baskShoesId : supply.getBaskShoes()) {
+            secondQuery.append(String.format(D_D, baskShoesId, idSupply));
+        }
+        secondQuery = new StringBuilder(secondQuery.substring(0, secondQuery.length() - 2));
+        try (Statement stat = connection.createStatement()) {
+            stat.executeUpdate(query);
+            stat.executeUpdate(secondQuery.toString());
+        } catch (SQLException e) {
+            logger.info(e.toString());
+        }
 
-        statement.executeUpdate(query);
         logger.log(Level.INFO, "Successfully append");
 
     }
 
-    public void deleteSupply(int idSupply) throws SQLException {
+    public void deleteSupply(Supply supply) throws SQLException {
 
-        query = "DELETE FROM supply WHERE id = " + idSupply + ";";
+        int idSupply = supply.getId();
+
+        query = "DELETE FROM supply_log WHERE supply_id = " + idSupply + ";";
+        String secondQuery = "DELETE FROM supply WHERE id = " + idSupply + ";";
 
         statement = connection.createStatement();
 
         statement.execute(query);
+        statement.execute(secondQuery);
         logger.log(Level.INFO, "Record is deleted from supply table!");
 
     }
 
-    public void updateSupply(int idSupply, String data, String field) throws SQLException {
+    public void updateSupply(Supply supply, String data, String field) throws SQLException {
+
+        int idSupply = supply.getId();
 
         query = "UPDATE supply SET " + field + " = " + data + " WHERE id = " + idSupply + ";";
+        String secondQuery = String.format("DELETE FROM supply_log WHERE supply_id = %d", idSupply);
+        StringBuilder thirdQuery = new StringBuilder(INSERT_INTO);
+        for (Integer baskShoesId : supply.getBaskShoes()) {
+            thirdQuery.append(String.format(D_D, baskShoesId, idSupply));
+        }
+        thirdQuery = new StringBuilder(thirdQuery.substring(0, thirdQuery.length() - 2));
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(query);
+            stmt.executeUpdate(secondQuery);
+            stmt.executeUpdate(thirdQuery.toString());
+        } catch (SQLException e) {
+            logger.info(e.toString());
+        }
 
-        statement = connection.createStatement();
-
-        statement.execute(query);
         logger.log(Level.INFO, "Record is updated to supply table!");
 
     }
 
-    public void updateSupply(int idSupply, int data, String field) throws SQLException {
+    public void updateSupply(Supply supply, int data, String field) throws SQLException {
+
+        int idSupply = supply.getId();
 
         query = "UPDATE supply SET " + field + " = " + data + " WHERE id = " + idSupply + ";";
+        String secondQuery = String.format("DELETE FROM supply_log WHERE supply_id = %d", idSupply);
+        StringBuilder thirdQuery = new StringBuilder(INSERT_INTO);
+        for (Integer baskShoesId : supply.getBaskShoes()) {
+            thirdQuery.append(String.format(D_D, baskShoesId, idSupply));
+        }
+        thirdQuery = new StringBuilder(thirdQuery.substring(0, thirdQuery.length() - 2));
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(query);
+            stmt.executeUpdate(secondQuery);
+            stmt.executeUpdate(thirdQuery.toString());
+        } catch (SQLException e) {
+            logger.info(e.toString());
+        }
 
-        statement = connection.createStatement();
-
-        statement.execute(query);
         logger.log(Level.INFO, "Record is updated to supply table!");
 
     }

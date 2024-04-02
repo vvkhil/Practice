@@ -1,6 +1,7 @@
 package repositories;
 
 import app.Main;
+import entities.User;
 
 import java.sql.*;
 import java.util.Properties;
@@ -56,7 +57,12 @@ public class UserRepository {
 
     }
 
-    public void addUser(int idUserApp, String login, String email, String password) throws SQLException {
+    public void addUser(User user) throws SQLException {
+
+        int idUserApp = user.getId();
+        String login = user.getLogin();
+        String email = user.getEmail();
+        String password = user.getPassword();
 
         query = "INSERT INTO user_app"
                 + "(user_app_id, login, email, password) " + "VALUES"
@@ -69,7 +75,9 @@ public class UserRepository {
 
     }
 
-    public void deleteUser(int idUserApp) throws SQLException {
+    public void deleteUser(User user) throws SQLException {
+
+        int idUserApp = user.getId();
 
         query = "DELETE FROM user_app WHERE user_app_id = " + idUserApp + ";";
 
@@ -80,7 +88,9 @@ public class UserRepository {
 
     }
 
-    public void updateUser(int idUserApp, String data, String field) throws SQLException {
+    public void updateUser(User user, String data, String field) throws SQLException {
+
+        int idUserApp = user.getId();
 
         query = "UPDATE user_app SET " + field + " = " + data + " WHERE id = " + idUserApp + ";";
 
@@ -91,7 +101,9 @@ public class UserRepository {
 
     }
 
-    public void updateUser(int idUserApp, int data, String field) throws SQLException {
+    public void updateUser(User user, int data, String field) throws SQLException {
+
+        int idUserApp = user.getId();
 
         query = "UPDATE user_app SET " + field + " = " + data + " WHERE id = " + idUserApp + ";";
 

@@ -1,6 +1,7 @@
 package repositories;
 
 import app.Main;
+import entities.Customer;
 
 import java.sql.*;
 import java.util.Properties;
@@ -58,7 +59,12 @@ public class CustomerRepository {
 
     }
 
-    public void addCustomer(int idCustomer, int idUserApp, int money, int idAddress) throws SQLException {
+    public void addCustomer(Customer customer) throws SQLException {
+
+        int idCustomer = customer.getId();
+        int idUserApp = customer.getUserId();
+        int money = customer.getMoneyUser();
+        int idAddress = customer.getAddressId();
 
         query = "INSERT INTO customer"
                 + "VALUES"
@@ -71,7 +77,9 @@ public class CustomerRepository {
 
     }
 
-    public void deleteCustomer(int idCustomer) throws SQLException {
+    public void deleteCustomer(Customer customer) throws SQLException {
+
+        int idCustomer = customer.getId();
 
         query = "DELETE FROM courier WHERE id = " + idCustomer + ";";
 
@@ -82,7 +90,9 @@ public class CustomerRepository {
 
     }
 
-    public void updateCustomer(int idCustomer, String data, String field) throws SQLException {
+    public void updateCustomer(Customer customer, String data, String field) throws SQLException {
+
+        int idCustomer = customer.getId();
 
         query = "UPDATE customer SET " + field + " = " + data + " WHERE id = " + idCustomer + ";";
 
@@ -93,7 +103,9 @@ public class CustomerRepository {
 
     }
 
-    public void updateCustomer(int idCustomer, int data, String field) throws SQLException {
+    public void updateCustomer(Customer customer, int data, String field) throws SQLException {
+
+        int idCustomer = customer.getId();
 
         query = "UPDATE customer SET " + field + " = " + data + " WHERE id = " + idCustomer + ";";
 

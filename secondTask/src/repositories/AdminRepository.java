@@ -1,6 +1,7 @@
 package repositories;
 
 import app.Main;
+import entities.Admin;
 
 import java.sql.*;
 import java.util.Properties;
@@ -62,7 +63,11 @@ public class AdminRepository {
 
     }
 
-    public void addAdmin(int idAdmin, int idUserApp, int idShop) throws SQLException {
+    public void addAdmin(Admin admin) throws SQLException {
+
+        Integer idAdmin = admin.getId();
+        Integer idUserApp = admin.getUserId();
+        Integer idShop = admin.getShopId();
 
         query = "INSERT INTO admin_shop"
                 + "VALUES"
@@ -75,7 +80,9 @@ public class AdminRepository {
 
     }
 
-    public void deleteAdmin(int idAdmin) throws SQLException {
+    public void deleteAdmin(Admin admin) throws SQLException {
+
+        Integer idAdmin = admin.getId();
 
         query = "DELETE FROM admin_shop WHERE id = " + idAdmin + ";";
 
@@ -86,7 +93,9 @@ public class AdminRepository {
 
     }
 
-    public void updateAdmin(int idAdmin, String data, String field) throws SQLException {
+    public void updateAdmin(Admin admin, String data, String field) throws SQLException {
+
+        Integer idAdmin = admin.getId();
 
         query = "UPDATE admin_shop SET " + field + " = " + data + " WHERE id = " + idAdmin + ";";
 
@@ -97,7 +106,9 @@ public class AdminRepository {
 
     }
 
-    public void updateAdmin(int idAdmin, int data, String field) throws SQLException {
+    public void updateAdmin(Admin admin, int data, String field) throws SQLException {
+
+        Integer idAdmin = admin.getId();
 
         query = "UPDATE admin_shop SET " + field + " = " + data + " WHERE id = " + idAdmin + ";";
 

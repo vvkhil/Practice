@@ -1,6 +1,7 @@
 package repositories;
 
 import app.Main;
+import entities.Provider;
 
 import java.sql.*;
 import java.util.Properties;
@@ -60,7 +61,10 @@ public class ProviderRepository {
 
     }
 
-    public void addProvider(int idProvider, int idUserApp) throws SQLException {
+    public void addProvider(Provider provider) throws SQLException {
+
+        int idProvider = provider.getId();
+        int idUserApp = provider.getUserId();
 
         query = "INSERT INTO provider"
                 + "VALUES"
@@ -73,7 +77,9 @@ public class ProviderRepository {
 
     }
 
-    public void deleteProvider(int idProvider) throws SQLException {
+    public void deleteProvider(Provider provider) throws SQLException {
+
+        int idProvider = provider.getId();
 
         query = "DELETE FROM provider WHERE id = " + idProvider + ";";
 
@@ -84,7 +90,9 @@ public class ProviderRepository {
 
     }
 
-    public void updateProvider(int idProvider, String data, String field) throws SQLException {
+    public void updateProvider(Provider provider, String data, String field) throws SQLException {
+
+        int idProvider = provider.getId();
 
         query = "UPDATE provider SET " + field + " = " + data + " WHERE id = " + idProvider + ";";
 
@@ -95,7 +103,9 @@ public class ProviderRepository {
 
     }
 
-    public void updateProvider(int idProvider, int data, String field) throws SQLException {
+    public void updateProvider(Provider provider, int data, String field) throws SQLException {
+
+        int idProvider = provider.getId();
 
         query = "UPDATE provider SET " + field + " = " + data + " WHERE id = " + idProvider + ";";
 
