@@ -4,7 +4,6 @@ import com.example.thirdtask.constants.Constants;
 import com.example.thirdtask.dtos.customerdtos.GetCustomerDto;
 import com.example.thirdtask.entities.Customer;
 import com.example.thirdtask.exceptions.NotFoundException;
-import com.example.thirdtask.mappers.CustomerMapper;
 import com.example.thirdtask.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,9 +30,6 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
-//    public List<GetCustomerDto> getAllCustomers() {
-//        return customerRepository.findAll().stream().map(customerMapper::customerToGetCustomerDto).toList();
-//    }
 
     public Customer getCustomerById(Integer id) {
         return customerRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));

@@ -1,13 +1,7 @@
 package com.example.thirdtask.controllers;
 
 
-import com.example.thirdtask.entities.Address;
-import com.example.thirdtask.entities.AdminShop;
-import com.example.thirdtask.entities.BaskShoe;
 import com.example.thirdtask.entities.BaskShop;
-import com.example.thirdtask.services.AddressService;
-import com.example.thirdtask.services.AdminShopService;
-import com.example.thirdtask.services.BaskShoeService;
 import com.example.thirdtask.services.BaskShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

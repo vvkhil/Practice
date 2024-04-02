@@ -21,7 +21,7 @@ public class UserAppController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserApp>> getUsers() {
+    public ResponseEntity<List<GetUserAppDto>> getUsers() {
         var users = userAppService.getAllUsers();
 
         return new ResponseEntity<>(users, HttpStatus.OK);
