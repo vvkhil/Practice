@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Supply {
     private Integer id;
-    private Integer providerId;
+    private Integer userId;
     private List<Integer> baskShoesIds;
 
     public Supply() {
@@ -17,9 +17,9 @@ public class Supply {
         this.baskShoesIds = new ArrayList<>();
     }
 
-    public Supply(int id, int providerId) {
+    public Supply(int id, int userId) {
         this.id = id;
-        this.providerId = providerId;
+        this.userId = userId;
         this.baskShoesIds = new ArrayList<>();
     }
 
@@ -27,8 +27,8 @@ public class Supply {
         return id;
     }
 
-    public Integer getProviderId() {
-        return providerId;
+    public Integer getUserId() {
+        return userId;
     }
 
     public void addBaskShoes(Integer baskShoesId) {

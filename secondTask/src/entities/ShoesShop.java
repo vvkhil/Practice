@@ -7,6 +7,7 @@ public class ShoesShop {
     private Integer id;
     private String title;
     private Integer rating;
+    private Integer userId;
     private List<Integer> baskShoesIds;
 
     public ShoesShop() {
@@ -18,10 +19,11 @@ public class ShoesShop {
         this.baskShoesIds = new ArrayList<>();
     }
 
-    public ShoesShop(int id, String title, int rating) {
+    public ShoesShop(int id, String title, int rating, int userId) {
         this.id = id;
         this.title = title;
         this.rating = rating;
+        this.userId = userId;
         this.baskShoesIds = new ArrayList<>();
     }
 
@@ -35,6 +37,10 @@ public class ShoesShop {
 
     public Integer getRating() {
         return rating;
+    }
+
+    public Integer getUserId() {
+        return userId;
     }
 
     public void addBaskShoes(Integer baskShoesId) {

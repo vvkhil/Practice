@@ -1,8 +1,15 @@
+CREATE TABLE role (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50)
+);
+
 CREATE TABLE user_app (
     user_app_id SERIAL PRIMARY KEY,
     login VARCHAR(50),
     email VARCHAR(50),
-    password VARCHAR(50)
+    password VARCHAR(50),
+    role_id INT NOT NULL,
+    FOREIGN KEY (role_id) REFERENCES role(id)
 );
 
 CREATE TABLE address (
@@ -10,28 +17,15 @@ CREATE TABLE address (
     city VARCHAR(100),
     street VARCHAR(100),
     house VARCHAR(20),
-    flat VARCHAR(10)
-);
-
-CREATE TABLE customer (
-    id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    address_id INT NOT NULL,
-    money_user INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id),
-    FOREIGN KEY (address_id) REFERENCES address(id)
-);
-
-CREATE TABLE provider (
-    id SERIAL PRIMARY KEY,
+    flat VARCHAR(10),
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user_app(user_app_id)
 );
 
 CREATE TABLE supply (
     id SERIAL PRIMARY KEY,
-    provider_id INT NOT NULL,
-    FOREIGN KEY (provider_id) REFERENCES provider(id)
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id)
 );
 
 CREATE TABLE bask_shoe (
@@ -55,7 +49,9 @@ CREATE TABLE supply_log (
 CREATE TABLE bask_shop(
     id SERIAL PRIMARY KEY,
     title VARCHAR(50),
-    rating INT CHECK (rating >= 0 AND rating <= 11)
+    rating INT CHECK (rating >= 0 AND rating <= 11),
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id)
 );
 
 CREATE TABLE catalog_shoes (
@@ -66,18 +62,10 @@ CREATE TABLE catalog_shoes (
     FOREIGN KEY (shop_id) REFERENCES bask_shop(id)
 );
 
-CREATE TABLE admin_shop(
-    id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    shop_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id),
-    FOREIGN KEY (shop_id) REFERENCES bask_shop(id)
-);
-
 CREATE TABLE shopping_cart(
     id SERIAL PRIMARY KEY,
-    customer_id INT NOT NULL,
-    FOREIGN KEY (customer_id) REFERENCES customer(id)
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id)
 );
 
 CREATE TABLE bask_cart (

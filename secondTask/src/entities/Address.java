@@ -6,17 +6,19 @@ public class Address {
     private String street;
     private String house;
     private String flat;
+    private Integer userId;
 
     public Address(int id) {
         this.id = id;
     }
 
-    public Address(int id, String city, String street, String house, String flat) {
+    public Address(int id, String city, String street, String house, String flat, int userId) {
         this.id = id;
         this.city = city;
         this.street = street;
         this.house = house;
         this.flat = flat;
+        this.userId = userId;
     }
 
     public Integer getId() {
@@ -37,6 +39,10 @@ public class Address {
 
     public String getFlat() {
         return flat;
+    }
+
+    public Integer getUserId() {
+        return userId;
     }
 
 }

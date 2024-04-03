@@ -56,10 +56,12 @@ public class ShoesShopRepository {
             int id = resultSet.getInt("id");
             String title = resultSet.getString("title");
             int rating = resultSet.getInt("rating");
+            int userId = resultSet.getInt("user_id");
 
             logger.log(Level.INFO, ID, id);
             logger.log(Level.INFO, "title : {0}", title);
             logger.log(Level.INFO, "rating: {0}", rating);
+            logger.log(Level.INFO, "userId: {0}", userId);
 
         }
 
@@ -70,10 +72,11 @@ public class ShoesShopRepository {
         int idShoesShop = shoesShop.getId();
         String title = shoesShop.getTitle();
         int rating = shoesShop.getRating();
+        int userId = shoesShop.getUserId();
 
         query = "INSERT INTO bask_shop"
-                + "(id, title, rating) " + "VALUES"
-                + "(" + idShoesShop + "," + "'" + title + "', " + rating + ");";
+                + "(id, title, rating, user_id) " + "VALUES"
+                + "(" + idShoesShop + "," + "'" + title + "', " + rating + ", " + userId + ");";
 
         StringBuilder secondQuery = new StringBuilder(INSERT_INTO);
         for (Integer baskShoesId : shoesShop.getBaskShoes()) {

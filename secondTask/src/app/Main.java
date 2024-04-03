@@ -108,9 +108,8 @@ public class Main {
             switch (roleUser) {
                 case "admin" -> {
 
-                    query = "SELECT * FROM admin_shop WHERE user_id = (SELECT user_app_id FROM user_app " +
-                            WHERE_LOGIN + login + AND_EMAIL + email + AND_PASSWORD +
-                            password + "')";
+                    query = "SELECT * FROM user_app WHERE role_id = (SELECT id FROM role " +
+                            "WHERE name = 'admin')";
 
                     try {
 
@@ -126,14 +125,13 @@ public class Main {
                             continue;
                         }
 
-                        String queryId = "SELECT id FROM admin_shop WHERE user_id = (SELECT user_app_id FROM user_app " +
-                                WHERE_LOGIN + login + AND_EMAIL + email + AND_PASSWORD +
-                                password + "')";
+                        String queryId = "SELECT user_app_id FROM user_app WHERE role_id = (SELECT id FROM role " +
+                                "WHERE name = 'admin')";
 
                         resultSet = statement.executeQuery(queryId);
 
                         resultSet.next();
-                        int adminId = resultSet.getInt("id");
+                        int adminId = resultSet.getInt("user_app_id");
                         logger.log(Level.INFO, "id admin: {0}", adminId);
                         logger.log(Level.INFO, "Hello admin");
 
@@ -158,7 +156,7 @@ public class Main {
                                 String titleBaskShop = in.nextLine();
                                 logger.log(Level.INFO, "Enter rating bask shop please");
                                 int rating = in.nextInt();
-                                ShoesShop shoesShop = new ShoesShop(idShoesShop, titleBaskShop, rating);
+                                ShoesShop shoesShop = new ShoesShop(idShoesShop, titleBaskShop, rating, adminId);
                                 while (true) {
                                     logger.log(Level.INFO, "Type '78' if you want to stop add shoes\nPlease enter shoes id:\n");
                                     Integer value = in.nextInt();
@@ -238,9 +236,8 @@ public class Main {
                 }
                 case "customer" -> {
 
-                    query = "SELECT * FROM customer WHERE user_id = (SELECT user_app_id FROM user_app " +
-                            WHERE_LOGIN + login + AND_EMAIL + email + AND_PASSWORD +
-                            password + "')";
+                    query = "SELECT * FROM user_app WHERE role_id = (SELECT id FROM role " +
+                            "WHERE name = 'customer')";
 
                     try {
 
@@ -253,14 +250,13 @@ public class Main {
                             continue;
                         }
 
-                        String queryId = "SELECT id FROM customer WHERE user_id = (SELECT user_app_id FROM user_app " +
-                                WHERE_LOGIN + login + AND_EMAIL + email + AND_PASSWORD +
-                                password + "')";
+                        String queryId = "SELECT user_app_id FROM user_app WHERE role_id = (SELECT id FROM role " +
+                                "WHERE name = 'customer')";
 
                         resultSet = statement.executeQuery(queryId);
 
                         resultSet.next();
-                        int customerId = resultSet.getInt("id");
+                        int customerId = resultSet.getInt("user_app_id");
                         logger.log(Level.INFO, "id customer: {0}", customerId);
                         logger.log(Level.INFO, "Hello customer");
 
@@ -288,7 +284,7 @@ public class Main {
                                 String house = in.nextLine();
                                 logger.log(Level.INFO, "Enter flat");
                                 String flat = in.nextLine();
-                                Address address = new Address(idAddress, city, street, house, flat);
+                                Address address = new Address(idAddress, city, street, house, flat, customerId);
                                 addressRepository.addAddress(address);
                             } else if (choice == 3) {
                                 addressRepository.getAllFromAddress();
@@ -364,9 +360,8 @@ public class Main {
                 }
                 case "provider" -> {
 
-                    query = "SELECT * FROM provider WHERE user_id = (SELECT user_app_id FROM user_app " +
-                            WHERE_LOGIN + login + AND_EMAIL + email + AND_PASSWORD +
-                            password + "')";
+                    query = "SELECT * FROM user_app WHERE role_id = (SELECT id FROM role " +
+                            "WHERE name = 'provider')";
 
                     try {
 
@@ -382,14 +377,13 @@ public class Main {
                             continue;
                         }
 
-                        String queryId = "SELECT id FROM provider WHERE user_id = (SELECT user_app_id FROM user_app " +
-                                WHERE_LOGIN + login + AND_EMAIL + email + AND_PASSWORD +
-                                password + "')";
+                        String queryId = "SELECT user_app_id FROM user_app WHERE role_id = (SELECT id FROM role " +
+                                "WHERE name = 'provider')";
 
                         resultSet = statement.executeQuery(queryId);
 
                         resultSet.next();
-                        int providerId = resultSet.getInt("id");
+                        int providerId = resultSet.getInt("user_app_id");
                         logger.log(Level.INFO, "id provider: {0}", providerId);
                         logger.log(Level.INFO, "Hello provider");
 

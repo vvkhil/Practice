@@ -1,14 +1,14 @@
 package repositories;
 
 import app.Main;
-import entities.Provider;
+import entities.Role;
 
 import java.sql.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ProviderRepository {
+public class RoleRepository {
 
     static final String USER_ID = "user_id";
 
@@ -16,7 +16,7 @@ public class ProviderRepository {
 
     static final String USER_ID_ZERO = "user_id : {0}";
 
-    static Logger logger = Logger.getLogger(ProviderRepository.class.getName());
+    static Logger logger = Logger.getLogger(RoleRepository.class.getName());
 
     private static final Properties properties = new Properties();
 
@@ -31,7 +31,7 @@ public class ProviderRepository {
     String query = null;
     Connection connection;
 
-    public ProviderRepository() {
+    public RoleRepository() {
         try {
             connection = DriverManager.getConnection(
                     properties.getProperty("db.url"),
@@ -44,8 +44,8 @@ public class ProviderRepository {
 
     Statement statement = null;
 
-    public void getAllFromProvider() throws SQLException {
-        query = "SELECT * FROM provider";
+    public void getAllFromRoles() throws SQLException {
+        query = "SELECT * FROM role";
 
         statement = connection.createStatement();
 
@@ -53,22 +53,22 @@ public class ProviderRepository {
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int userId = resultSet.getInt(USER_ID);
+            String name = resultSet.getString("name");
 
             logger.log(Level.INFO, ID, id);
-            logger.log(Level.INFO, USER_ID_ZERO, userId);
+            logger.log(Level.INFO, "name : {0}", name);
         }
 
     }
 
-    public void addProvider(Provider provider) throws SQLException {
+    public void addRole(Role role) throws SQLException {
 
-        int idProvider = provider.getId();
-        int idUserApp = provider.getUserId();
+        int idRole = role.getId();
+        String name = role.getName();
 
-        query = "INSERT INTO provider"
+        query = "INSERT INTO role"
                 + "VALUES"
-                + "(" + idProvider + ", "  + idUserApp + ");";
+                + "(" + idRole + ", "  + name + ");";
 
         statement = connection.createStatement();
 
@@ -77,11 +77,11 @@ public class ProviderRepository {
 
     }
 
-    public void deleteProvider(Provider provider) throws SQLException {
+    public void deleteRole(Role role) throws SQLException {
 
-        int idProvider = provider.getId();
+        int idRole = role.getId();
 
-        query = "DELETE FROM provider WHERE id = " + idProvider + ";";
+        query = "DELETE FROM role WHERE id = " + idRole + ";";
 
         statement = connection.createStatement();
 
@@ -90,24 +90,11 @@ public class ProviderRepository {
 
     }
 
-    public void updateProvider(Provider provider, String data, String field) throws SQLException {
+    public void updateRole(Role role, String data, String field) throws SQLException {
 
-        int idProvider = provider.getId();
+        int idRole = role.getId();
 
-        query = "UPDATE provider SET " + field + " = " + data + " WHERE id = " + idProvider + ";";
-
-        statement = connection.createStatement();
-
-        statement.execute(query);
-        logger.log(Level.INFO, "Record is updated to provider table!");
-
-    }
-
-    public void updateProvider(Provider provider, int data, String field) throws SQLException {
-
-        int idProvider = provider.getId();
-
-        query = "UPDATE provider SET " + field + " = " + data + " WHERE id = " + idProvider + ";";
+        query = "UPDATE role SET " + field + " = " + data + " WHERE id = " + idRole + ";";
 
         statement = connection.createStatement();
 

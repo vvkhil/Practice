@@ -53,10 +53,10 @@ public class SupplyRepository {
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
-            int providerId = resultSet.getInt("provider_id");
+            int userId = resultSet.getInt("user_id");
 
             logger.log(Level.INFO, ID, id);
-            logger.log(Level.INFO, "provider_id : {0}", providerId);
+            logger.log(Level.INFO, "userId : {0}", userId);
 
         }
 
@@ -65,11 +65,11 @@ public class SupplyRepository {
     public void addSupply(Supply supply) throws SQLException {
 
         int idSupply = supply.getId();
-        int idProvider = supply.getProviderId();
+        int idUser = supply.getUserId();
 
         query = "INSERT INTO supply"
-                + "(id, provider_id) " + "VALUES"
-                + "(" + idSupply + "," + idProvider + ");";
+                + "(id, user_id) " + "VALUES"
+                + "(" + idSupply + "," + idUser + ");";
 
         StringBuilder secondQuery = new StringBuilder(INSERT_INTO);
         for (Integer baskShoesId : supply.getBaskShoes()) {

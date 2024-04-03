@@ -28,14 +28,14 @@ public class UserAppController {
     }
 
 //    @GetMapping("/users")
-//    public ResponseEntity<List<GetUserAppDto>> getUsers() {
+//    public ResponseEntity<List<UserApp>> getUsers() {
 //        var users = userAppService.getAllUsers();
 //
 //        return new ResponseEntity<>(users, HttpStatus.OK);
 //    }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<UserApp> getUserById(@PathVariable Integer id) {
+    public ResponseEntity<GetUserAppDto> getUserById(@PathVariable Integer id) {
         var user = userAppService.getUserById(id);
 
         return new ResponseEntity<>(user, HttpStatus.OK);

@@ -1,6 +1,7 @@
 package com.example.thirdtask.controllers;
 
 
+import com.example.thirdtask.dtos.addressdtos.GetAddressDto;
 import com.example.thirdtask.entities.Address;
 import com.example.thirdtask.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,14 @@ public class AddressController {
     AddressService addressService;
 
     @GetMapping("/addresses")
-    public ResponseEntity<List<Address>> getAddresses() {
+    public ResponseEntity<List<GetAddressDto>> getAddresses() {
         var addresses = addressService.getAllAddresses();
 
         return new ResponseEntity<>(addresses, HttpStatus.OK);
     }
 
     @GetMapping("/addresses/{id}")
-    public ResponseEntity<Address> getAddressById(@PathVariable Integer id) {
+    public ResponseEntity<GetAddressDto> getAddressById(@PathVariable Integer id) {
         var address = addressService.getAddressById(id);
 
         return new ResponseEntity<>(address, HttpStatus.OK);

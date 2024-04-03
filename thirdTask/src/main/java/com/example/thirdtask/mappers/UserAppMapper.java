@@ -6,16 +6,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserAppMapper {
-    //из entity в dto
-    public GetUserAppDto mapToUserAppDto(UserApp userApp){
+
+    public GetUserAppDto userAppToUserAppDto(UserApp userApp){
         GetUserAppDto getUserAppDto = new GetUserAppDto();
         getUserAppDto.setId(userApp.getId());
         getUserAppDto.setLogin(userApp.getLogin());
         getUserAppDto.setEmail(userApp.getEmail());
         return getUserAppDto;
     }
-    //из dto в entity
-    public UserApp mapToUserApp(GetUserAppDto getUserAppDto){
+
+    public UserApp UserAppDtoToUserApp(GetUserAppDto getUserAppDto){
         UserApp userApp = new UserApp();
         userApp.setId(getUserAppDto.getId());
         userApp.setLogin(getUserAppDto.getLogin());

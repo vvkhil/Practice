@@ -4,5 +4,8 @@ import lombok.Data;
 
 @Data
 public class AddUserAppDto {
-    private String name;
+    private Integer id;
+    private String login;
+    private String email;
+    private String password;
 }

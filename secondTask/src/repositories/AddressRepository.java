@@ -53,12 +53,14 @@ public class AddressRepository {
             String street = resultSet.getString("street");
             String house = resultSet.getString("house");
             String flat = resultSet.getString("flat");
+            int idUser = resultSet.getInt("user_id");
 
             logger.log(Level.INFO, ID, id);
             logger.log(Level.INFO, "city : {0}", city);
             logger.log(Level.INFO, "street : {0}", street);
             logger.log(Level.INFO, "house : {0}", house);
             logger.log(Level.INFO, "flat : {0}", flat);
+            logger.log(Level.INFO, "idUser: {0}", idUser);
 
         }
 
@@ -71,12 +73,13 @@ public class AddressRepository {
         String street = address.getStreet();
         String house = address.getHouse();
         String flat = address.getFlat();
+        Integer idUser = address.getUserId();
 
 
         query = "INSERT INTO address "
                 + "VALUES"
                 + "(" + idAddress + ", '" + city + "', '" + street + "', '" +
-                house + "', '" + flat + "');";
+                house + "', '" + flat + "', '" + idUser + "');";
 
         statement = connection.createStatement();
 

@@ -48,11 +48,13 @@ public class UserRepository {
         while (resultSet.next()) {
             int userId = resultSet.getInt("user_app_id");
             String login = resultSet.getString("login");
+            int roleId = resultSet.getInt("role_id");
 
             logger.log(Level.INFO, "Successfully append");
 
-            logger.log(Level.INFO, "userid : {0}", userId);
+            logger.log(Level.INFO, "userId : {0}", userId);
             logger.log(Level.INFO, "login : {0}", login);
+            logger.log(Level.INFO, "roleId: {0}", roleId);
         }
 
     }
@@ -63,10 +65,11 @@ public class UserRepository {
         String login = user.getLogin();
         String email = user.getEmail();
         String password = user.getPassword();
+        int roleId = user.getRoleId();
 
         query = "INSERT INTO user_app"
-                + "(user_app_id, login, email, password) " + "VALUES"
-                + "(" + idUserApp + ", '" + login + "', '" + email + "', '" + password + "');";
+                + "(user_app_id, login, email, password, role_id) " + "VALUES"
+                + "(" + idUserApp + ", '" + login + "', '" + email + "', '" + password + "', " + roleId + ");";
 
         statement = connection.createStatement();
 
