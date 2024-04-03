@@ -1,9 +1,9 @@
 package com.example.thirdtask.repositories;
 
-import com.example.thirdtask.entities.AdminShop;
+import com.example.thirdtask.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AdminShopRepository extends JpaRepository<AdminShop, Integer> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 }

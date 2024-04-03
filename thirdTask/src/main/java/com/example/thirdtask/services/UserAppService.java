@@ -14,7 +14,6 @@ import java.util.List;
 @Service
 public class UserAppService {
     private final UserAppRepository userAppRepository;
-
     private final UserAppMapper userAppMapper;
 
     @Autowired
@@ -24,16 +23,12 @@ public class UserAppService {
     }
 
     public List<GetUserAppDto> getAllUsers() {
-        return userAppRepository.findAll().stream().map(userAppMapper::userAppToUserAppDto).toList();
+        return userAppRepository.findAll().stream().map(userAppMapper::userToGetUserDto).toList();
     }
 
     public GetUserAppDto getUserById(Integer id) {
-        var userApp = userAppRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
-        return userAppMapper.userAppToUserAppDto(userApp);
-    }
-
-    public UserApp getUserByEmail(String email) {
-        return userAppRepository.findByEmail(email).get();
+        var user = userAppRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+        return userAppMapper.userToGetUserDto(user);
     }
 
     public void addUser(UserApp user) {

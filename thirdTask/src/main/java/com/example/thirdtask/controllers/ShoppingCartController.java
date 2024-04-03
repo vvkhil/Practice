@@ -1,11 +1,8 @@
 package com.example.thirdtask.controllers;
 
 
-import com.example.thirdtask.entities.OrderApp;
-import com.example.thirdtask.entities.Provider;
+import com.example.thirdtask.dtos.cartdtos.GetCartDto;
 import com.example.thirdtask.entities.ShoppingCart;
-import com.example.thirdtask.services.OrderAppService;
-import com.example.thirdtask.services.ProviderService;
 import com.example.thirdtask.services.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,14 +21,14 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/carts")
-    public ResponseEntity<List<ShoppingCart>> getShoppingCart() {
+    public ResponseEntity<List<GetCartDto>> getShoppingCart() {
         var carts = shoppingCartService.getAllShoppingCarts();
 
         return new ResponseEntity<>(carts, HttpStatus.OK);
     }
 
     @GetMapping("/carts/{id}")
-    public ResponseEntity<ShoppingCart> getShoppingCartById(@PathVariable Integer id) {
+    public ResponseEntity<GetCartDto> getShoppingCartById(@PathVariable Integer id) {
         var carts = shoppingCartService.getShoppingCartById(id);
 
         return new ResponseEntity<>(carts, HttpStatus.OK);

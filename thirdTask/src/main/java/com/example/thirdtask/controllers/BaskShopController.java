@@ -1,6 +1,7 @@
 package com.example.thirdtask.controllers;
 
 
+import com.example.thirdtask.dtos.shopdtos.GetShopDto;
 import com.example.thirdtask.entities.BaskShop;
 import com.example.thirdtask.services.BaskShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,14 @@ public class BaskShopController {
     BaskShopService baskShopService;
 
     @GetMapping("/shops")
-    public ResponseEntity<List<BaskShop>> getBaskShop() {
+    public ResponseEntity<List<GetShopDto>> getBaskShop() {
         var shops = baskShopService.getAllBaskShops();
 
         return new ResponseEntity<>(shops, HttpStatus.OK);
     }
 
     @GetMapping("/shops/{id}")
-    public ResponseEntity<BaskShop> getBaskShopById(@PathVariable Integer id) {
+    public ResponseEntity<GetShopDto> getBaskShopById(@PathVariable Integer id) {
         var shops = baskShopService.getBaskShopById(id);
 
         return new ResponseEntity<>(shops, HttpStatus.OK);

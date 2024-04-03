@@ -18,6 +18,15 @@ public class Main {
     static final String AND_EMAIL = "' AND email = '";
     static final String AND_PASSWORD = "' AND password= '";
     static final String WHERE_LOGIN = "WHERE login = '";
+
+    static final String TYPE = "Type '78' if you want to stop add shoes\nPlease enter shoes id:\n";
+
+    static final String USER_APP_ID = "user_app_id";
+
+    static final String SELECT_ALL = "SELECT * FROM user_app WHERE role_id = (SELECT id FROM role ";
+
+    static final String SELECT_ID = "SELECT user_app_id FROM user_app WHERE role_id = (SELECT id FROM role ";
+
     static final String SELECT_ACTION = "Select action";
     static final String SELECT_FIELD = "Select field";
     static final String ENTER_ID_BASK_SHOP = "Enter id bask shop:";
@@ -82,7 +91,7 @@ public class Main {
                 ResultSet resultSet = statement.executeQuery(query);
 
                 if (!resultSet.next()) {
-                    logger.log(Level.INFO, "Your user isn't in database.\nPlease enter again.\n");
+                    logger.log(Level.INFO, "Your user isnt in database.\nPlease enter again.\n");
                     continue;
                 }
 
@@ -108,14 +117,15 @@ public class Main {
             switch (roleUser) {
                 case "admin" -> {
 
-                    query = "SELECT * FROM user_app WHERE role_id = (SELECT id FROM role " +
+                    query = SELECT_ALL +
                             "WHERE name = 'admin')";
 
                     try {
 
                         statement = connection.createStatement();
-
                         ResultSet resultSet = statement.executeQuery(query);
+
+
 
                         if (!resultSet.next()) {
                             logger.log(Level.INFO, """
@@ -125,13 +135,13 @@ public class Main {
                             continue;
                         }
 
-                        String queryId = "SELECT user_app_id FROM user_app WHERE role_id = (SELECT id FROM role " +
+                        String queryId = SELECT_ID +
                                 "WHERE name = 'admin')";
 
                         resultSet = statement.executeQuery(queryId);
 
                         resultSet.next();
-                        int adminId = resultSet.getInt("user_app_id");
+                        int adminId = resultSet.getInt(USER_APP_ID);
                         logger.log(Level.INFO, "id admin: {0}", adminId);
                         logger.log(Level.INFO, "Hello admin");
 
@@ -158,7 +168,7 @@ public class Main {
                                 int rating = in.nextInt();
                                 ShoesShop shoesShop = new ShoesShop(idShoesShop, titleBaskShop, rating, adminId);
                                 while (true) {
-                                    logger.log(Level.INFO, "Type '78' if you want to stop add shoes\nPlease enter shoes id:\n");
+                                    logger.log(Level.INFO, TYPE);
                                     Integer value = in.nextInt();
                                     if (value.equals(78)) {
                                         break;
@@ -188,7 +198,7 @@ public class Main {
                                         int idShoesShop = in.nextInt();
                                         ShoesShop shoesShop = new ShoesShop(idShoesShop);
                                         while (true) {
-                                            logger.log(Level.INFO, "Type '78' if you want to stop add shoes\nPlease enter shoes id:\n");
+                                            logger.log(Level.INFO, TYPE);
                                             Integer value = in.nextInt();
                                             if (value.equals(78)) {
                                                 break;
@@ -205,7 +215,7 @@ public class Main {
                                         int idShoesShop = in.nextInt();
                                         ShoesShop shoesShop = new ShoesShop(idShoesShop);
                                         while (true) {
-                                            logger.log(Level.INFO, "Type '78' if you want to stop add shoes\nPlease enter shoes id:\n");
+                                            logger.log(Level.INFO, TYPE);
                                             Integer value = in.nextInt();
                                             if (value.equals(78)) {
                                                 break;
@@ -236,7 +246,7 @@ public class Main {
                 }
                 case "customer" -> {
 
-                    query = "SELECT * FROM user_app WHERE role_id = (SELECT id FROM role " +
+                    query = SELECT_ALL +
                             "WHERE name = 'customer')";
 
                     try {
@@ -246,17 +256,17 @@ public class Main {
                         ResultSet resultSet = statement.executeQuery(query);
 
                         if (!resultSet.next()) {
-                            logger.log(Level.INFO, "Your user isn't an customer.\nPlease enter your role again.\n");
+                            logger.log(Level.INFO, "Your user isnt an customer.\nPlease enter your role again.\n");
                             continue;
                         }
 
-                        String queryId = "SELECT user_app_id FROM user_app WHERE role_id = (SELECT id FROM role " +
+                        String queryId = SELECT_ID +
                                 "WHERE name = 'customer')";
 
                         resultSet = statement.executeQuery(queryId);
 
                         resultSet.next();
-                        int customerId = resultSet.getInt("user_app_id");
+                        int customerId = resultSet.getInt(USER_APP_ID);
                         logger.log(Level.INFO, "id customer: {0}", customerId);
                         logger.log(Level.INFO, "Hello customer");
 
@@ -360,7 +370,7 @@ public class Main {
                 }
                 case "provider" -> {
 
-                    query = "SELECT * FROM user_app WHERE role_id = (SELECT id FROM role " +
+                    query = SELECT_ALL +
                             "WHERE name = 'provider')";
 
                     try {
@@ -377,13 +387,13 @@ public class Main {
                             continue;
                         }
 
-                        String queryId = "SELECT user_app_id FROM user_app WHERE role_id = (SELECT id FROM role " +
+                        String queryId = SELECT_ID +
                                 "WHERE name = 'provider')";
 
                         resultSet = statement.executeQuery(queryId);
 
                         resultSet.next();
-                        int providerId = resultSet.getInt("user_app_id");
+                        int providerId = resultSet.getInt(USER_APP_ID);
                         logger.log(Level.INFO, "id provider: {0}", providerId);
                         logger.log(Level.INFO, "Hello provider");
 
@@ -510,7 +520,7 @@ public class Main {
                                 int idSupply = in.nextInt();
                                 Supply supply = new Supply(idSupply, providerId);
                                 while (true) {
-                                    logger.log(Level.INFO, "Type '78' if you want to stop add shoes\nPlease enter shoes id:\n");
+                                    logger.log(Level.INFO, TYPE);
                                     Integer value = in.nextInt();
                                     if (value.equals(78)) {
                                         break;

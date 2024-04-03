@@ -1,11 +1,16 @@
 package com.example.thirdtask.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "bask_shop")
 public class BaskShop {
     @Id
@@ -19,8 +24,9 @@ public class BaskShop {
     @Column(name = "rating")
     private Integer rating;
 
-    @OneToMany(mappedBy = "shop")
-    private Set<AdminShop> adminShops = new LinkedHashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserApp userApp;
 
     @ManyToMany()
     @JoinTable(name="catalog_shoes",
@@ -31,52 +37,5 @@ public class BaskShop {
     @OneToMany(mappedBy = "shop")
     private Set<OrderApp> orderApps = new LinkedHashSet<>();
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Integer getRating() {
-        return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
-    public Set<AdminShop> getAdminShops() {
-        return adminShops;
-    }
-
-    public void setAdminShops(Set<AdminShop> adminShops) {
-        this.adminShops = adminShops;
-    }
-
-//    public Set<BaskShoe> getBaskShoes() {
-//        return baskShoes;
-//    }
-//
-//    public void setBaskShoes(Set<BaskShoe> baskShoes) {
-//        this.baskShoes = baskShoes;
-//    }
-
-    public Set<OrderApp> getOrderApps() {
-        return orderApps;
-    }
-
-    public void setOrderApps(Set<OrderApp> orderApps) {
-        this.orderApps = orderApps;
-    }
 
 }

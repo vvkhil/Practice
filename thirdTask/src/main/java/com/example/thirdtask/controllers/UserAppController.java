@@ -27,13 +27,6 @@ public class UserAppController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-//    @GetMapping("/users")
-//    public ResponseEntity<List<UserApp>> getUsers() {
-//        var users = userAppService.getAllUsers();
-//
-//        return new ResponseEntity<>(users, HttpStatus.OK);
-//    }
-
     @GetMapping("/users/{id}")
     public ResponseEntity<GetUserAppDto> getUserById(@PathVariable Integer id) {
         var user = userAppService.getUserById(id);

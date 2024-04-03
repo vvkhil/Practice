@@ -1,8 +1,10 @@
 package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
+import com.example.thirdtask.dtos.supplydtos.GetSupplyDto;
 import com.example.thirdtask.entities.*;
 import com.example.thirdtask.exceptions.NotFoundException;
+import com.example.thirdtask.mappers.SupplyMapper;
 import com.example.thirdtask.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,18 +14,21 @@ import java.util.List;
 @Service
 public class SupplyService {
     private final SupplyRepository supplyRepository;
+    private final SupplyMapper supplyMapper;
 
     @Autowired
-    public SupplyService(SupplyRepository supplyRepository) {
+    public SupplyService(SupplyRepository supplyRepository, SupplyMapper supplyMapper) {
         this.supplyRepository = supplyRepository;
+        this.supplyMapper = supplyMapper;
     }
 
-    public List<Supply> getAllSupplies() {
-        return supplyRepository.findAll();
+    public List<GetSupplyDto> getAllSupplies() {
+        return supplyRepository.findAll().stream().map(supplyMapper::supplyToGetSupplyDto).toList();
     }
 
-    public Supply getSupplyById(Integer id) {
-        return supplyRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+    public GetSupplyDto getSupplyById(Integer id) {
+        var supply = supplyRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+        return supplyMapper.supplyToGetSupplyDto(supply);
     }
 
     public void addSupply(Supply supply) {

@@ -1,11 +1,8 @@
 package com.example.thirdtask.controllers;
 
 
-import com.example.thirdtask.entities.Address;
-import com.example.thirdtask.entities.AdminShop;
+import com.example.thirdtask.dtos.shoedtos.GetShoeDto;
 import com.example.thirdtask.entities.BaskShoe;
-import com.example.thirdtask.services.AddressService;
-import com.example.thirdtask.services.AdminShopService;
 import com.example.thirdtask.services.BaskShoeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,14 +17,14 @@ public class BaskShoeController {
     BaskShoeService baskShoeService;
 
     @GetMapping("/shoes")
-    public ResponseEntity<List<BaskShoe>> getBaskShoe() {
+    public ResponseEntity<List<GetShoeDto>> getBaskShoe() {
         var shoes = baskShoeService.getAllBaskShoes();
 
         return new ResponseEntity<>(shoes, HttpStatus.OK);
     }
 
     @GetMapping("/shoes/{id}")
-    public ResponseEntity<BaskShoe> getBaskShoeById(@PathVariable Integer id) {
+    public ResponseEntity<GetShoeDto> getBaskShoeById(@PathVariable Integer id) {
         var shoes = baskShoeService.getBaskShoeById(id);
 
         return new ResponseEntity<>(shoes, HttpStatus.OK);

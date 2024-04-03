@@ -1,15 +1,11 @@
 package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
-import com.example.thirdtask.entities.Address;
-import com.example.thirdtask.entities.AdminShop;
+import com.example.thirdtask.dtos.shoedtos.GetShoeDto;
 import com.example.thirdtask.entities.BaskShoe;
-import com.example.thirdtask.entities.UserApp;
 import com.example.thirdtask.exceptions.NotFoundException;
-import com.example.thirdtask.repositories.AddressRepository;
-import com.example.thirdtask.repositories.AdminShopRepository;
+import com.example.thirdtask.mappers.ShoeMapper;
 import com.example.thirdtask.repositories.BaskShoeRepository;
-import com.example.thirdtask.repositories.UserAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,18 +14,21 @@ import java.util.List;
 @Service
 public class BaskShoeService {
     private final BaskShoeRepository baskShoeRepository;
+    private final ShoeMapper shoeMapper;
 
     @Autowired
-    public BaskShoeService(BaskShoeRepository baskShoeRepository) {
+    public BaskShoeService(BaskShoeRepository baskShoeRepository, ShoeMapper shoeMapper) {
         this.baskShoeRepository = baskShoeRepository;
+        this.shoeMapper = shoeMapper;
     }
 
-    public List<BaskShoe> getAllBaskShoes() {
-        return baskShoeRepository.findAll();
+    public List<GetShoeDto> getAllBaskShoes() {
+        return baskShoeRepository.findAll().stream().map(shoeMapper::shoeToGetShoeDto).toList();
     }
 
-    public BaskShoe getBaskShoeById(Integer id) {
-        return baskShoeRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+    public GetShoeDto getBaskShoeById(Integer id) {
+        var shoe = baskShoeRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+        return shoeMapper.shoeToGetShoeDto(shoe);
     }
 
     public void addBaskShoe(BaskShoe baskShoe) {

@@ -2,14 +2,10 @@ package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
 import com.example.thirdtask.dtos.addressdtos.GetAddressDto;
-import com.example.thirdtask.dtos.userappdtos.GetUserAppDto;
 import com.example.thirdtask.entities.Address;
-import com.example.thirdtask.entities.UserApp;
 import com.example.thirdtask.exceptions.NotFoundException;
 import com.example.thirdtask.mappers.AddressMapper;
-import com.example.thirdtask.mappers.UserAppMapper;
 import com.example.thirdtask.repositories.AddressRepository;
-import com.example.thirdtask.repositories.UserAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +25,12 @@ public class AddressService {
     }
 
     public List<GetAddressDto> getAllAddresses() {
-        return addressRepository.findAll().stream().map(addressMapper::addressToAddressDto).toList();
+        return addressRepository.findAll().stream().map(addressMapper::addressToGetAddressDto).toList();
     }
 
     public GetAddressDto getAddressById(Integer id) {
         var address = addressRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
-        return addressMapper.addressToAddressDto(address);
+        return addressMapper.addressToGetAddressDto(address);
     }
 
     public void addAddress(Address address) {

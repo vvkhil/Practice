@@ -1,6 +1,7 @@
 package com.example.thirdtask.controllers;
 
 
+import com.example.thirdtask.dtos.orderdtos.GetOrderDto;
 import com.example.thirdtask.entities.OrderApp;
 import com.example.thirdtask.services.OrderAppService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,14 @@ public class OrderAppController {
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<List<OrderApp>> getOrderApp() {
+    public ResponseEntity<List<GetOrderDto>> getOrderApp() {
         var orders = orderAppService.getAllOrders();
 
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @GetMapping("/orders/{id}")
-    public ResponseEntity<OrderApp> getOrderAppById(@PathVariable Integer id) {
+    public ResponseEntity<GetOrderDto> getOrderAppById(@PathVariable Integer id) {
         var orders = orderAppService.getOrderAppById(id);
 
         return new ResponseEntity<>(orders, HttpStatus.OK);

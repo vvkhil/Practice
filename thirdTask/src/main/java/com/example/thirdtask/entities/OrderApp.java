@@ -1,10 +1,12 @@
 package com.example.thirdtask.entities;
 
 import jakarta.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "order_app")
 public class OrderApp {
     @Id
@@ -22,29 +24,5 @@ public class OrderApp {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "shop_id", nullable = false)
     private BaskShop shop;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public ShoppingCart getShoppingCart() {
-        return shoppingCart;
-    }
-
-    public void setShoppingCart(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
-    }
-
-    public BaskShop getShop() {
-        return shop;
-    }
-
-    public void setShop(BaskShop shop) {
-        this.shop = shop;
-    }
 
 }

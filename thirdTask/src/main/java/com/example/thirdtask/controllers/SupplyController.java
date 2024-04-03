@@ -1,11 +1,8 @@
 package com.example.thirdtask.controllers;
 
 
-import com.example.thirdtask.entities.OrderApp;
-import com.example.thirdtask.entities.Provider;
+import com.example.thirdtask.dtos.supplydtos.GetSupplyDto;
 import com.example.thirdtask.entities.Supply;
-import com.example.thirdtask.services.OrderAppService;
-import com.example.thirdtask.services.ProviderService;
 import com.example.thirdtask.services.SupplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,14 +21,14 @@ public class SupplyController {
     }
 
     @GetMapping("/supplies")
-    public ResponseEntity<List<Supply>> getSupply() {
+    public ResponseEntity<List<GetSupplyDto>> getSupply() {
         var supplies = supplyService.getAllSupplies();
 
         return new ResponseEntity<>(supplies, HttpStatus.OK);
     }
 
     @GetMapping("/supplies/{id}")
-    public ResponseEntity<Supply> getSupplyById(@PathVariable Integer id) {
+    public ResponseEntity<GetSupplyDto> getSupplyById(@PathVariable Integer id) {
         var supplies = supplyService.getSupplyById(id);
 
         return new ResponseEntity<>(supplies, HttpStatus.OK);

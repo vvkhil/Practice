@@ -1,11 +1,15 @@
 package com.example.thirdtask.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "user_app")
 public class UserApp {
     @Id
@@ -22,69 +26,20 @@ public class UserApp {
     @Column(name = "password", length = 50)
     private String password;
 
-    @OneToMany(mappedBy = "user")
-    private Set<AdminShop> adminShops = new LinkedHashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Customer> customers = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "userApp")
+    private Set<Address> addresses = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private Set<Provider> providers = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "userApp")
+    private Set<ShoppingCart> shoppingCarts = new LinkedHashSet<>();
 
-    public Integer getId() {
-        return id;
-    }
+    @OneToMany(mappedBy = "userApp")
+    private Set<Supply> supplies = new LinkedHashSet<>();
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<AdminShop> getAdminShops() {
-        return adminShops;
-    }
-
-    public void setAdminShops(Set<AdminShop> adminShops) {
-        this.adminShops = adminShops;
-    }
-
-    public Set<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(Set<Customer> customers) {
-        this.customers = customers;
-    }
-
-    public Set<Provider> getProviders() {
-        return providers;
-    }
-
-    public void setProviders(Set<Provider> providers) {
-        this.providers = providers;
-    }
+    @OneToMany(mappedBy = "userApp")
+    private Set<BaskShop> baskShops = new LinkedHashSet<>();
 
 }

@@ -1,8 +1,10 @@
 package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
+import com.example.thirdtask.dtos.cartdtos.GetCartDto;
 import com.example.thirdtask.entities.*;
 import com.example.thirdtask.exceptions.NotFoundException;
+import com.example.thirdtask.mappers.CartMapper;
 import com.example.thirdtask.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,18 +14,21 @@ import java.util.List;
 @Service
 public class ShoppingCartService {
     private final ShoppingCartRepository shoppingCartRepository;
+    private final CartMapper cartMapper;
 
     @Autowired
-    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository) {
+    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository, CartMapper cartMapper) {
         this.shoppingCartRepository = shoppingCartRepository;
+        this.cartMapper = cartMapper;
     }
 
-    public List<ShoppingCart> getAllShoppingCarts() {
-        return shoppingCartRepository.findAll();
+    public List<GetCartDto> getAllShoppingCarts() {
+        return shoppingCartRepository.findAll().stream().map(cartMapper::cartToGetCartDto).toList();
     }
 
-    public ShoppingCart getShoppingCartById(Integer id) {
-        return shoppingCartRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+    public GetCartDto getShoppingCartById(Integer id) {
+        var cart = shoppingCartRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+        return cartMapper.cartToGetCartDto(cart);
     }
 
     public void addShoppingCart(ShoppingCart shoppingCart) {
