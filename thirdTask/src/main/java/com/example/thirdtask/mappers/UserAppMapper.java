@@ -1,7 +1,5 @@
 package com.example.thirdtask.mappers;
 
-
-import com.example.thirdtask.dtos.userappdtos.AddUserAppDto;
 import com.example.thirdtask.dtos.userappdtos.GetUserAppDto;
 import com.example.thirdtask.entities.UserApp;
 import org.mapstruct.Mapper;
@@ -10,5 +8,4 @@ import org.mapstruct.Mapper;
 public interface UserAppMapper {
     GetUserAppDto userToGetUserDto(UserApp userApp);
 
-    UserApp addUserDtoToUser(AddUserAppDto addChatDto);
 }

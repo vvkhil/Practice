@@ -7,6 +7,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface RoleMapper {
     GetRoleDto roleToGetRoleDto(Role role);
-//
-//    UserApp addAddressDtoToAddress(AddAddressDto addAddressDto);
+
 }

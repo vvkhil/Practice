@@ -28,6 +28,6 @@ public class Address {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private UserApp userApp;
+    private UserApp user;
 
 }

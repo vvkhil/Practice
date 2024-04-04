@@ -34,13 +34,13 @@ public class BaskShoe {
     @Column(name = "size", nullable = false)
     private Integer size;
 
-    @ManyToMany(mappedBy = "baskShoe")
+    @ManyToMany(mappedBy = "shoe")
     private List<ShoppingCart> shoppingCarts;
 
-    @ManyToMany(mappedBy = "baskShoe")
+    @ManyToMany(mappedBy = "shoe")
     private List<BaskShop> baskShops;
 
-    @ManyToMany(mappedBy = "baskShoe")
+    @ManyToMany(mappedBy = "shoe")
     private List<Supply> supplies;
 
 }

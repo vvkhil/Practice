@@ -21,12 +21,12 @@ public class Supply {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private UserApp userApp;
+    private UserApp user;
 
     @ManyToMany()
     @JoinTable(name="supply_log",
             joinColumns=@JoinColumn(name="supply_id",referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(name="bask_shoe_id", referencedColumnName="id"))
-    private List<BaskShoe> baskShoe;
+    private List<BaskShoe> shoe;
 
 }

@@ -2,6 +2,7 @@ package com.example.thirdtask.controllers;
 
 
 import com.example.thirdtask.dtos.shopdtos.GetShopDto;
+import com.example.thirdtask.dtos.supplydtos.GetSupplyDto;
 import com.example.thirdtask.entities.BaskShop;
 import com.example.thirdtask.services.BaskShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 public class BaskShopController {
+    final BaskShopService baskShopService;
+
     @Autowired
-    BaskShopService baskShopService;
+    public BaskShopController(BaskShopService baskShopService) {
+        this.baskShopService = baskShopService;
+    }
 
     @GetMapping("/shops")
     public ResponseEntity<List<GetShopDto>> getBaskShop() {
@@ -31,24 +37,34 @@ public class BaskShopController {
     }
 
     @PostMapping("/shops")
-    public ResponseEntity<Object> addBaskShop(BaskShop baskShop) {
-        baskShopService.addBaskShop(baskShop);
+    public ResponseEntity<Object> addBaskShop(@RequestBody BaskShop baskShop, Principal principal) {
+        var authenticatedUserId = Integer.parseInt(principal.getName());
+        baskShopService.addBaskShop(baskShop, authenticatedUserId);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/shops")
-    public ResponseEntity<Object> updateBaskShop(BaskShop baskShop) {
-        baskShopService.updateBaskShoe(baskShop);
+    public ResponseEntity<Object> updateBaskShop(@RequestBody BaskShop baskShop, Principal principal) {
+        var authenticatedUserId = Integer.parseInt(principal.getName());
+        baskShopService.updateBaskShoe(baskShop, authenticatedUserId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/shops/{id}")
-    public ResponseEntity<Object> removeBaskShopById(@PathVariable Integer id) {
-        baskShopService.removeBaskShopById(id);
+    public ResponseEntity<Object> removeBaskShopById(@PathVariable Integer id, Principal principal) {
+        var authenticatedUserId = Integer.parseInt(principal.getName());
+        baskShopService.removeBaskShopById(id, authenticatedUserId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/users/{id}/shops")
+    public ResponseEntity<List<GetShopDto>> getBaskShopByUserId(@PathVariable Integer id) {
+        var shops = baskShopService.getBaskShopByUserId(id);
+
+        return new ResponseEntity<>(shops, HttpStatus.OK);
     }
 
 }

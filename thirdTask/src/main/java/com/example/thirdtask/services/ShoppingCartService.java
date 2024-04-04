@@ -2,7 +2,9 @@ package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
 import com.example.thirdtask.dtos.cartdtos.GetCartDto;
+import com.example.thirdtask.dtos.shopdtos.GetShopDto;
 import com.example.thirdtask.entities.*;
+import com.example.thirdtask.exceptions.ForbiddenException;
 import com.example.thirdtask.exceptions.NotFoundException;
 import com.example.thirdtask.mappers.CartMapper;
 import com.example.thirdtask.repositories.*;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ShoppingCartService {
@@ -31,28 +34,44 @@ public class ShoppingCartService {
         return cartMapper.cartToGetCartDto(cart);
     }
 
-    public void addShoppingCart(ShoppingCart shoppingCart) {
-        shoppingCartRepository.save(shoppingCart);
-    }
-
-    public void updateShoppingCart(ShoppingCart shoppingCart) {
-        var existingUser = shoppingCartRepository.findById(shoppingCart.getId());
-
-        if (existingUser.isEmpty()) {
-            throw new NotFoundException(Constants.NO_SUCH_ENTITY);
+    public void addShoppingCart(ShoppingCart shoppingCart, Integer authenticatedUserId) {
+        if (!Objects.equals(authenticatedUserId, shoppingCart.getUser().getId())) {
+            throw new ForbiddenException(Constants.FORBIDDEN);
         }
 
         shoppingCartRepository.save(shoppingCart);
     }
 
-    public void removeShoppingCartById(Integer id) {
-        var existingUser = shoppingCartRepository.findById(id);
+    public void updateShoppingCart(ShoppingCart shoppingCart, Integer authenticatedUserId) {
+        var existingCart = shoppingCartRepository.findById(shoppingCart.getId());
 
-        if (existingUser.isEmpty()) {
+        if (existingCart.isEmpty()) {
             throw new NotFoundException(Constants.NO_SUCH_ENTITY);
+        }
+
+        if (!Objects.equals(authenticatedUserId, shoppingCart.getUser().getId())) {
+            throw new ForbiddenException(Constants.FORBIDDEN);
+        }
+
+        shoppingCartRepository.save(shoppingCart);
+    }
+
+    public void removeShoppingCartById(Integer id, Integer authenticatedUserId) {
+        var existingCart = shoppingCartRepository.findById(id);
+
+        if (existingCart.isEmpty()) {
+            throw new NotFoundException(Constants.NO_SUCH_ENTITY);
+        }
+
+        if (!Objects.equals(authenticatedUserId, existingCart.get().getUser().getId())) {
+            throw new ForbiddenException(Constants.FORBIDDEN);
         }
 
         shoppingCartRepository.deleteById(id);
+    }
+
+    public List<GetCartDto> getShoppingCartByUserId(Integer userId) {
+        return shoppingCartRepository.findByUserId(userId).stream().map(cartMapper::cartToGetCartDto).toList();
     }
 
 }

@@ -19,7 +19,7 @@ public class OrderApp {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "shopping_cart_id", nullable = false)
-    private ShoppingCart shoppingCart;
+    private ShoppingCart cart;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "shop_id", nullable = false)

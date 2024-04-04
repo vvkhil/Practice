@@ -30,16 +30,16 @@ public class UserApp {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "userApp")
+    @OneToMany(mappedBy = "user")
     private Set<Address> addresses = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "userApp")
+    @OneToMany(mappedBy = "user")
     private Set<ShoppingCart> shoppingCarts = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "userApp")
+    @OneToMany(mappedBy = "user")
     private Set<Supply> supplies = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "userApp")
+    @OneToMany(mappedBy = "user")
     private Set<BaskShop> baskShops = new LinkedHashSet<>();
 
 }

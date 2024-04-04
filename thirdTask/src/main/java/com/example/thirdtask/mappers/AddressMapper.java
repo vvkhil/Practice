@@ -8,6 +8,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface AddressMapper {
     GetAddressDto addressToGetAddressDto(Address address);
-//
-//    UserApp addAddressDtoToAddress(AddAddressDto addAddressDto);
+
 }

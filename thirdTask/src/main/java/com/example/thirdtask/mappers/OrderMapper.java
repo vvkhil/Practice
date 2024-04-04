@@ -7,6 +7,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
     GetOrderDto orderToGetOrderDto(OrderApp orderApp);
-//
-//    UserApp addAddressDtoToAddress(AddAddressDto addAddressDto);
+
 }

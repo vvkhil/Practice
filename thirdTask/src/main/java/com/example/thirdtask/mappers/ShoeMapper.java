@@ -7,6 +7,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface ShoeMapper {
     GetShoeDto shoeToGetShoeDto(BaskShoe baskShoe);
-//
-//    UserApp addAddressDtoToAddress(AddAddressDto addAddressDto);
+
 }

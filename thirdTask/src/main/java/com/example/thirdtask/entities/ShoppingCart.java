@@ -20,15 +20,15 @@ public class ShoppingCart {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private UserApp userApp;
+    private UserApp user;
 
     @ManyToMany()
     @JoinTable(name="bask_cart",
             joinColumns=@JoinColumn(name="shopping_Cart_id",referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(name="bask_Shoe_id", referencedColumnName="id"))
-    private List<BaskShoe> baskShoe;
+    private List<BaskShoe> shoe;
 
-    @OneToMany(mappedBy = "shoppingCart")
+    @OneToMany(mappedBy = "cart")
     private Set<OrderApp> orderApps = new LinkedHashSet<>();
 
 }
