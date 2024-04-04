@@ -51,8 +51,8 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String query;
 
-        Connection connection;
-        Statement statement;
+        Connection connection = null;
+        Statement statement = null;
 
         try {
             connection = DriverManager.getConnection(
@@ -62,7 +62,8 @@ public class Main {
 
         } catch (SQLException e) {
             logger.log(Level.INFO, "Connection Failed");
-            return;
+        } finally {
+            connection.close();
         }
 
         String login;
@@ -92,12 +93,13 @@ public class Main {
 
                 if (!resultSet.next()) {
                     logger.log(Level.INFO, "Your user isnt in database.\nPlease enter again.\n");
-                    continue;
                 }
 
             } catch (SQLException e) {
                 logger.log(Level.INFO, e.getMessage());
 
+            } finally {
+                statement.close();
             }
 
             break;
@@ -242,6 +244,9 @@ public class Main {
                     } catch (SQLException e) {
                         logger.log(Level.INFO, e.getMessage());
 
+                    } finally {
+                        assert statement != null;
+                        statement.close();
                     }
                 }
                 case "customer" -> {
