@@ -2,6 +2,7 @@ package com.example.thirdtask.controllers;
 
 
 import com.example.thirdtask.dtos.shoedtos.GetShoeDto;
+import com.example.thirdtask.dtos.shopdtos.GetShopDto;
 import com.example.thirdtask.entities.BaskShoe;
 import com.example.thirdtask.services.BaskShoeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,13 @@ public class BaskShoeController {
         baskShoeService.removeBaskShoeById(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/shops/{id}/shoes")
+    public ResponseEntity<List<GetShoeDto>> getShoesByShopId(@PathVariable Integer id, @RequestParam boolean isInShop) {
+        var shoes = baskShoeService.getShoeByShopId(id, isInShop);
+
+        return new ResponseEntity<>(shoes, HttpStatus.OK);
     }
 
 }

@@ -31,15 +31,15 @@ public class UserApp {
     private Role role;
 
     @OneToMany(mappedBy = "user")
-    private Set<Address> addresses = new LinkedHashSet<>();
+    private Set<Address> address = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private Set<ShoppingCart> shoppingCarts = new LinkedHashSet<>();
+    private Set<ShoppingCart> cart = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private Set<Supply> supplies = new LinkedHashSet<>();
+    private Set<Supply> supply = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private Set<BaskShop> baskShops = new LinkedHashSet<>();
+    private Set<BaskShop> shop = new LinkedHashSet<>();
 
 }

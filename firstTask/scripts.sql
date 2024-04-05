@@ -9,7 +9,7 @@ CREATE TABLE user_app (
     email VARCHAR(50),
     password VARCHAR(50),
     role_id INT NOT NULL,
-    FOREIGN KEY (role_id) REFERENCES role(id)
+    FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE
 );
 
 CREATE TABLE address (
@@ -19,13 +19,13 @@ CREATE TABLE address (
     house VARCHAR(20),
     flat VARCHAR(10),
     user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id)
+    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id) ON DELETE CASCADE
 );
 
 CREATE TABLE supply (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id)
+    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id) ON DELETE CASCADE
 );
 
 CREATE TABLE bask_shoe (
@@ -42,8 +42,8 @@ CREATE TABLE supply_log (
     bask_shoe_id INT NOT NULL,
     supply_id INT NOT NULL,
     PRIMARY KEY (bask_shoe_id, supply_id),
-    FOREIGN KEY (bask_shoe_id) REFERENCES bask_shoe(id),
-    FOREIGN KEY (supply_id) REFERENCES supply(id)
+    FOREIGN KEY (bask_shoe_id) REFERENCES bask_shoe(id) ON DELETE CASCADE,
+    FOREIGN KEY (supply_id) REFERENCES supply(id) ON DELETE CASCADE
 );
 
 CREATE TABLE bask_shop(
@@ -51,29 +51,29 @@ CREATE TABLE bask_shop(
     title VARCHAR(50),
     rating INT CHECK (rating >= 0 AND rating <= 11),
     user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id)
+    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id) ON DELETE CASCADE
 );
 
 CREATE TABLE catalog_shoes (
     bask_shoe_id INT NOT NULL,
     shop_id INT NOT NULL,
     PRIMARY KEY (bask_shoe_id, shop_id),
-    FOREIGN KEY (bask_shoe_id) REFERENCES bask_shoe(id),
-    FOREIGN KEY (shop_id) REFERENCES bask_shop(id)
+    FOREIGN KEY (bask_shoe_id) REFERENCES bask_shoe(id) ON DELETE CASCADE,
+    FOREIGN KEY (shop_id) REFERENCES bask_shop(id) ON DELETE CASCADE
 );
 
 CREATE TABLE shopping_cart(
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id)
+    FOREIGN KEY (user_id) REFERENCES user_app(user_app_id) ON DELETE CASCADE
 );
 
 CREATE TABLE bask_cart (
     bask_shoe_id INT NOT NULL,
     shopping_cart_id INT NOT NULL,
     PRIMARY KEY (bask_shoe_id, shopping_cart_id),
-    FOREIGN KEY (bask_shoe_id) REFERENCES bask_shoe(id),
-    FOREIGN KEY (shopping_cart_id) REFERENCES shopping_cart(id)
+    FOREIGN KEY (bask_shoe_id) REFERENCES bask_shoe(id) ON DELETE CASCADE,
+    FOREIGN KEY (shopping_cart_id) REFERENCES shopping_cart(id) ON DELETE CASCADE
 );
 
 CREATE TABLE order_app (
@@ -81,8 +81,8 @@ CREATE TABLE order_app (
     shopping_cart_id INT NOT NULL,
     shop_id INT NOT NULL,
     status_name VARCHAR(50),
-    FOREIGN KEY (shopping_cart_id) REFERENCES shopping_cart(id),
-    FOREIGN KEY (shop_id) REFERENCES bask_shop(id)
+    FOREIGN KEY (shopping_cart_id) REFERENCES shopping_cart(id) ON DELETE CASCADE,
+    FOREIGN KEY (shop_id) REFERENCES bask_shop(id) ON DELETE CASCADE
 );
 
 

@@ -3,23 +3,29 @@ package com.example.thirdtask.services;
 import com.example.thirdtask.constants.Constants;
 import com.example.thirdtask.dtos.shoedtos.GetShoeDto;
 import com.example.thirdtask.entities.BaskShoe;
+import com.example.thirdtask.entities.BaskShop;
 import com.example.thirdtask.exceptions.NotFoundException;
 import com.example.thirdtask.mappers.ShoeMapper;
 import com.example.thirdtask.repositories.BaskShoeRepository;
+import com.example.thirdtask.repositories.BaskShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
 public class BaskShoeService {
     private final BaskShoeRepository baskShoeRepository;
     private final ShoeMapper shoeMapper;
+    private final BaskShopRepository baskShopRepository;
 
     @Autowired
-    public BaskShoeService(BaskShoeRepository baskShoeRepository, ShoeMapper shoeMapper) {
+    public BaskShoeService(BaskShoeRepository baskShoeRepository, ShoeMapper shoeMapper,
+                           BaskShopRepository baskShopRepository) {
         this.baskShoeRepository = baskShoeRepository;
         this.shoeMapper = shoeMapper;
+        this.baskShopRepository = baskShopRepository;
     }
 
     public List<GetShoeDto> getAllBaskShoes() {
@@ -53,6 +59,23 @@ public class BaskShoeService {
         }
 
         baskShoeRepository.deleteById(id);
+    }
+
+    public List<GetShoeDto> getShoeByShopId(Integer shopId, boolean isInShop) {
+        var shop = baskShopRepository.findById(shopId).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+
+        var shopSet = new HashSet<BaskShop>();
+        shopSet.add(shop);
+        List<BaskShoe> shoes;
+
+        if (isInShop) {
+            shoes = baskShoeRepository.findAllByShopContains(shopSet);
+        }
+        else {
+            shoes = baskShoeRepository.findAllByShopNotContains(shopSet);
+        }
+
+        return shoes.stream().map(shoeMapper::shoeToGetShoeDto).toList();
     }
 
 }

@@ -1,7 +1,19 @@
-import axios from "axios"
+import axios from "axios";
 
 export async function signIn(email, password) {
-    let response = await axios.post(`http://localhost:8080/auth/signin?email=${email}&password=${password}`);
-    
-    return response.data
+    const response = await axios.post(`/auth/signin?email=${email}&password=${password}`);
+
+    return response.data;
+}
+
+export async function signUp(email, password, firstName, lastName, birthDate) {
+    const response = await axios.post('/auth/signup', {
+        email,
+        password,
+        firstName,
+        lastName,
+        birthDate
+    });
+
+    return response.data;
 }

@@ -26,9 +26,9 @@ public class ShoppingCart {
     @JoinTable(name="bask_cart",
             joinColumns=@JoinColumn(name="shopping_Cart_id",referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(name="bask_Shoe_id", referencedColumnName="id"))
-    private List<BaskShoe> shoe;
+    private Set<BaskShoe> shoe = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "cart")
-    private Set<OrderApp> orderApps = new LinkedHashSet<>();
+    private Set<OrderApp> order = new LinkedHashSet<>();
 
 }

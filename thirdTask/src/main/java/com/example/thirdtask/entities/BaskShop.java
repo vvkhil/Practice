@@ -32,10 +32,10 @@ public class BaskShop {
     @JoinTable(name="catalog_shoes",
             joinColumns=@JoinColumn(name="shop_id",referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(name="bask_shoe_id", referencedColumnName="id"))
-    private List<BaskShoe> shoe;
+    private Set<BaskShoe> shoe = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "shop")
-    private Set<OrderApp> orderApps = new LinkedHashSet<>();
+    private Set<OrderApp> order = new LinkedHashSet<>();
 
 
 }

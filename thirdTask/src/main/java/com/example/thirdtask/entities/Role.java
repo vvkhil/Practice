@@ -21,6 +21,6 @@ public class Role {
     private String name;
 
     @OneToMany(mappedBy = "role")
-    private Set<UserApp> userApps = new LinkedHashSet<>();
+    private Set<UserApp> user = new LinkedHashSet<>();
 
 }

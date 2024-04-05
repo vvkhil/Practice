@@ -27,6 +27,6 @@ public class Supply {
     @JoinTable(name="supply_log",
             joinColumns=@JoinColumn(name="supply_id",referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(name="bask_shoe_id", referencedColumnName="id"))
-    private List<BaskShoe> shoe;
+    private Set<BaskShoe> shoe = new LinkedHashSet<>();
 
 }

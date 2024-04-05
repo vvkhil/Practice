@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -35,12 +37,12 @@ public class BaskShoe {
     private Integer size;
 
     @ManyToMany(mappedBy = "shoe")
-    private List<ShoppingCart> shoppingCarts;
+    private Set<ShoppingCart> cart = new LinkedHashSet<>();
 
     @ManyToMany(mappedBy = "shoe")
-    private List<BaskShop> baskShops;
+    private Set<BaskShop> shop = new LinkedHashSet<>();
 
     @ManyToMany(mappedBy = "shoe")
-    private List<Supply> supplies;
+    private Set<Supply> supply = new LinkedHashSet<>();
 
 }

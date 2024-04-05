@@ -10,6 +10,9 @@ export default function Navbar() {
                 <li>
                     <Link to={`/signup`}>Регистрация</Link>
                 </li>
+                <li>
+                    <Link to={`/shops`}>Shops</Link>
+                </li>
             </ul>
         </nav>
     );

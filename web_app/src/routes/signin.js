@@ -1,46 +1,41 @@
-import React, { useState } from 'react';
-import { signIn } from "../api/AuthService"
-import { useCookies } from 'react-cookie'
+import { useContext, useState } from "react";
+import { signIn } from "../api/authService";
+import { AppContext } from "../contexts/context";
+import { useNavigate } from "react-router-dom";
 
 export default function Signin() {
+    const appContext = useContext(AppContext);
+    
+    const navigate = useNavigate();
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [cookies, setCookie, removeCookie] = useCookies(['jwt_token', 'user']);
 
     return (
         <section>
             <input
                 placeholder="Email"
                 type="email"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
             />
             <input
                 placeholder="Пароль"
                 type="password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
             />
             <button
-                onClick={signInClick}>
+                onClick={signinButtonOnClick}
+            >
                 Войти
             </button>
         </section>
     );
 
-    async function signInClick() {
-        let data = await signIn(email, password)
-        setCookie('jwt_token', data.token,
-        {
-            maxAge: 3600
-        });
-        setCookie('user', data.id,
-        {
-            maxAge: 3600
-        });
-        console.log(data)
-    }
-
-    async function logOutClick() {
-        removeCookie('jwt_token');
-        removeCookie('user');
+    async function signinButtonOnClick() {
+        const data = await signIn(email, password);
+        appContext.setCookie('userId', data.id);
+        appContext.setCookie('token', data.token);
+        appContext.setIsAuthenticated(true);
+        navigate('/');
     }
 }
