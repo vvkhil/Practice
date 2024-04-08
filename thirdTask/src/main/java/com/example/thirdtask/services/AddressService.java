@@ -1,7 +1,7 @@
 package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
-import com.example.thirdtask.dtos.addressdtos.GetAddressDto;
+import com.example.thirdtask.dtos.addressdtos.AddressDto;
 import com.example.thirdtask.entities.Address;
 import com.example.thirdtask.exceptions.ForbiddenException;
 import com.example.thirdtask.exceptions.NotFoundException;
@@ -15,8 +15,7 @@ import java.util.Objects;
 
 @Service
 public class AddressService {
-    @Autowired
-    private AddressRepository addressRepository;
+    private final AddressRepository addressRepository;
 
     private final AddressMapper addressMapper;
 
@@ -26,13 +25,13 @@ public class AddressService {
         this.addressMapper = addressMapper;
     }
 
-    public List<GetAddressDto> getAllAddresses() {
-        return addressRepository.findAll().stream().map(addressMapper::addressToGetAddressDto).toList();
+    public List<AddressDto> getAllAddresses() {
+        return addressRepository.findAll().stream().map(addressMapper::toAddressDto).toList();
     }
 
-    public GetAddressDto getAddressById(Integer id) {
+    public AddressDto getAddressById(Integer id) {
         var address = addressRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
-        return addressMapper.addressToGetAddressDto(address);
+        return addressMapper.toAddressDto(address);
     }
 
     public void addAddress(Address address, Integer authenticatedUserId) {
@@ -71,8 +70,8 @@ public class AddressService {
         addressRepository.deleteById(id);
     }
 
-    public List<GetAddressDto> getAddressByUserId(Integer userId) {
-        return addressRepository.findByUserId(userId).stream().map(addressMapper::addressToGetAddressDto).toList();
+    public List<AddressDto> getAddressByUserId(Integer userId) {
+        return addressRepository.findByUserId(userId).stream().map(addressMapper::toAddressDto).toList();
     }
 
 }

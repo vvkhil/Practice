@@ -3,7 +3,7 @@ package com.example.thirdtask.dtos.orderdtos;
 import lombok.Data;
 
 @Data
-public class GetOrderDto {
+public class OrderDto {
     private Integer id;
     private String statusName;
 }

@@ -1,8 +1,7 @@
 package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
-import com.example.thirdtask.dtos.addressdtos.GetAddressDto;
-import com.example.thirdtask.dtos.supplydtos.GetSupplyDto;
+import com.example.thirdtask.dtos.supplydtos.SupplyDto;
 import com.example.thirdtask.entities.*;
 import com.example.thirdtask.exceptions.ForbiddenException;
 import com.example.thirdtask.exceptions.NotFoundException;
@@ -25,13 +24,13 @@ public class SupplyService {
         this.supplyMapper = supplyMapper;
     }
 
-    public List<GetSupplyDto> getAllSupplies() {
-        return supplyRepository.findAll().stream().map(supplyMapper::supplyToGetSupplyDto).toList();
+    public List<SupplyDto> getAllSupplies() {
+        return supplyRepository.findAll().stream().map(supplyMapper::toSupplyDto).toList();
     }
 
-    public GetSupplyDto getSupplyById(Integer id) {
+    public SupplyDto getSupplyById(Integer id) {
         var supply = supplyRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
-        return supplyMapper.supplyToGetSupplyDto(supply);
+        return supplyMapper.toSupplyDto(supply);
     }
 
     public void addSupply(Supply supply, Integer authenticatedUserId) {
@@ -70,8 +69,8 @@ public class SupplyService {
         supplyRepository.deleteById(id);
     }
 
-    public List<GetSupplyDto> getSupplyByUserId(Integer userId) {
-        return supplyRepository.findByUserId(userId).stream().map(supplyMapper::supplyToGetSupplyDto).toList();
+    public List<SupplyDto> getSupplyByUserId(Integer userId) {
+        return supplyRepository.findByUserId(userId).stream().map(supplyMapper::toSupplyDto).toList();
     }
 
 }

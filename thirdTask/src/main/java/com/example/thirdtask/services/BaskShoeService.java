@@ -1,7 +1,7 @@
 package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
-import com.example.thirdtask.dtos.shoedtos.GetShoeDto;
+import com.example.thirdtask.dtos.shoedtos.ShoeDto;
 import com.example.thirdtask.entities.BaskShoe;
 import com.example.thirdtask.entities.BaskShop;
 import com.example.thirdtask.exceptions.NotFoundException;
@@ -28,13 +28,13 @@ public class BaskShoeService {
         this.baskShopRepository = baskShopRepository;
     }
 
-    public List<GetShoeDto> getAllBaskShoes() {
-        return baskShoeRepository.findAll().stream().map(shoeMapper::shoeToGetShoeDto).toList();
+    public List<ShoeDto> getAllBaskShoes() {
+        return baskShoeRepository.findAll().stream().map(shoeMapper::toShoeDto).toList();
     }
 
-    public GetShoeDto getBaskShoeById(Integer id) {
+    public ShoeDto getBaskShoeById(Integer id) {
         var shoe = baskShoeRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
-        return shoeMapper.shoeToGetShoeDto(shoe);
+        return shoeMapper.toShoeDto(shoe);
     }
 
     public void addBaskShoe(BaskShoe baskShoe) {
@@ -61,7 +61,7 @@ public class BaskShoeService {
         baskShoeRepository.deleteById(id);
     }
 
-    public List<GetShoeDto> getShoeByShopId(Integer shopId, boolean isInShop) {
+    public List<ShoeDto> getShoeByShopId(Integer shopId, boolean isInShop) {
         var shop = baskShopRepository.findById(shopId).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
 
         var shopSet = new HashSet<BaskShop>();
@@ -75,7 +75,7 @@ public class BaskShoeService {
             shoes = baskShoeRepository.findAllByShopNotContains(shopSet);
         }
 
-        return shoes.stream().map(shoeMapper::shoeToGetShoeDto).toList();
+        return shoes.stream().map(shoeMapper::toShoeDto).toList();
     }
 
 }

@@ -1,7 +1,7 @@
 package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
-import com.example.thirdtask.dtos.orderdtos.GetOrderDto;
+import com.example.thirdtask.dtos.orderdtos.OrderDto;
 import com.example.thirdtask.entities.*;
 import com.example.thirdtask.exceptions.NotFoundException;
 import com.example.thirdtask.mappers.OrderMapper;
@@ -22,13 +22,13 @@ public class OrderAppService {
         this.orderMapper = orderMapper;
     }
 
-    public List<GetOrderDto> getAllOrders() {
-        return orderAppRepository.findAll().stream().map(orderMapper::orderToGetOrderDto).toList();
+    public List<OrderDto> getAllOrders() {
+        return orderAppRepository.findAll().stream().map(orderMapper::toOrderDto).toList();
     }
 
-    public GetOrderDto getOrderAppById(Integer id) {
+    public OrderDto getOrderAppById(Integer id) {
         var order = orderAppRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
-        return orderMapper.orderToGetOrderDto(order);
+        return orderMapper.toOrderDto(order);
     }
 
     public void addOrderApp(OrderApp orderApp) {

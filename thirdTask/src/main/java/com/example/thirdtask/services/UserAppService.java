@@ -1,8 +1,7 @@
 package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
-import com.example.thirdtask.dtos.addressdtos.GetAddressDto;
-import com.example.thirdtask.dtos.userappdtos.GetUserAppDto;
+import com.example.thirdtask.dtos.userappdtos.UserAppDto;
 import com.example.thirdtask.entities.UserApp;
 import com.example.thirdtask.exceptions.AlreadyExistsException;
 import com.example.thirdtask.exceptions.ForbiddenException;
@@ -26,13 +25,13 @@ public class UserAppService {
         this.userAppMapper = userAppMapper;
     }
 
-    public List<GetUserAppDto> getAllUsers() {
-        return userAppRepository.findAll().stream().map(userAppMapper::userToGetUserDto).toList();
+    public List<UserAppDto> getAllUsers() {
+        return userAppRepository.findAll().stream().map(userAppMapper::toUserDto).toList();
     }
 
-    public GetUserAppDto getUserById(Integer id) {
+    public UserAppDto getUserById(Integer id) {
         var user = userAppRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
-        return userAppMapper.userToGetUserDto(user);
+        return userAppMapper.toUserDto(user);
     }
 
     public UserApp addUser(UserApp user) {
@@ -78,14 +77,14 @@ public class UserAppService {
         userAppRepository.deleteById(id);
     }
 
-    public GetUserAppDto getUserByEmailAndPassword(String email, String password) {
+    public UserAppDto getUserByEmailAndPassword(String email, String password) {
         var user = userAppRepository.findByEmailAndPassword(email, password).orElseThrow(() -> new ForbiddenException("Invalid email or password"));
 
-        return userAppMapper.userToGetUserDto(user);
+        return userAppMapper.toUserDto(user);
     }
 
-    public List<GetUserAppDto> getUserAppByRoleId(Integer userId) {
-        return userAppRepository.findByRoleId(userId).stream().map(userAppMapper::userToGetUserDto).toList();
+    public List<UserAppDto> getUserAppByRoleId(Integer userId) {
+        return userAppRepository.findByRoleId(userId).stream().map(userAppMapper::toUserDto).toList();
     }
 
 }

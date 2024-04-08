@@ -1,8 +1,7 @@
 package com.example.thirdtask.controllers;
 
 
-import com.example.thirdtask.dtos.addressdtos.GetAddressDto;
-import com.example.thirdtask.dtos.userappdtos.GetUserAppDto;
+import com.example.thirdtask.dtos.userappdtos.UserAppDto;
 import com.example.thirdtask.entities.UserApp;
 import com.example.thirdtask.services.UserAppService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +23,14 @@ public class UserAppController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<GetUserAppDto>> getUsers() {
+    public ResponseEntity<List<UserAppDto>> getUsers() {
         var users = userAppService.getAllUsers();
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<GetUserAppDto> getUserById(@PathVariable Integer id) {
+    public ResponseEntity<UserAppDto> getUserById(@PathVariable Integer id) {
         var user = userAppService.getUserById(id);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -64,7 +63,7 @@ public class UserAppController {
     }
 
     @GetMapping("/roles/{id}/users")
-    public ResponseEntity<List<GetUserAppDto>> getUserAppByRoleId(@PathVariable Integer id) {
+    public ResponseEntity<List<UserAppDto>> getUserAppByRoleId(@PathVariable Integer id) {
         var users = userAppService.getUserAppByRoleId(id);
 
         return new ResponseEntity<>(users, HttpStatus.OK);

@@ -3,7 +3,7 @@ package com.example.thirdtask.dtos.addressdtos;
 import lombok.Data;
 
 @Data
-public class GetAddressDto {
+public class AddressDto {
     private Integer id;
     private String city;
     private String street;

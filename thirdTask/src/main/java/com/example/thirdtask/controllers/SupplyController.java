@@ -1,8 +1,7 @@
 package com.example.thirdtask.controllers;
 
 
-import com.example.thirdtask.dtos.addressdtos.GetAddressDto;
-import com.example.thirdtask.dtos.supplydtos.GetSupplyDto;
+import com.example.thirdtask.dtos.supplydtos.SupplyDto;
 import com.example.thirdtask.entities.Supply;
 import com.example.thirdtask.services.SupplyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +22,14 @@ public class SupplyController {
     }
 
     @GetMapping("/supplies")
-    public ResponseEntity<List<GetSupplyDto>> getSupply() {
+    public ResponseEntity<List<SupplyDto>> getSupply() {
         var supplies = supplyService.getAllSupplies();
 
         return new ResponseEntity<>(supplies, HttpStatus.OK);
     }
 
     @GetMapping("/supplies/{id}")
-    public ResponseEntity<GetSupplyDto> getSupplyById(@PathVariable Integer id) {
+    public ResponseEntity<SupplyDto> getSupplyById(@PathVariable Integer id) {
         var supplies = supplyService.getSupplyById(id);
 
         return new ResponseEntity<>(supplies, HttpStatus.OK);
@@ -61,7 +60,7 @@ public class SupplyController {
     }
 
     @GetMapping("/users/{id}/supplies")
-    public ResponseEntity<List<GetSupplyDto>> getSupplyByUserId(@PathVariable Integer id) {
+    public ResponseEntity<List<SupplyDto>> getSupplyByUserId(@PathVariable Integer id) {
         var supplies = supplyService.getSupplyByUserId(id);
 
         return new ResponseEntity<>(supplies, HttpStatus.OK);

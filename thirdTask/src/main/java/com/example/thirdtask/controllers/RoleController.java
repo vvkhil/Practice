@@ -1,11 +1,9 @@
 package com.example.thirdtask.controllers;
 
 
-import com.example.thirdtask.dtos.roledtos.GetRoleDto;
+import com.example.thirdtask.dtos.roledtos.RoleDto;
 import com.example.thirdtask.entities.Role;
-import com.example.thirdtask.entities.Supply;
 import com.example.thirdtask.services.RoleService;
-import com.example.thirdtask.services.SupplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +21,14 @@ public class RoleController {
     }
 
     @GetMapping("/roles")
-    public ResponseEntity<List<GetRoleDto>> getRole() {
+    public ResponseEntity<List<RoleDto>> getRole() {
         var roles = roleService.getAllRoles();
 
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 
     @GetMapping("/roles/{id}")
-    public ResponseEntity<GetRoleDto> getRoleById(@PathVariable Integer id) {
+    public ResponseEntity<RoleDto> getRoleById(@PathVariable Integer id) {
         var roles = roleService.getRoleById(id);
 
         return new ResponseEntity<>(roles, HttpStatus.OK);

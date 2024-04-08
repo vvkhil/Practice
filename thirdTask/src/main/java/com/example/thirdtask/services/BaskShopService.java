@@ -1,8 +1,7 @@
 package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
-import com.example.thirdtask.dtos.shopdtos.GetShopDto;
-import com.example.thirdtask.dtos.supplydtos.GetSupplyDto;
+import com.example.thirdtask.dtos.shopdtos.ShopDto;
 import com.example.thirdtask.entities.*;
 import com.example.thirdtask.exceptions.AlreadyExistsException;
 import com.example.thirdtask.exceptions.ForbiddenException;
@@ -30,13 +29,13 @@ public class BaskShopService {
         this.baskShoeRepository = baskShoeRepository;
     }
 
-    public List<GetShopDto> getAllBaskShops() {
-        return baskShopRepository.findAll().stream().map(shopMapper::shopToGetShopDto).toList();
+    public List<ShopDto> getAllBaskShops() {
+        return baskShopRepository.findAll().stream().map(shopMapper::toShopDto).toList();
     }
 
-    public GetShopDto getBaskShopById(Integer id) {
+    public ShopDto getBaskShopById(Integer id) {
         var shop = baskShopRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
-        return shopMapper.shopToGetShopDto(shop);
+        return shopMapper.toShopDto(shop);
     }
 
     public void addBaskShop(BaskShop baskShop, Integer authenticatedUserId) {
@@ -47,7 +46,7 @@ public class BaskShopService {
         baskShopRepository.save(baskShop);
     }
 
-    public void updateBaskShoe(BaskShop baskShop, Integer authenticatedUserId) {
+    public void updateBaskShoe(Integer id, BaskShop baskShop, Integer authenticatedUserId) {
         var existingShop = baskShopRepository.findById(baskShop.getId());
 
         if (existingShop.isEmpty()) {
@@ -57,6 +56,8 @@ public class BaskShopService {
         if (!Objects.equals(authenticatedUserId, baskShop.getUser().getId())) {
             throw new ForbiddenException(Constants.FORBIDDEN);
         }
+
+        baskShop.setId(id);
 
         baskShopRepository.save(baskShop);
     }
@@ -98,17 +99,17 @@ public class BaskShopService {
         baskShopRepository.save(shop);
     }
 
-    public List<GetShopDto> getShopsByShoeId(Integer shoeId) {
+    public List<ShopDto> getShopsByShoeId(Integer shoeId) {
         var shoe = baskShoeRepository.findById(shoeId).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
         var shoeSet = new HashSet<BaskShoe>();
         shoeSet.add(shoe);
         var shops = baskShopRepository.findAllByShoeContains(shoeSet);
 
-        return shops.stream().map(shopMapper::shopToGetShopDto).toList();
+        return shops.stream().map(shopMapper::toShopDto).toList();
     }
 
-    public List<GetShopDto> getBaskShopByUserId(Integer userId) {
-        return baskShopRepository.findByUserId(userId).stream().map(shopMapper::shopToGetShopDto).toList();
+    public List<ShopDto> getBaskShopByUserId(Integer userId) {
+        return baskShopRepository.findByUserId(userId).stream().map(shopMapper::toShopDto).toList();
     }
 
 }

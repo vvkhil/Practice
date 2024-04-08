@@ -1,7 +1,7 @@
 package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
-import com.example.thirdtask.dtos.roledtos.GetRoleDto;
+import com.example.thirdtask.dtos.roledtos.RoleDto;
 import com.example.thirdtask.entities.*;
 import com.example.thirdtask.exceptions.NotFoundException;
 import com.example.thirdtask.mappers.RoleMapper;
@@ -22,13 +22,13 @@ public class RoleService {
         this.roleMapper = roleMapper;
     }
 
-    public List<GetRoleDto> getAllRoles() {
-        return roleRepository.findAll().stream().map(roleMapper::roleToGetRoleDto).toList();
+    public List<RoleDto> getAllRoles() {
+        return roleRepository.findAll().stream().map(roleMapper::toRoleDto).toList();
     }
 
-    public GetRoleDto getRoleById(Integer id) {
+    public RoleDto getRoleById(Integer id) {
         var role = roleRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
-        return roleMapper.roleToGetRoleDto(role);
+        return roleMapper.toRoleDto(role);
     }
 
     public void addRole(Role role) {

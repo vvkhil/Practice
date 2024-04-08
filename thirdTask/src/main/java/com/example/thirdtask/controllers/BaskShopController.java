@@ -1,8 +1,7 @@
 package com.example.thirdtask.controllers;
 
 
-import com.example.thirdtask.dtos.shopdtos.GetShopDto;
-import com.example.thirdtask.dtos.supplydtos.GetSupplyDto;
+import com.example.thirdtask.dtos.shopdtos.ShopDto;
 import com.example.thirdtask.entities.BaskShop;
 import com.example.thirdtask.services.BaskShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +22,20 @@ public class BaskShopController {
     }
 
     @GetMapping("/shops")
-    public ResponseEntity<List<GetShopDto>> getBaskShop() {
+    public ResponseEntity<List<ShopDto>> getBaskShop() {
         var shops = baskShopService.getAllBaskShops();
 
         return new ResponseEntity<>(shops, HttpStatus.OK);
     }
 
     @GetMapping("/shops/{id}")
-    public ResponseEntity<GetShopDto> getBaskShopById(@PathVariable Integer id) {
+    public ResponseEntity<ShopDto> getBaskShopById(@PathVariable Integer id) {
         var shops = baskShopService.getBaskShopById(id);
 
         return new ResponseEntity<>(shops, HttpStatus.OK);
     }
 
-    @PostMapping("/shops")
+    @PostMapping("/shops/add/")
     public ResponseEntity<Object> addBaskShop(@RequestBody BaskShop baskShop, Principal principal) {
         var authenticatedUserId = Integer.parseInt(principal.getName());
         baskShopService.addBaskShop(baskShop, authenticatedUserId);
@@ -44,10 +43,10 @@ public class BaskShopController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/shops")
-    public ResponseEntity<Object> updateBaskShop(@RequestBody BaskShop baskShop, Principal principal) {
+    @PutMapping("/shops/update/{id}")
+    public ResponseEntity<Object> updateBaskShop(@PathVariable Integer id, @RequestBody BaskShop baskShop, Principal principal) {
         var authenticatedUserId = Integer.parseInt(principal.getName());
-        baskShopService.updateBaskShoe(baskShop, authenticatedUserId);
+        baskShopService.updateBaskShoe(id, baskShop, authenticatedUserId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -75,14 +74,14 @@ public class BaskShopController {
     }
 
     @GetMapping("/shoes/{id}/shops")
-    public ResponseEntity<List<GetShopDto>> getShopsByShoeId(@PathVariable Integer id) {
+    public ResponseEntity<List<ShopDto>> getShopsByShoeId(@PathVariable Integer id) {
         var shops = baskShopService.getShopsByShoeId(id);
 
         return new ResponseEntity<>(shops, HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}/shops")
-    public ResponseEntity<List<GetShopDto>> getBaskShopByUserId(@PathVariable Integer id) {
+    public ResponseEntity<List<ShopDto>> getBaskShopByUserId(@PathVariable Integer id) {
         var shops = baskShopService.getBaskShopByUserId(id);
 
         return new ResponseEntity<>(shops, HttpStatus.OK);

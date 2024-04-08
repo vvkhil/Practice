@@ -1,8 +1,7 @@
 package com.example.thirdtask.services;
 
 import com.example.thirdtask.constants.Constants;
-import com.example.thirdtask.dtos.cartdtos.GetCartDto;
-import com.example.thirdtask.dtos.shopdtos.GetShopDto;
+import com.example.thirdtask.dtos.cartdtos.CartDto;
 import com.example.thirdtask.entities.*;
 import com.example.thirdtask.exceptions.ForbiddenException;
 import com.example.thirdtask.exceptions.NotFoundException;
@@ -25,13 +24,13 @@ public class ShoppingCartService {
         this.cartMapper = cartMapper;
     }
 
-    public List<GetCartDto> getAllShoppingCarts() {
-        return shoppingCartRepository.findAll().stream().map(cartMapper::cartToGetCartDto).toList();
+    public List<CartDto> getAllShoppingCarts() {
+        return shoppingCartRepository.findAll().stream().map(cartMapper::toCartDto).toList();
     }
 
-    public GetCartDto getShoppingCartById(Integer id) {
+    public CartDto getShoppingCartById(Integer id) {
         var cart = shoppingCartRepository.findById(id).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
-        return cartMapper.cartToGetCartDto(cart);
+        return cartMapper.toCartDto(cart);
     }
 
     public void addShoppingCart(ShoppingCart shoppingCart, Integer authenticatedUserId) {
@@ -70,8 +69,8 @@ public class ShoppingCartService {
         shoppingCartRepository.deleteById(id);
     }
 
-    public List<GetCartDto> getShoppingCartByUserId(Integer userId) {
-        return shoppingCartRepository.findByUserId(userId).stream().map(cartMapper::cartToGetCartDto).toList();
+    public List<CartDto> getShoppingCartByUserId(Integer userId) {
+        return shoppingCartRepository.findByUserId(userId).stream().map(cartMapper::toCartDto).toList();
     }
 
 }

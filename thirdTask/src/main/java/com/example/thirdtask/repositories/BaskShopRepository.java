@@ -1,6 +1,5 @@
 package com.example.thirdtask.repositories;
 
-import com.example.thirdtask.entities.Address;
 import com.example.thirdtask.entities.BaskShoe;
 import com.example.thirdtask.entities.BaskShop;
 import org.springframework.data.jpa.repository.JpaRepository;

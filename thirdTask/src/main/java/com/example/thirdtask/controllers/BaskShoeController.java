@@ -1,8 +1,7 @@
 package com.example.thirdtask.controllers;
 
 
-import com.example.thirdtask.dtos.shoedtos.GetShoeDto;
-import com.example.thirdtask.dtos.shopdtos.GetShopDto;
+import com.example.thirdtask.dtos.shoedtos.ShoeDto;
 import com.example.thirdtask.entities.BaskShoe;
 import com.example.thirdtask.services.BaskShoeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +13,22 @@ import java.util.List;
 
 @RestController
 public class BaskShoeController {
+    private final BaskShoeService baskShoeService;
+
     @Autowired
-    BaskShoeService baskShoeService;
+    public BaskShoeController(BaskShoeService baskShoeService) {
+        this.baskShoeService = baskShoeService;
+    }
 
     @GetMapping("/shoes")
-    public ResponseEntity<List<GetShoeDto>> getBaskShoe() {
+    public ResponseEntity<List<ShoeDto>> getBaskShoe() {
         var shoes = baskShoeService.getAllBaskShoes();
 
         return new ResponseEntity<>(shoes, HttpStatus.OK);
     }
 
     @GetMapping("/shoes/{id}")
-    public ResponseEntity<GetShoeDto> getBaskShoeById(@PathVariable Integer id) {
+    public ResponseEntity<ShoeDto> getBaskShoeById(@PathVariable Integer id) {
         var shoes = baskShoeService.getBaskShoeById(id);
 
         return new ResponseEntity<>(shoes, HttpStatus.OK);
@@ -53,7 +56,7 @@ public class BaskShoeController {
     }
 
     @GetMapping("/shops/{id}/shoes")
-    public ResponseEntity<List<GetShoeDto>> getShoesByShopId(@PathVariable Integer id, @RequestParam boolean isInShop) {
+    public ResponseEntity<List<ShoeDto>> getShoesByShopId(@PathVariable Integer id, @RequestParam boolean isInShop) {
         var shoes = baskShoeService.getShoeByShopId(id, isInShop);
 
         return new ResponseEntity<>(shoes, HttpStatus.OK);

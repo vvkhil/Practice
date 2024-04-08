@@ -1,8 +1,7 @@
 package com.example.thirdtask.controllers;
 
 
-import com.example.thirdtask.dtos.addressdtos.GetAddressDto;
-import com.example.thirdtask.dtos.cartdtos.GetCartDto;
+import com.example.thirdtask.dtos.cartdtos.CartDto;
 import com.example.thirdtask.entities.ShoppingCart;
 import com.example.thirdtask.services.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +22,14 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/carts")
-    public ResponseEntity<List<GetCartDto>> getShoppingCart() {
+    public ResponseEntity<List<CartDto>> getShoppingCart() {
         var carts = shoppingCartService.getAllShoppingCarts();
 
         return new ResponseEntity<>(carts, HttpStatus.OK);
     }
 
     @GetMapping("/carts/{id}")
-    public ResponseEntity<GetCartDto> getShoppingCartById(@PathVariable Integer id) {
+    public ResponseEntity<CartDto> getShoppingCartById(@PathVariable Integer id) {
         var carts = shoppingCartService.getShoppingCartById(id);
 
         return new ResponseEntity<>(carts, HttpStatus.OK);
@@ -61,7 +60,7 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/users/{id}/carts")
-    public ResponseEntity<List<GetCartDto>> getShoppingCartByUserId(@PathVariable Integer id) {
+    public ResponseEntity<List<CartDto>> getShoppingCartByUserId(@PathVariable Integer id) {
         var carts = shoppingCartService.getShoppingCartByUserId(id);
 
         return new ResponseEntity<>(carts, HttpStatus.OK);
