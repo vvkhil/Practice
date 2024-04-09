@@ -34,16 +34,16 @@ public class BaskShoeController {
         return new ResponseEntity<>(shoes, HttpStatus.OK);
     }
 
-    @PostMapping("/shoes")
-    public ResponseEntity<Object> addBaskShoe(BaskShoe baskShoe) {
+    @PostMapping("/shoes/add/")
+    public ResponseEntity<Object> addBaskShoe(@RequestBody BaskShoe baskShoe) {
         baskShoeService.addBaskShoe(baskShoe);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/shoes")
-    public ResponseEntity<Object> updateBaskShoe(BaskShoe baskShoe) {
-        baskShoeService.updateBaskShoe(baskShoe);
+    @PutMapping("/shoes/update/{id}")
+    public ResponseEntity<Object> updateBaskShoe(@PathVariable Integer id, @RequestBody BaskShoe baskShoe) {
+        baskShoeService.updateBaskShoe(id, baskShoe);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

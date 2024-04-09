@@ -18,3 +18,22 @@ export async function getShoesByShopId(shopId, isInShop) {
 
     return response.data;
 }
+
+export async function addBaskShoe(shoe) {
+    const response = await axios.post('/shoes/add/', shoe);
+
+    return response.data;
+}
+
+export async function updateBaskShoe(shoe) {
+    const response = await axios.put('/shoes/update/' + shoe.id, shoe);
+
+    return response.data;
+}
+
+export async function removeBaskShoeById(id) {
+    const response = await axios.delete(`/shoes/${id}`);
+
+    return response.data;
+}
+

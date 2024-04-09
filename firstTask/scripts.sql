@@ -8,7 +8,7 @@ CREATE TABLE user_app (
     login VARCHAR(50),
     email VARCHAR(50),
     password VARCHAR(50),
-    role_id INT NOT NULL,
+    role_id INT,
     FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE
 );
 

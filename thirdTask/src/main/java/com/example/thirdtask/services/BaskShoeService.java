@@ -41,12 +41,14 @@ public class BaskShoeService {
         baskShoeRepository.save(baskShoe);
     }
 
-    public void updateBaskShoe(BaskShoe baskShoe) {
+    public void updateBaskShoe(Integer id, BaskShoe baskShoe) {
         var existingUser = baskShoeRepository.findById(baskShoe.getId());
 
         if (existingUser.isEmpty()) {
             throw new NotFoundException(Constants.NO_SUCH_ENTITY);
         }
+
+        baskShoe.setId(id);
 
         baskShoeRepository.save(baskShoe);
     }

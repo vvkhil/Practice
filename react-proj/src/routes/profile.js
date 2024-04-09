@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../contexts/contexts";
 import { useNavigate } from "react-router-dom";
-import { removeUserById, updateUser } from "../api/userService";
+import { removeUserById } from "../api/userService";
 
 export default function Profile() {
     const appContext = useContext(AppContext);
@@ -11,14 +11,12 @@ export default function Profile() {
     const [login, setLogin] = useState(appContext.user.login);
     const [email, setEmail] = useState(appContext.user.email);
     const [password, setPassword] = useState(appContext.user.password);
-    const [roleId, setRoleId] = useState(appContext.user.roleId);
 
     useEffect(() => {
         setLogin(appContext.user.login);
-        setEmail(appContext,user.email);
-        setPassword(appContext,user.password);
-        setRoleId(appContext,user.roleId);
-    }, [])
+        setEmail(appContext.user.email);
+        setPassword(appContext.user.password);
+    }, [appContext.user.login, appContext.user.email, appContext.user.password])
 
     return (
         <section className="profile-container">
@@ -38,17 +36,12 @@ export default function Profile() {
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                 />
-                <input
-                    placeholder='Роль'
-                    value={roleId}
-                    onChange={e => setRoleId(e.target.value)}
-                />
-                <button
+                {/* <button
                     className="background-color-green"
                     onClick={updateUserButtonOnClick}
                 >
                     Редактировать
-                </button>
+                </button> */}
                 <button
                     className="background-color-gray"
                     onClick={logoutButtonOnClick}
@@ -65,15 +58,20 @@ export default function Profile() {
         </section>
     );
 
-    async function updateUserButtonOnClick() {
-        await updateUser(appContext.user.id, login, email, password, roleId);
-        const user = JSON.parse(JSON.stringify(appContext.user));
-        user.login = login;
-        user.email = email;
-        user.password = password;
-        user.roleId = roleId;
-        appContext.setUser(user);
-    }
+    // async function updateUserButtonOnClick() {
+    //     const userApp = await getUserById(appContext.user.id);
+    //     console.log(userApp);
+    //     console.log(userApp.getRoleId)
+    //     const roleId = userApp.roleId;
+    //     console.log(roleId)
+    //     console.log(appContext.user.id, login, email, password, roleId);
+    //     await updateUser(appContext.user.id, login, email, password, roleId);
+    //     const user = JSON.parse(JSON.stringify(appContext.user));
+    //     user.login = login;
+    //     user.email = email;
+    //     user.password = password;
+    //     appContext.setUser(user);
+    // }
 
     async function logoutButtonOnClick() {
         appContext.removeCookie('userId');

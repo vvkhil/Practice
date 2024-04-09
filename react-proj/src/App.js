@@ -5,11 +5,11 @@ import {
 import Root from './routes/root';
 import NotFound from './routes/notFound'
 // import Users from './routes/users';
-import Shop from './routes/shops';
-// import Profile from './routes/profile';
+import Profile from './routes/profile';
 import Signup from './routes/signup';
 import Signin from './routes/signin';
 import Shops, {BaskShopAdd, ShopsUpdate, loader as shopLoader} from "./routes/shops";
+import Shoes, {BaskShoeAdd, ShoesUpdate, loader as shoeLoader} from "./routes/shoes";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import { AppContext } from "../src/contexts/contexts";
@@ -66,16 +66,29 @@ export default function App() {
           path: "/shops/update/:shopId",
           element: <ShopsUpdate />,
           loader: shopLoader
-        }
+        },
+        {
+          path: "/shoes",
+          element: <Shoes />,
+        },
+        {
+          path: "/shoes/add",
+          element: <BaskShoeAdd />
+        },
+        {
+          path: "/shoes/update/:shoeId",
+          element: <ShoesUpdate />,
+          loader: shoeLoader
+        },
         // {
         //   path: "/chats/:chatId",
         //   element: <Chat />,
         //   loader: chatLoader
         // },
-        // {
-        //   path: "/profile",
-        //   element: <Profile />
-        // }
+        {
+          path: "/profile",
+          element: <Profile />
+        }
       ]
     }
   ]);

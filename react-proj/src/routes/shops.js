@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { getBaskShops, removeBaskShopById, getBaskShopById, addBaskShop, updateBaskShop } from "../api/shopService"
+import { getBaskShops, removeBaskShopById, getBaskShopById, addBaskShop, updateBaskShop, getShopsByShoeId, addShoeToShop, removeShoeFromShop } from "../api/shopService"
 import { getBaskShoe } from "../api/shoeService"
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import Select  from "react-select";
@@ -33,6 +33,9 @@ export default function Shops() {
                             </th>
                             <th>
                                 Rating
+                            </th>
+                            <th>
+                                <Link to="add/" className="btn btn-success">Добавить</Link>
                             </th>
                             <th>
                                 <Link to="add/" className="btn btn-success">Добавить</Link>
@@ -214,6 +217,82 @@ export function ShopsUpdate() {
         shop.user = appContext.user
         // shop.shoes = shoes.map(shoe => shoe.value)
         await updateBaskShop(shop)
+        navigate('/shops')
+    }
+}
+
+export function AddShoeToShop() {
+    const navigate = useNavigate();
+
+    const [shops, setShops] = useState();
+    const [shoes, setShoes] = useState();
+
+    const appContext = useContext(AppContext);
+
+    let shopsList = [];
+    let shoesList = [];
+
+    loadShops();
+    loadShoes();
+
+    return (
+        <section class="form-container">
+            <div class="form">
+                <Select
+                    options={shopsList}
+                    placeholder="Shops"
+                    value={shops}
+                    onChange={handleSelectShop}
+                    isSearchable={true}
+                    isMulti
+                />
+                <Select
+                    options={shoesList}
+                    placeholder="Shoes"
+                    value={shoes}
+                    onChange={handleSelectShoe}
+                    isSearchable={true}
+                    isMulti
+                />
+                <button
+                    onClick={addBaskShopClick}>
+                    Добавить
+                </button>
+            </div>
+        </section>
+    );
+
+    function handleSelectShop(data) {
+        setShops(data);
+    }
+
+    function handleSelectShoe(data) {
+        setShoes(data);
+    }
+
+    async function loadShops() {
+        const shops = await getBaskShops()
+        shops.map(shop =>
+            shopsList.push({ value: shop, label: shop.id})    
+        )
+    }
+
+    async function loadShoes() {
+        const shoes = await getBaskShoe()
+        shoes.map(shoe =>
+            shoesList.push({ value: shoe, label: shoe.id})    
+        )
+    }
+
+    async function addBaskShopClick() {
+        let shop = {}
+        shop.id = id
+        shop.title = title
+        shop.rating = rating
+        shop.user = appContext.user
+        // shop.shoes = shoes.map(shoe => shoe.value)
+        console.log(shop)
+        await addBaskShop(shop)
         navigate('/shops')
     }
 }

@@ -7,6 +7,7 @@ import com.example.thirdtask.exceptions.AlreadyExistsException;
 import com.example.thirdtask.exceptions.ForbiddenException;
 import com.example.thirdtask.exceptions.NotFoundException;
 import com.example.thirdtask.mappers.UserAppMapper;
+import com.example.thirdtask.repositories.RoleRepository;
 import com.example.thirdtask.repositories.UserAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,14 @@ import java.util.Objects;
 public class UserAppService {
     private final UserAppRepository userAppRepository;
     private final UserAppMapper userAppMapper;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public UserAppService(UserAppRepository userAppRepository, UserAppMapper userAppMapper) {
+    public UserAppService(UserAppRepository userAppRepository, UserAppMapper userAppMapper,
+                          RoleRepository roleRepository) {
         this.userAppRepository = userAppRepository;
         this.userAppMapper = userAppMapper;
+        this.roleRepository = roleRepository;
     }
 
     public List<UserAppDto> getAllUsers() {
@@ -40,6 +44,9 @@ public class UserAppService {
         if (optionalUser.isPresent()) {
             throw new AlreadyExistsException(Constants.CONFLICT);
         }
+
+        var role = roleRepository.findById(3).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
+        user.setRole(role);
 
         userAppRepository.save(user);
 
@@ -83,8 +90,8 @@ public class UserAppService {
         return userAppMapper.toUserDto(user);
     }
 
-    public List<UserAppDto> getUserAppByRoleId(Integer userId) {
-        return userAppRepository.findByRoleId(userId).stream().map(userAppMapper::toUserDto).toList();
+    public List<UserAppDto> getUserAppByRoleId(Integer roleId) {
+        return userAppRepository.findByRoleId(roleId).stream().map(userAppMapper::toUserDto).toList();
     }
 
 }

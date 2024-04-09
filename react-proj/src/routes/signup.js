@@ -8,12 +8,18 @@ export default function Signup() {
 
     const navigate = useNavigate();
 
+    const [id, setId] = useState('');
     const [login, setLogin] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     return (
         <section>
+            <input
+                placeholder="Id"
+                type="number"
+                onChange={e => setId(e.target.value)}
+            />
             <input
                 placeholder="Login"
                 type="login"
@@ -38,7 +44,7 @@ export default function Signup() {
     );
 
     async function signupButtonOnClick() {
-        const data = await signUp(login, email, password);
+        const data = await signUp(id, login, email, password);
         appContext.setCookie('userId', data.id);
         appContext.setCookie('token', data.token);
         appContext.setIsAuthenticated(true);

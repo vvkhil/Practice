@@ -6,12 +6,12 @@ export async function signIn(email, password) {
     return response.data;
 }
 
-export async function signUp(login, email, password, roleId) {
+export async function signUp(id, login, email, password) {
     const response = await axios.post('/auth/signup', {
+        id,
         login,
         email,
-        password,
-        roleId
+        password
     });
 
     return response.data;
