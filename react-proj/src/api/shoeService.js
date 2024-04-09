@@ -13,8 +13,8 @@ export async function getBaskShoeById(id) {
     return response.data;
 }
 
-export async function getShoesByShopId(shopId, isInShop) {
-    const response = await axios.get(`/shops/${shopId}/shoes?isInShop=${isInShop}`);
+export async function getShoesByShopId(shopId) {
+    const response = await axios.get(`/shops/get/${shopId}/shoes`);
 
     return response.data;
 }

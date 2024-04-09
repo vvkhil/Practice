@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import './authNavbar.css'
 
 export default function AuthNavbar() {
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="nav justify-content-center">
             <ul className="nav nav-pills">
                 <li className="nav-item">
                     <Link to={`/profile`}>Профиль</Link>

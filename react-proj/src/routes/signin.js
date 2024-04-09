@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { signIn } from "../api/authService";
 import { AppContext } from "../contexts/contexts";
 import { useNavigate } from "react-router-dom";
+import './signin.css'
 
 export default function Signin() {
     const appContext = useContext(AppContext);
@@ -12,13 +13,19 @@ export default function Signin() {
     const [password, setPassword] = useState('');
 
     return (
-        <section>
+        <section className="input-group input-group-sm mb-3">
             <input
+                className="form-control" 
+                aria-label="Small" 
+                aria-describedby="inputGroup-sizing-sm"
                 placeholder="Email"
                 type="email"
                 onChange={e => setEmail(e.target.value)}
             />
             <input
+                className="form-control" 
+                aria-label="Small" 
+                aria-describedby="inputGroup-sizing-sm"
                 placeholder="Пароль"
                 type="password"
                 onChange={e => setPassword(e.target.value)}

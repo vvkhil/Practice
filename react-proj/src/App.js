@@ -4,18 +4,16 @@ import {
 } from "react-router-dom";
 import Root from './routes/root';
 import NotFound from './routes/notFound'
-// import Users from './routes/users';
 import Profile from './routes/profile';
 import Signup from './routes/signup';
 import Signin from './routes/signin';
-import Shops, {BaskShopAdd, ShopsUpdate, loader as shopLoader} from "./routes/shops";
+import Shops, {BaskShopAdd, ShopsUpdate, AddShoeToShop, RemoveShoeFromShop, GetShoesByShop, loader as shopLoader} from "./routes/shops";
 import Shoes, {BaskShoeAdd, ShoesUpdate, loader as shoeLoader} from "./routes/shoes";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import { AppContext } from "../src/contexts/contexts";
 import { getUserById } from "../src/api/userService";
 import axios from "axios";
-// import Chat, { chatLoader } from "./routes/chat";
 
 export default function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['id', 'token']);
@@ -65,6 +63,21 @@ export default function App() {
         {
           path: "/shops/update/:shopId",
           element: <ShopsUpdate />,
+          loader: shopLoader
+        },
+        {
+          path: "/shops/add/:shopId",
+          element: <AddShoeToShop />,
+          loader: shopLoader
+        },
+        {
+          path: "/shops/delete/:shopId",
+          element: <RemoveShoeFromShop />,
+          loader: shopLoader
+        },
+        {
+          path: "/shops/get/:shopId",
+          element: <GetShoesByShop />,
           loader: shopLoader
         },
         {

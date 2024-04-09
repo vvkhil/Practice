@@ -55,9 +55,9 @@ public class BaskShoeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/shops/{id}/shoes")
-    public ResponseEntity<List<ShoeDto>> getShoesByShopId(@PathVariable Integer id, @RequestParam boolean isInShop) {
-        var shoes = baskShoeService.getShoeByShopId(id, isInShop);
+    @GetMapping("/shops/get/{id}/shoes")
+    public ResponseEntity<List<ShoeDto>> getShoesByShopId(@PathVariable Integer id) {
+        var shoes = baskShoeService.getShoeByShopId(id);
 
         return new ResponseEntity<>(shoes, HttpStatus.OK);
     }

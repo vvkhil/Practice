@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { getBaskShops, removeBaskShopById, getBaskShopById, addBaskShop, updateBaskShop, getShopsByShoeId, addShoeToShop, removeShoeFromShop } from "../api/shopService"
-import { getBaskShoe } from "../api/shoeService"
+import { getBaskShops, removeBaskShopById, getBaskShopById, addBaskShop, updateBaskShop, addShoeToShop, removeShoeFromShop } from "../api/shopService"
+import { getBaskShoe, getShoesByShopId } from "../api/shoeService"
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
-import Select  from "react-select";
 import { AppContext } from '../contexts/contexts';
 
 export async function loader({ params }) {
@@ -13,8 +12,6 @@ export async function loader({ params }) {
 export default function Shops() {
     const [shops, setShops] = useState([]);
     const [reload, setReload] = useState(false);
-
-    const appContext = useContext(AppContext)
 
     useEffect(() => {
         loadShops()
@@ -33,9 +30,6 @@ export default function Shops() {
                             </th>
                             <th>
                                 Rating
-                            </th>
-                            <th>
-                                <Link to="add/" className="btn btn-success">Добавить</Link>
                             </th>
                             <th>
                                 <Link to="add/" className="btn btn-success">Добавить</Link>
@@ -60,6 +54,21 @@ export default function Shops() {
                                         className="btn btn-danger">
                                             Удалить
                                     </button>
+                                    <th>
+                                        <Link to={`add/${shop.id}`} className="btn btn-success">Добавить shoes</Link>
+                                    </th>
+                                    <th>
+                                        <Link to={`delete/${shop.id}`} className="btn btn-success">Удалить shoes</Link>
+                                    </th>
+                                    <th>
+                                        <Link to={`get/${shop.id}`} className="btn btn-success">Показать shoes</Link>
+                                    </th>
+                                    {/* <button 
+                                        onClick={() => getShoesByShop(shop.id)} 
+                                        value={shop.id} 
+                                        className="btn btn-danger">
+                                            Показать shoes
+                                    </button> */}
                                 </td>
                             </tr>
                         )}
@@ -71,7 +80,6 @@ export default function Shops() {
 
     async function loadShops() {
         const shops = await getBaskShops()
-        console.log(shops)
         setShops(shops)
     }
 
@@ -87,13 +95,8 @@ export function BaskShopAdd() {
     const [id, setId] = useState('');
     const [title, setTitle] = useState('');
     const [rating, setRating] = useState('');
-    const [shoes, setShoes] = useState();
 
     const appContext = useContext(AppContext);
-
-    let shoesList = [];
-
-    loadShoes();
 
     return (
         <section class="form-container">
@@ -110,14 +113,6 @@ export function BaskShopAdd() {
                     type="text"
                     onChange={(e) => setTitle(e.target.value)}
                 />
-                <Select
-                    options={shoesList}
-                    placeholder="Shoes"
-                    value={shoes}
-                    onChange={handleSelectShoe}
-                    isSearchable={true}
-                    isMulti
-                />
                 <input
                     placeholder="Rating"
                     class="form-control"
@@ -132,25 +127,12 @@ export function BaskShopAdd() {
         </section>
     );
 
-    function handleSelectShoe(data) {
-        setShoes(data);
-    }
-
-    async function loadShoes() {
-        const shoes = await getBaskShoe()
-        shoes.map(shoe =>
-            shoesList.push({ value: shoe, label: shoe.title})    
-        )
-    }
-
     async function addBaskShopClick() {
         let shop = {}
         shop.id = id
         shop.title = title
         shop.rating = rating
         shop.user = appContext.user
-        // shop.shoes = shoes.map(shoe => shoe.value)
-        console.log(shop)
         await addBaskShop(shop)
         navigate('/shops')
     }
@@ -162,13 +144,8 @@ export function ShopsUpdate() {
     const { shop } = useLoaderData();
     const [title, setTitle] = useState('');
     const [rating, setRating] = useState('');
-    const [shoes, setShoes] = useState();
 
     const appContext = useContext(AppContext);
-
-    let shoesList = [];
-
-    loadShoes();
 
     return (
         <section class="form-container">
@@ -185,13 +162,6 @@ export function ShopsUpdate() {
                     type="number"
                     onChange={(e) => setRating(e.target.value)}
                 />
-                <Select
-                    options={shoesList}
-                    placeholder="Shoes"
-                    onChange={handleSelectShoe}
-                    isSearchable={true}
-                    isMulti
-                />
                 <button
                     onClick={updateBaskShopClick}>
                     Изменить
@@ -200,22 +170,10 @@ export function ShopsUpdate() {
         </section>
     );
 
-    function handleSelectShoe(data) {
-        setShoes(data);
-    }
-
-    async function loadShoes() {
-        const shoes = await getBaskShoe()
-        shoes.map(shoe =>
-            shoesList.push({ value: shoe, label: shoe.title})    
-        )
-    }
-
     async function updateBaskShopClick() {
         shop.title = title
         shop.rating = rating
         shop.user = appContext.user
-        // shop.shoes = shoes.map(shoe => shoe.value)
         await updateBaskShop(shop)
         navigate('/shops')
     }
@@ -224,75 +182,264 @@ export function ShopsUpdate() {
 export function AddShoeToShop() {
     const navigate = useNavigate();
 
-    const [shops, setShops] = useState();
-    const [shoes, setShoes] = useState();
+    const { shop } = useLoaderData();
+    const [shoes, setShoes] = useState([]);
+    const [shoeId, setShoeId] = useState();
 
-    const appContext = useContext(AppContext);
-
-    let shopsList = [];
-    let shoesList = [];
-
-    loadShops();
-    loadShoes();
+    loadShoes()
 
     return (
         <section class="form-container">
             <div class="form">
-                <Select
-                    options={shopsList}
-                    placeholder="Shops"
-                    value={shops}
-                    onChange={handleSelectShop}
-                    isSearchable={true}
-                    isMulti
-                />
-                <Select
-                    options={shoesList}
-                    placeholder="Shoes"
-                    value={shoes}
-                    onChange={handleSelectShoe}
-                    isSearchable={true}
-                    isMulti
+                <h2>Shoes</h2>
+                
+                <table className="table table-striped table-hover">   
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Manufacturer
+                            </th>
+                            <th>
+                                Brand
+                            </th>
+                            <th>
+                                Size
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {shoes.map(shoe =>
+                            <tr key={shoe.id}>
+                                <td>
+                                    {shoe.id}
+                                </td>
+                                <td>
+                                    {shoe.title}
+                                </td>
+                                <td>
+                                    {shoe.price}
+                                </td>
+                                <td>
+                                    {shoe.description}
+                                </td>
+                                <td>
+                                    {shoe.manufacturer}
+                                </td>
+                                <td>
+                                    {shoe.brand}
+                                </td>
+                                <td>
+                                    {shoe.size}
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table> 
+
+                <input
+                    placeholder="ShoeId"
+                    class="form-control"
+                    type="number"
+                    onChange={(e) => setShoeId(e.target.value)}
                 />
                 <button
-                    onClick={addBaskShopClick}>
+                    onClick={addShoeToShopClick}>
                     Добавить
                 </button>
             </div>
         </section>
     );
 
-    function handleSelectShop(data) {
-        setShops(data);
+    async function loadShoes() {
+        const shoes = await getBaskShoe()
+        setShoes(shoes)
     }
 
-    function handleSelectShoe(data) {
-        setShoes(data);
+    async function addShoeToShopClick() {
+        await addShoeToShop(shop.id, shoeId)
+        navigate('/shops')
     }
+}
 
-    async function loadShops() {
-        const shops = await getBaskShops()
-        shops.map(shop =>
-            shopsList.push({ value: shop, label: shop.id})    
-        )
-    }
+export function RemoveShoeFromShop() {
+    const navigate = useNavigate();
+
+    const { shop } = useLoaderData();
+    const [shoes, setShoes] = useState([]);
+    const [shoeId, setShoeId] = useState();
+    
+    loadShoes()
+
+    return (
+        <section class="form-container">
+            <div class="form">
+                <h2>Shoes</h2>
+                
+                <table className="table table-striped table-hover">   
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Manufacturer
+                            </th>
+                            <th>
+                                Brand
+                            </th>
+                            <th>
+                                Size
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {shoes.map(shoe =>
+                            <tr key={shoe.id}>
+                                <td>
+                                    {shoe.id}
+                                </td>
+                                <td>
+                                    {shoe.title}
+                                </td>
+                                <td>
+                                    {shoe.price}
+                                </td>
+                                <td>
+                                    {shoe.description}
+                                </td>
+                                <td>
+                                    {shoe.manufacturer}
+                                </td>
+                                <td>
+                                    {shoe.brand}
+                                </td>
+                                <td>
+                                    {shoe.size}
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table> 
+
+                <input
+                    placeholder="ShoeId"
+                    class="form-control"
+                    type="number"
+                    onChange={(e) => setShoeId(e.target.value)}
+                />
+                <button
+                    onClick={removeShoeFromShopClick}>
+                    Добавить
+                </button>
+            </div>
+        </section>
+    );
 
     async function loadShoes() {
         const shoes = await getBaskShoe()
-        shoes.map(shoe =>
-            shoesList.push({ value: shoe, label: shoe.id})    
-        )
+        setShoes(shoes)
     }
 
-    async function addBaskShopClick() {
-        let shop = {}
-        shop.id = id
-        shop.title = title
-        shop.rating = rating
-        shop.user = appContext.user
-        // shop.shoes = shoes.map(shoe => shoe.value)
-        console.log(shop)
-        await addBaskShop(shop)
+    async function removeShoeFromShopClick() {
+        await removeShoeFromShop(shop.id, shoeId)
         navigate('/shops')
     }
+}
+
+export function GetShoesByShop() {
+
+    const { shop } = useLoaderData();
+    const [shoes, setShoes] = useState([]);
+  
+    loadShoes()
+
+    return (
+        <section class="form-container">
+            <div class="form">
+                <h2>Shoes</h2>
+                
+                <table className="table table-striped table-hover">   
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Manufacturer
+                            </th>
+                            <th>
+                                Brand
+                            </th>
+                            <th>
+                                Size
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {shoes.map(shoe =>
+                            <tr key={shoe.id}>
+                                <td>
+                                    {shoe.id}
+                                </td>
+                                <td>
+                                    {shoe.title}
+                                </td>
+                                <td>
+                                    {shoe.price}
+                                </td>
+                                <td>
+                                    {shoe.description}
+                                </td>
+                                <td>
+                                    {shoe.manufacturer}
+                                </td>
+                                <td>
+                                    {shoe.brand}
+                                </td>
+                                <td>
+                                    {shoe.size}
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table> 
+            </div>
+        </section>
+    );
+
+    async function loadShoes() {
+        const shoes = await getShoesByShopId(shop.id)
+        setShoes(shoes)
+    }
+
 }

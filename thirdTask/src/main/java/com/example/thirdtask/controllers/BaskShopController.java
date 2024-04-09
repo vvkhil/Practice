@@ -59,14 +59,14 @@ public class BaskShopController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/shops/{shopId}/shoes/{shoeId}")
+    @PostMapping("/shops/add/{shopId}/shoes/{shoeId}")
     public ResponseEntity<Object> addShoeToShop(@PathVariable Integer shopId, @PathVariable Integer shoeId) {
         baskShopService.addShoeToShop(shopId, shoeId);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/shops/{shopId}/shoes/{shoeId}")
+    @DeleteMapping("/shops/delete/{shopId}/shoes/{shoeId}")
     public ResponseEntity<Object> removeShoeFromShop(@PathVariable Integer shopId, @PathVariable Integer shoeId) {
         baskShopService.removeShoeFromShop(shopId, shoeId);
 

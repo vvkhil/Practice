@@ -63,19 +63,14 @@ public class BaskShoeService {
         baskShoeRepository.deleteById(id);
     }
 
-    public List<ShoeDto> getShoeByShopId(Integer shopId, boolean isInShop) {
+    public List<ShoeDto> getShoeByShopId(Integer shopId) {
         var shop = baskShopRepository.findById(shopId).orElseThrow(() -> new NotFoundException(Constants.NO_SUCH_ENTITY));
 
         var shopSet = new HashSet<BaskShop>();
         shopSet.add(shop);
         List<BaskShoe> shoes;
 
-        if (isInShop) {
-            shoes = baskShoeRepository.findAllByShopContains(shopSet);
-        }
-        else {
-            shoes = baskShoeRepository.findAllByShopNotContains(shopSet);
-        }
+        shoes = baskShoeRepository.findAllByShopContains(shopSet);
 
         return shoes.stream().map(shoeMapper::toShoeDto).toList();
     }

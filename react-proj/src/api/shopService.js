@@ -37,13 +37,13 @@ export async function getShopsByShoeId(shoeId) {
 }
 
 export async function addShoeToShop(shopId, shoeId) {
-    const response = await axios.post(`/shops/${shopId}/shoes/${shoeId}`)
+    const response = await axios.post(`/shops/add/${shopId}/shoes/${shoeId}`)
 
     return response.data;
 }
 
 export async function removeShoeFromShop(shopId, shoeId) {
-    const response = await axios.delete(`/shops/${shopId}/shoes/${shoeId}`)
+    const response = await axios.delete(`/shops/delete/${shopId}/shoes/${shoeId}`)
 
     return response.data;
 }
