@@ -1,0 +1,32 @@
+<section
+    class="profile-container"
+>
+    <div
+        class="profile-card"
+    >
+        <input
+            placeholder='Login'
+            [(ngModel)]="login"
+        />
+        <input
+            placeholder='Email'
+            [(ngModel)]="email"
+        />
+        <input
+            placeholder='Password'
+            [(ngModel)]="password"
+        />
+        <button
+            class="background-color-gray"
+            (click)="logOut()"
+        >
+            Выйти
+        </button>
+        <button
+            class="background-color-red"
+            (click)="removeUser()"
+        >
+            Удалить аккаунт
+        </button>
+    </div>
+</section>
