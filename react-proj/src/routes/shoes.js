@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getBaskShoe, removeBaskShoeById, getBaskShoeById, addBaskShoe, updateBaskShoe } from "../api/shoeService"
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import "./shoes.css"
 
 export async function loader({ params }) {
     const shoe = await getBaskShoeById(params.shoeId);
@@ -42,7 +43,7 @@ export default function Shoes() {
                                 Size
                             </th>
                             <th>
-                                <Link to="add/" className="btn btn-success">Добавить</Link>
+                                <Link to="add/" className="btn btn-success">Add</Link>
                             </th>
                         </tr>
                     </thead>
@@ -68,13 +69,13 @@ export default function Shoes() {
                                     {shoe.size}
                                 </td>
                                 <td>
-                                    <Link to={`update/${shoe.id}`} className="btn btn-info">Изменить</Link>
-                                    |
+                                    <Link to={`update/${shoe.id}`} className="btn btn-info">Update</Link>
+                                    
                                     <button 
                                         onClick={() => removeBaskShoe(shoe.id)} 
                                         value={shoe.id} 
                                         className="btn btn-danger">
-                                            Удалить
+                                            Delete
                                     </button>
                                 </td>
                             </tr>
@@ -109,55 +110,54 @@ export function BaskShoeAdd() {
     const [size, setSize] = useState('');
 
     return (
-        <section class="form-container">
-            <div class="form">
-                <input
-                    placeholder="Id"
-                    class="form-control"
-                    type="number"
-                    onChange={(e) => setId(e.target.value)}
-                />
-                <input
-                    placeholder="Title"
-                    class="form-control"
-                    type="text"
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <input
-                    placeholder="Price"
-                    class="form-control"
-                    type="number"
-                    onChange={(e) => setPrice(e.target.value)}
-                />
-                <input
-                    placeholder="Description"
-                    class="form-control"
-                    type="text"
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-                <input
-                    placeholder="Manufacturer"
-                    class="form-control"
-                    type="text"
-                    onChange={(e) => setManufacturer(e.target.value)}
-                />
-                <input
-                    placeholder="Brand"
-                    class="form-control"
-                    type="text"
-                    onChange={(e) => setBrand(e.target.value)}
-                />
-                <input
-                    placeholder="Size"
-                    class="form-control"
-                    type="number"
-                    onChange={(e) => setSize(e.target.value)}
-                />
-                <button
-                    onClick={addBaskShoeClick}>
-                    Добавить
-                </button>
-            </div>
+        <section className="form-container">
+            <input
+                placeholder="Id"
+                className="form-control"
+                type="number"
+                onChange={(e) => setId(e.target.value)}
+            />
+            <input
+                placeholder="Title"
+                className="form-control"
+                type="text"
+                onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+                placeholder="Price"
+                className="form-control"
+                type="number"
+                onChange={(e) => setPrice(e.target.value)}
+            />
+            <input
+                placeholder="Description"
+                className="form-control"
+                type="text"
+                onChange={(e) => setDescription(e.target.value)}
+            />
+            <input
+                placeholder="Manufacturer"
+                className="form-control"
+                type="text"
+                onChange={(e) => setManufacturer(e.target.value)}
+            />
+            <input
+                placeholder="Brand"
+                className="form-control"
+                type="text"
+                onChange={(e) => setBrand(e.target.value)}
+            />
+            <input
+                placeholder="Size"
+                className="form-control"
+                type="number"
+                onChange={(e) => setSize(e.target.value)}
+            />
+            <button
+                className="btn btn-info"
+                onClick={addBaskShoeClick}>
+                Add
+            </button>
         </section>
     );
 
@@ -188,49 +188,48 @@ export function ShoesUpdate() {
     const [size, setSize] = useState('');
 
     return (
-        <section class="form-container">
-            <div class="form">
-                <input
-                    placeholder="Title"
-                    class="form-control"
-                    type="text"
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <input
-                    placeholder="Price"
-                    class="form-control"
-                    type="number"
-                    onChange={(e) => setPrice(e.target.value)}
-                />
-                <input
-                    placeholder="Description"
-                    class="form-control"
-                    type="text"
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-                <input
-                    placeholder="Manufacturer"
-                    class="form-control"
-                    type="text"
-                    onChange={(e) => setManufacturer(e.target.value)}
-                />
-                <input
-                    placeholder="Brand"
-                    class="form-control"
-                    type="text"
-                    onChange={(e) => setBrand(e.target.value)}
-                />
-                <input
-                    placeholder="Size"
-                    class="form-control"
-                    type="number"
-                    onChange={(e) => setSize(e.target.value)}
-                />
-                <button
-                    onClick={updateBaskShoeClick}>
-                    Изменить
-                </button>
-            </div>
+        <section className="form-container">
+            <input
+                placeholder="Title"
+                className="form-control"
+                type="text"
+                onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+                placeholder="Price"
+                className="form-control"
+                type="number"
+                onChange={(e) => setPrice(e.target.value)}
+            />
+            <input
+                placeholder="Description"
+                className="form-control"
+                type="text"
+                onChange={(e) => setDescription(e.target.value)}
+            />
+            <input
+                placeholder="Manufacturer"
+                className="form-control"
+                type="text"
+                onChange={(e) => setManufacturer(e.target.value)}
+            />
+            <input
+                placeholder="Brand"
+                className="form-control"
+                type="text"
+                onChange={(e) => setBrand(e.target.value)}
+            />
+            <input
+                placeholder="Size"
+                className="form-control"
+                type="number"
+                onChange={(e) => setSize(e.target.value)}
+            />
+            <button
+                className="btn btn-info"
+                onClick={updateBaskShoeClick}>
+                Update
+            </button>
         </section>
     );
 

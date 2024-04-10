@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../contexts/contexts";
 import { useNavigate } from "react-router-dom";
 import { removeUserById } from "../api/userService";
+import './profile.css'
 
 export default function Profile() {
     const appContext = useContext(AppContext);
@@ -20,41 +21,36 @@ export default function Profile() {
 
     return (
         <section className="profile-container">
-            <div className="profile-card">
-                <input
-                    placeholder='Логин'
-                    value={login}
-                    onChange={e => setLogin(e.target.value)}
-                />
-                <input
-                    placeholder='Email'
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                />
-                <input
-                    placeholder='Пароль'
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-                {/* <button
-                    className="background-color-green"
-                    onClick={updateUserButtonOnClick}
-                >
-                    Редактировать
-                </button> */}
-                <button
-                    className="background-color-gray"
-                    onClick={logoutButtonOnClick}
-                >
-                    Выйти
-                </button>
-                <button
-                    className="background-color-red"
-                    onClick={removeUserButtonOnClick}
-                >
-                    Удалить аккаунт
-                </button>
-            </div>
+            <input
+                placeholder='Логин'
+                className="form-control" 
+                value={login}
+                onChange={e => setLogin(e.target.value)}
+            />
+            <input
+                placeholder='Email'
+                className="form-control" 
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+            />
+            <input
+                placeholder='Пароль'
+                className="form-control" 
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+            />
+            <button
+                className="btn btn-danger"
+                onClick={logoutButtonOnClick}
+            >
+                Выйти
+            </button>
+            <button
+                className="btn btn-danger"
+                onClick={removeUserButtonOnClick}
+            >
+                Удалить аккаунт
+            </button>
         </section>
     );
 

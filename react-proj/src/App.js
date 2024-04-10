@@ -31,7 +31,7 @@ export default function App() {
     else {
       axios.defaults.headers.common['Authorization'] = '';
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, cookies.token, cookies.userId]);
 
   const state = {
     setCookie,
@@ -48,10 +48,6 @@ export default function App() {
       element: <Root/>,
       errorElement: <NotFound />,
       children: [
-        // {
-        //   path: "/users",
-        //   element: <Users />
-        // },
         {
           path: "/shops",
           element: <Shops />,
@@ -93,11 +89,6 @@ export default function App() {
           element: <ShoesUpdate />,
           loader: shoeLoader
         },
-        // {
-        //   path: "/chats/:chatId",
-        //   element: <Chat />,
-        //   loader: chatLoader
-        // },
         {
           path: "/profile",
           element: <Profile />
@@ -112,10 +103,6 @@ export default function App() {
       element: <Root/>,
       errorElement: <NotFound />,
       children: [
-        // {
-        //   path: "/shops",
-        //   element: <Shops />
-        // },
         {
           path: "/signup",
           element: <Signup />

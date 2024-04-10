@@ -3,6 +3,7 @@ import { getBaskShops, removeBaskShopById, getBaskShopById, addBaskShop, updateB
 import { getBaskShoe, getShoesByShopId } from "../api/shoeService"
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { AppContext } from '../contexts/contexts';
+import "./shops.css"
 
 export async function loader({ params }) {
     const shop = await getBaskShopById(params.shopId);
@@ -32,7 +33,7 @@ export default function Shops() {
                                 Rating
                             </th>
                             <th>
-                                <Link to="add/" className="btn btn-success">Добавить</Link>
+                                <Link to="add/" className="btn btn-success">Add</Link>
                             </th>
                         </tr>
                     </thead>
@@ -46,29 +47,22 @@ export default function Shops() {
                                     {shop.rating}
                                 </td>
                                 <td>
-                                    <Link to={`update/${shop.id}`} className="btn btn-info">Изменить</Link>
-                                    |
+                                    <Link to={`update/${shop.id}`} className="btn btn-info">Update</Link>
                                     <button 
                                         onClick={() => removeBaskShop(shop.id)} 
                                         value={shop.id} 
                                         className="btn btn-danger">
-                                            Удалить
+                                            Delete
                                     </button>
                                     <th>
-                                        <Link to={`add/${shop.id}`} className="btn btn-success">Добавить shoes</Link>
+                                        <Link to={`add/${shop.id}`} className="btn btn-primary">Add shoes</Link>
                                     </th>
                                     <th>
-                                        <Link to={`delete/${shop.id}`} className="btn btn-success">Удалить shoes</Link>
+                                        <Link to={`delete/${shop.id}`} className="btn btn-primary">Delete shoes</Link>
                                     </th>
                                     <th>
-                                        <Link to={`get/${shop.id}`} className="btn btn-success">Показать shoes</Link>
+                                        <Link to={`get/${shop.id}`} className="btn btn-primary">Show shoes</Link>
                                     </th>
-                                    {/* <button 
-                                        onClick={() => getShoesByShop(shop.id)} 
-                                        value={shop.id} 
-                                        className="btn btn-danger">
-                                            Показать shoes
-                                    </button> */}
                                 </td>
                             </tr>
                         )}
@@ -99,31 +93,30 @@ export function BaskShopAdd() {
     const appContext = useContext(AppContext);
 
     return (
-        <section class="form-container">
-            <div class="form">
-                <input
-                    placeholder="Id"
-                    class="form-control"
-                    type="number"
-                    onChange={(e) => setId(e.target.value)}
-                />
-                <input
-                    placeholder="Название"
-                    class="form-control"
-                    type="text"
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <input
-                    placeholder="Rating"
-                    class="form-control"
-                    type="number"
-                    onChange={(e) => setRating(e.target.value)}
-                />
-                <button
-                    onClick={addBaskShopClick}>
-                    Добавить
-                </button>
-            </div>
+        <section className="form-container">
+            <input
+                placeholder="Id"
+                className="form-control"
+                type="number"
+                onChange={(e) => setId(e.target.value)}
+            />
+            <input
+                placeholder="Title"
+                className="form-control"
+                type="text"
+                onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+                placeholder="Rating"
+                className="form-control"
+                type="number"
+                onChange={(e) => setRating(e.target.value)}
+            />
+            <button
+                className="btn btn-info"
+                onClick={addBaskShopClick}>
+                Add
+            </button>
         </section>
     );
 
@@ -148,25 +141,24 @@ export function ShopsUpdate() {
     const appContext = useContext(AppContext);
 
     return (
-        <section class="form-container">
-            <div class="form">
-                <input
-                    placeholder="Название"
-                    class="form-control"
-                    type="text"
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <input
-                    placeholder="Rating"
-                    class="form-control"
-                    type="number"
-                    onChange={(e) => setRating(e.target.value)}
-                />
-                <button
-                    onClick={updateBaskShopClick}>
-                    Изменить
-                </button>
-            </div>
+        <section className="form-container">
+            <input
+                placeholder="Title"
+                className="form-control"
+                type="text"
+                onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+                placeholder="Rating"
+                className="form-control"
+                type="number"
+                onChange={(e) => setRating(e.target.value)}
+            />
+            <button
+                className="btn btn-info"
+                onClick={updateBaskShopClick}>
+                Update
+            </button>
         </section>
     );
 
@@ -189,76 +181,77 @@ export function AddShoeToShop() {
     loadShoes()
 
     return (
-        <section class="form-container">
-            <div class="form">
-                <h2>Shoes</h2>
-                
-                <table className="table table-striped table-hover">   
-                    <thead>
-                        <tr>
-                            <th>
-                                Id
-                            </th>
-                            <th>
-                                Title
-                            </th>
-                            <th>
-                                Price
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                            <th>
-                                Manufacturer
-                            </th>
-                            <th>
-                                Brand
-                            </th>
-                            <th>
-                                Size
-                            </th>
+        <section className="form-container-shoes">
+            <h2>Shoes</h2>
+            
+            <table className="table table-striped table-hover">   
+                <thead>
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Manufacturer
+                        </th>
+                        <th>
+                            Brand
+                        </th>
+                        <th>
+                            Size
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {shoes.map(shoe =>
+                        <tr key={shoe.id}>
+                            <td>
+                                {shoe.id}
+                            </td>
+                            <td>
+                                {shoe.title}
+                            </td>
+                            <td>
+                                {shoe.price}
+                            </td>
+                            <td>
+                                {shoe.description}
+                            </td>
+                            <td>
+                                {shoe.manufacturer}
+                            </td>
+                            <td>
+                                {shoe.brand}
+                            </td>
+                            <td>
+                                {shoe.size}
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {shoes.map(shoe =>
-                            <tr key={shoe.id}>
-                                <td>
-                                    {shoe.id}
-                                </td>
-                                <td>
-                                    {shoe.title}
-                                </td>
-                                <td>
-                                    {shoe.price}
-                                </td>
-                                <td>
-                                    {shoe.description}
-                                </td>
-                                <td>
-                                    {shoe.manufacturer}
-                                </td>
-                                <td>
-                                    {shoe.brand}
-                                </td>
-                                <td>
-                                    {shoe.size}
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table> 
+                    )}
+                </tbody>
+            </table> 
 
+            <section className="form-container">
                 <input
                     placeholder="ShoeId"
-                    class="form-control"
+                    className="form-control"
                     type="number"
                     onChange={(e) => setShoeId(e.target.value)}
                 />
                 <button
+                    className="btn btn-info"
                     onClick={addShoeToShopClick}>
-                    Добавить
+                    Add
                 </button>
-            </div>
+            </section>
         </section>
     );
 
@@ -283,76 +276,78 @@ export function RemoveShoeFromShop() {
     loadShoes()
 
     return (
-        <section class="form-container">
-            <div class="form">
-                <h2>Shoes</h2>
-                
-                <table className="table table-striped table-hover">   
-                    <thead>
-                        <tr>
-                            <th>
-                                Id
-                            </th>
-                            <th>
-                                Title
-                            </th>
-                            <th>
-                                Price
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                            <th>
-                                Manufacturer
-                            </th>
-                            <th>
-                                Brand
-                            </th>
-                            <th>
-                                Size
-                            </th>
+        <section class="form-container-shoes">
+            <h2>Shoes</h2>
+            
+            <table className="table table-striped table-hover">   
+                <thead>
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Manufacturer
+                        </th>
+                        <th>
+                            Brand
+                        </th>
+                        <th>
+                            Size
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {shoes.map(shoe =>
+                        <tr key={shoe.id}>
+                            <td>
+                                {shoe.id}
+                            </td>
+                            <td>
+                                {shoe.title}
+                            </td>
+                            <td>
+                                {shoe.price}
+                            </td>
+                            <td>
+                                {shoe.description}
+                            </td>
+                            <td>
+                                {shoe.manufacturer}
+                            </td>
+                            <td>
+                                {shoe.brand}
+                            </td>
+                            <td>
+                                {shoe.size}
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {shoes.map(shoe =>
-                            <tr key={shoe.id}>
-                                <td>
-                                    {shoe.id}
-                                </td>
-                                <td>
-                                    {shoe.title}
-                                </td>
-                                <td>
-                                    {shoe.price}
-                                </td>
-                                <td>
-                                    {shoe.description}
-                                </td>
-                                <td>
-                                    {shoe.manufacturer}
-                                </td>
-                                <td>
-                                    {shoe.brand}
-                                </td>
-                                <td>
-                                    {shoe.size}
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table> 
+                    )}
+                </tbody>
+            </table> 
 
+            <section className="form-container">
                 <input
                     placeholder="ShoeId"
-                    class="form-control"
+                    className="form-control"
                     type="number"
                     onChange={(e) => setShoeId(e.target.value)}
                 />
                 <button
+                    className="btn btn-danger"
                     onClick={removeShoeFromShopClick}>
-                    Добавить
+                    Delete
                 </button>
-            </div>
+            </section>        
+    
         </section>
     );
 
@@ -375,65 +370,65 @@ export function GetShoesByShop() {
     loadShoes()
 
     return (
-        <section class="form-container">
-            <div class="form">
-                <h2>Shoes</h2>
-                
-                <table className="table table-striped table-hover">   
-                    <thead>
-                        <tr>
-                            <th>
-                                Id
-                            </th>
-                            <th>
-                                Title
-                            </th>
-                            <th>
-                                Price
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                            <th>
-                                Manufacturer
-                            </th>
-                            <th>
-                                Brand
-                            </th>
-                            <th>
-                                Size
-                            </th>
+        <section class="form-container-shoes">
+
+            <h2>Shoes</h2>
+            
+            <table className="table table-striped table-hover">   
+                <thead>
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Manufacturer
+                        </th>
+                        <th>
+                            Brand
+                        </th>
+                        <th>
+                            Size
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {shoes.map(shoe =>
+                        <tr key={shoe.id}>
+                            <td>
+                                {shoe.id}
+                            </td>
+                            <td>
+                                {shoe.title}
+                            </td>
+                            <td>
+                                {shoe.price}
+                            </td>
+                            <td>
+                                {shoe.description}
+                            </td>
+                            <td>
+                                {shoe.manufacturer}
+                            </td>
+                            <td>
+                                {shoe.brand}
+                            </td>
+                            <td>
+                                {shoe.size}
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {shoes.map(shoe =>
-                            <tr key={shoe.id}>
-                                <td>
-                                    {shoe.id}
-                                </td>
-                                <td>
-                                    {shoe.title}
-                                </td>
-                                <td>
-                                    {shoe.price}
-                                </td>
-                                <td>
-                                    {shoe.description}
-                                </td>
-                                <td>
-                                    {shoe.manufacturer}
-                                </td>
-                                <td>
-                                    {shoe.brand}
-                                </td>
-                                <td>
-                                    {shoe.size}
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table> 
-            </div>
+                    )}
+                </tbody>
+            </table> 
+
         </section>
     );
 

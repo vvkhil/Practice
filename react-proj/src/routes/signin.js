@@ -13,7 +13,7 @@ export default function Signin() {
     const [password, setPassword] = useState('');
 
     return (
-        <section className="input-group input-group-sm mb-3">
+        <section className="form-sign-in">
             <input
                 className="form-control" 
                 aria-label="Small" 
@@ -31,6 +31,7 @@ export default function Signin() {
                 onChange={e => setPassword(e.target.value)}
             />
             <button
+                className="btn btn-info"
                 onClick={signinButtonOnClick}
             >
                 Войти

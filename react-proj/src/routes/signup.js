@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { signUp } from "../api/authService";
 import { AppContext } from "../contexts/contexts";
 import { useNavigate } from "react-router-dom";
+import './signup.css'
 
 export default function Signup() {
     const appContext = useContext(AppContext);
@@ -14,28 +15,33 @@ export default function Signup() {
     const [password, setPassword] = useState('');
 
     return (
-        <section>
+        <section className="form-sign-up">
             <input
+                className="form-control" 
                 placeholder="Id"
                 type="number"
                 onChange={e => setId(e.target.value)}
             />
             <input
+                className="form-control" 
                 placeholder="Login"
                 type="login"
                 onChange={e => setLogin(e.target.value)}
             />
             <input
+                className="form-control" 
                 placeholder="Email"
                 type="email"
                 onChange={e => setEmail(e.target.value)}
             />
             <input
+                className="form-control" 
                 placeholder="Пароль"
                 type="password"
                 onChange={e => setPassword(e.target.value)}
             />
             <button
+                className="btn btn-info"
                 onClick={signupButtonOnClick}
             >
                 Зарегистрироваться
