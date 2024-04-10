@@ -39,7 +39,7 @@ public class UserAppService {
     }
 
     public UserApp addUser(UserApp user) {
-        var optionalUser = userAppRepository.findById(user.getId());
+        var optionalUser = userAppRepository.findByEmail(user.getEmail());
 
         if (optionalUser.isPresent()) {
             throw new AlreadyExistsException(Constants.CONFLICT);

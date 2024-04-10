@@ -7,8 +7,15 @@ import NotFound from './routes/notFound'
 import Profile from './routes/profile';
 import Signup from './routes/signup';
 import Signin from './routes/signin';
-import Shops, {BaskShopAdd, ShopsUpdate, AddShoeToShop, RemoveShoeFromShop, GetShoesByShop, loader as shopLoader} from "./routes/shops";
-import Shoes, {BaskShoeAdd, ShoesUpdate, loader as shoeLoader} from "./routes/shoes";
+import Shops from "./routes/shops";
+import Shoes from "./routes/shoes";
+import GetShoesByShop, {loader as getshopShoesByShopLoader} from "./routes/getShoesByShop";
+import AddShoeToShop, {loader as addShoeToShopLoader} from "./routes/addShoeToShop";
+import RemoveShoeFromShop, {loader as removeShoeFromShopLoader} from "./routes/removeShoeFromShop";
+import ShopsUpdate, {loader as shopUpdateLoader} from "./routes/shopsUpdate";
+import ShoesUpdate, {loader as shoeUpdateLoader} from "./routes/shoesUpdate";
+import BaskShopAdd from "./routes/baskShopAdd";
+import BaskShoeAdd from "./routes/baskShoeAdd";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import { AppContext } from "../src/contexts/contexts";
@@ -59,22 +66,22 @@ export default function App() {
         {
           path: "/shops/update/:shopId",
           element: <ShopsUpdate />,
-          loader: shopLoader
+          loader: shopUpdateLoader
         },
         {
           path: "/shops/add/:shopId",
           element: <AddShoeToShop />,
-          loader: shopLoader
+          loader: addShoeToShopLoader
         },
         {
           path: "/shops/delete/:shopId",
           element: <RemoveShoeFromShop />,
-          loader: shopLoader
+          loader: removeShoeFromShopLoader
         },
         {
           path: "/shops/get/:shopId",
           element: <GetShoesByShop />,
-          loader: shopLoader
+          loader: getshopShoesByShopLoader
         },
         {
           path: "/shoes",
@@ -87,7 +94,7 @@ export default function App() {
         {
           path: "/shoes/update/:shoeId",
           element: <ShoesUpdate />,
-          loader: shoeLoader
+          loader: shoeUpdateLoader
         },
         {
           path: "/profile",

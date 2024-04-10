@@ -9,19 +9,12 @@ export default function Signup() {
 
     const navigate = useNavigate();
 
-    const [id, setId] = useState('');
     const [login, setLogin] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     return (
         <section className="form-sign-up">
-            <input
-                className="form-control" 
-                placeholder="Id"
-                type="number"
-                onChange={e => setId(e.target.value)}
-            />
             <input
                 className="form-control" 
                 placeholder="Login"
@@ -44,13 +37,13 @@ export default function Signup() {
                 className="btn btn-info"
                 onClick={signupButtonOnClick}
             >
-                Зарегистрироваться
+                Register
             </button>
         </section>
     );
 
     async function signupButtonOnClick() {
-        const data = await signUp(id, login, email, password);
+        const data = await signUp(null, login, email, password);
         appContext.setCookie('userId', data.id);
         appContext.setCookie('token', data.token);
         appContext.setIsAuthenticated(true);
