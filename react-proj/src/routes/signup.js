@@ -13,6 +13,8 @@ export default function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
     return (
         <section className="form-sign-up">
             <input
@@ -25,7 +27,16 @@ export default function Signup() {
                 className="form-control" 
                 placeholder="Email"
                 type="email"
-                onChange={e => setEmail(e.target.value)}
+                onChange={e => 
+                    {
+                        if(e.target?.value && e.target.value.match(isValidEmail)){
+                            console.log('valid')
+                            setEmail(e.target.value)
+                        }else{
+                            console.log('invalid')
+                        }
+                    }
+                }
             />
             <input
                 className="form-control" 
@@ -43,7 +54,13 @@ export default function Signup() {
     );
 
     async function signupButtonOnClick() {
-        const data = await signUp(null, login, email, password);
+        console.log(email)
+        let data = null;
+        if (email == "") {
+            alert("Please enter valid email!")
+        } else {
+            data = await signUp(null, login, email, password);
+        }
         appContext.setCookie('userId', data.id);
         appContext.setCookie('token', data.token);
         appContext.setIsAuthenticated(true);

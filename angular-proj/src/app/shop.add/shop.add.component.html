@@ -1,0 +1,18 @@
+<section className="form-container">
+    <input
+        placeholder="Title"
+        class="form-control"
+        type="text"
+        [(ngModel)]="shop.title"
+    />
+    <input
+        placeholder="Rating"
+        class="form-control"
+        type="number"
+        [(ngModel)]="shop.rating"
+    />
+    <button
+        (click)="addShop()">
+        Add
+    </button>
+</section>

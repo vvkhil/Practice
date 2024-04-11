@@ -3,18 +3,23 @@
 >
     <input
         placeholder="Email"
+        class="form-control"
         type="email"
         [(ngModel)]="email"
+        #emailValid="ngModel"
+        required pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
     />
     <input
-        placeholder="Пароль"
+        placeholder="Password"
+        class="form-control"
         type="password"
         [(ngModel)]="password"
     />
     <button
+        [disabled]="emailValid.invalid"
         class="background-color-green"
         (click)="signIn()"
     >
-        Войти
+        Sign In
     </button>
 </section>

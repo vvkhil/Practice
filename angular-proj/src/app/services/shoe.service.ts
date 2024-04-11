@@ -19,8 +19,8 @@ export class ShoeService {
         return response.data
     }
 
-    async removeShopById(id: number) {
-        let response = await axios.delete('/shops/' + id)
+    async removeShoeById(id: number) {
+        let response = await axios.delete('/shoes/' + id)
         return response.data
     }
 
@@ -30,7 +30,7 @@ export class ShoeService {
     }
 
     async updateShoe(shoe: Shoe) {
-        let response = await axios.post('/shoes/update/' + shoe.id, shoe)
+        let response = await axios.put('/shoes/update/' + shoe.id, shoe)
         return response.data
     }
 

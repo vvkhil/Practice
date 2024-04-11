@@ -12,15 +12,27 @@ export default function Signin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
     return (
         <section className="form-sign-in">
             <input
+                id="input-email"
                 className="form-control" 
                 aria-label="Small" 
                 aria-describedby="inputGroup-sizing-sm"
                 placeholder="Email"
                 type="email"
-                onChange={e => setEmail(e.target.value)}
+                onChange={e => 
+                    {
+                        if(e.target?.value && e.target.value.match(isValidEmail)){
+                            console.log('valid')
+                            setEmail(e.target.value)
+                        }else{
+                            console.log('invalid')
+                        }
+                    }
+                }
             />
             <input
                 className="form-control" 

@@ -8,7 +8,8 @@ import { NgFor } from '@angular/common';
   selector: 'app-shoe',
   standalone: true,
   imports: [RouterLink, NgFor],
-  templateUrl: './shoe.component.html'
+  templateUrl: './shoe.component.html',
+  styleUrl: './shoe.component.css'
 })
 
 export class ShoeComponent {
@@ -21,7 +22,7 @@ export class ShoeComponent {
   }
 
   async removeShoe(id: number) {
-    await this.shoeService.removeShopById(id)
+    await this.shoeService.removeShoeById(id)
     this.ngOnInit();
   }
 }

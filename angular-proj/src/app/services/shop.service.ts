@@ -30,7 +30,7 @@ export class ShopService {
     }
 
     async updateShop(shop: Shop) {
-        let response = await axios.post('/shops/update/' + shop.id, shop)
+        let response = await axios.put('/shops/update/' + shop.id, shop)
         return response.data
     }
 

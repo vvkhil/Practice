@@ -1,0 +1,47 @@
+<section class="container">
+
+    <h2 class="title h2">Shops</h2>
+    
+    <table class="table table-striped table-hover">   
+        <thead class="thead css">
+            <tr class="tr css">
+                <th class="th css">
+                    Title
+                </th>
+                <th class="th css">
+                    Rating
+                </th>
+                <th class="th css">
+                    <a routerLink="add/" class="btn btn-success">Add</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="tbody css">
+            <tr *ngFor="let shop of shops">
+                <td class="td css">
+                    {{shop.title}}
+                </td>
+                <td class="td css">
+                    {{shop.rating}}
+                </td>
+                <a [routerLink]="['update/', shop.id]" class="btn btn-info">Update</a>
+                <button 
+                    (click) = "removeShop(shop.id)"
+                    class="btn btn-danger">
+                        Delete
+                </button>
+                <th class="th css">
+                    <a [routerLink]="['add/', shop.id]" class="btn btn-info">Add shoes</a>
+                </th>
+                <th class="th css">
+                    <a [routerLink]="['delete/', shop.id]" class="btn btn-info">Delete shoes</a>
+                </th>
+                <th class="th css">
+                    <a [routerLink]="['get/', shop.id]" class="btn btn-info">Show shoes</a>
+                </th>
+            
+            </tr>
+        </tbody>
+    </table>
+    
+</section>
