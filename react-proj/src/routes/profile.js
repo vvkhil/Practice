@@ -54,21 +54,6 @@ export default function Profile() {
         </section>
     );
 
-    // async function updateUserButtonOnClick() {
-    //     const userApp = await getUserById(appContext.user.id);
-    //     console.log(userApp);
-    //     console.log(userApp.getRoleId)
-    //     const roleId = userApp.roleId;
-    //     console.log(roleId)
-    //     console.log(appContext.user.id, login, email, password, roleId);
-    //     await updateUser(appContext.user.id, login, email, password, roleId);
-    //     const user = JSON.parse(JSON.stringify(appContext.user));
-    //     user.login = login;
-    //     user.email = email;
-    //     user.password = password;
-    //     appContext.setUser(user);
-    // }
-
     async function logoutButtonOnClick() {
         appContext.removeCookie('userId');
         appContext.removeCookie('token');

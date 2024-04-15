@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getBaskShopById, removeShoeFromShop } from "../api/shopService"
 import { getBaskShoe } from "../api/shoeService"
 import { useLoaderData, useNavigate } from "react-router-dom";
@@ -16,8 +16,12 @@ export default function RemoveShoeFromShop() {
     const { shop } = useLoaderData();
     const [shoes, setShoes] = useState([]);
     const [shoeId, setShoeId] = useState();
+
+    useEffect(() => {
+        loadShoes()
+    }, []);
     
-    loadShoes()
+   
 
     return (
         <section class="form-container-shoes">

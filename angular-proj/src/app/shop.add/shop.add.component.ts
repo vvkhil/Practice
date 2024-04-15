@@ -27,8 +27,6 @@ export class ShopAddComponent {
       });
     }
 
-  async ngOnInit(){}
-
   async addShop() {
     this.shop.user = this.user;
     await this.shopService.addShop(this.shop);

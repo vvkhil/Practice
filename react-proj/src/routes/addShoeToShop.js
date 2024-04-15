@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getBaskShopById, addShoeToShop } from "../api/shopService"
 import { getBaskShoe } from "../api/shoeService"
 import { useLoaderData, useNavigate } from "react-router-dom";
@@ -16,7 +16,9 @@ export default function AddShoeToShop() {
     const [shoes, setShoes] = useState([]);
     const [shoeId, setShoeId] = useState();
 
-    loadShoes()
+    useEffect(() => {
+        loadShoes()
+    }, []);
 
     return (
         <section className="form-container-shoes">

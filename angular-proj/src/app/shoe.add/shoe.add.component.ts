@@ -18,8 +18,6 @@ export class ShoeAddComponent {
 
   constructor(private shoeService: ShoeService, private router: Router) {}
 
-  async ngOnInit(){}
-
   async addShoe() {
     console.log(this.shoe)
     await this.shoeService.addShoe(this.shoe);

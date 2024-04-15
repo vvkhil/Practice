@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getBaskShopById } from "../api/shopService"
 import { getShoesByShopId } from "../api/shoeService"
 import { useLoaderData } from "react-router-dom";
@@ -14,8 +14,10 @@ export default function GetShoesByShop() {
 
     const { shop } = useLoaderData();
     const [shoes, setShoes] = useState([]);
-  
-    loadShoes()
+
+    useEffect(() => {
+        loadShoes()
+    }, []);
 
     return (
         <section class="form-container-shoes">
